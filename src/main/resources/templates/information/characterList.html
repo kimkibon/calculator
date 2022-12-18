@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- @{...}는 타임리프의 기본 링크 표현 구문 -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <link href="css/starter-template.css" rel="stylesheet"/>
+
+    <title>모든 케릭터 정보</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"></nav>
+
+<main role="main" class="container">
+    <div class="starter-template">
+
+        <table class="table table-bordered">
+            <!-- CONTENTS !-->
+            <thead>
+            <tr>
+                <th class="col-md-1">이름</th>
+                <th class="col-md-4">딜타입</th>
+                <th class="col-md-3">직업</th>
+                <th class="col-md-2">범위</th>
+                <th class="col-md-2">회사</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <!-- CONTENTS !-->
+            <tr th:each="characterList : ${characterList}">
+                <td th:text="${characterList.getCharacterName()}"></td>
+                <td th:text="${characterList.getDealType()}"></td>
+                <td th:text="${characterList.getRoleType()}"></td>
+                <td th:text="${characterList.getAreaType()}"></td>
+                <td th:text="${characterList.getCompanyType()}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
