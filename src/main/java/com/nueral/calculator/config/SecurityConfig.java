@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -40,7 +39,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**","/static/js/**","/static/css/**","/static/img/**").permitAll()
 //                .antMatchers("/users").hasRole(Role.ADMIN.getAuthority())
                 .antMatchers("/insert/**" , "/update/**").hasAnyRole(Role.USER.getAuthority() , Role.ADMIN.getAuthority())
 
@@ -63,12 +62,6 @@ public class SecurityConfig {
         ;
 
         return http.build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer WebSecurityCustomizer () {
-        //권한 없이 접근 가능한 파일 설정
-        return (web) -> web.ignoring().antMatchers("/static/js/**","/static/css/**","/static/img/**");
     }
 
     @Bean

@@ -31,15 +31,15 @@ public class Algorithm extends DefaultEntity {
     private SetAlgorithm setAlgorithm;
 
     @ManyToOne
-    @JoinColumn(name = "MAIN_OPT" , referencedColumnName = "MAIN_ALGORITHM_IDX")
+    @JoinColumn(name = "MAIN_OPT" , referencedColumnName = "MAIN_OPT")
     private MainAlgorithm mainAlgorithm;
 
     @ManyToOne
-    @JoinColumn(name = "SUB_OPT" , referencedColumnName = "SUB_ALGORITHM_IDX")
+    @JoinColumn(name = "SUB_OPT" , referencedColumnName = "SUB_OPT")
     private SubAlgorithm subAlgorithm;
 
     @ManyToOne
-    @JoinColumn(name = "SUB_OPT2" , referencedColumnName = "SUB_ALGORITHM_IDX")
+    @JoinColumn(name = "SUB_OPT2" , referencedColumnName = "SUB_OPT")
     private SubAlgorithm subAlgorithm2;
 
     public void setCharacters(Characters characters) {

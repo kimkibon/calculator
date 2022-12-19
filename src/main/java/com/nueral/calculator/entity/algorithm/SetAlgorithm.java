@@ -13,20 +13,16 @@ import javax.persistence.*;
 @Getter
 @ToString
 @NoArgsConstructor
-@SequenceGenerator(name = "ALGORITHM_IDX_GENERATOR" , sequenceName = "ALGORITHM_SEQ" , allocationSize = 1)
 public class SetAlgorithm extends DefaultEntity {
 
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "ALGORITHM_IDX_GENERATOR"
-    )
-    @Column(name = "SET_ALGORITHM_IDX")
-    private Long setAlgorithmIdx;
-    @Enumerated(EnumType.STRING)
-    private AlgorithmType algorithmType;
     @Column(name = "SET_ALGORITHM_NAME")
     private String setAlgorithmName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ALGORITHM_TYPE")
+    private AlgorithmType algorithmType;
+
     private String twoSetOpt;
     private String threeSetOpt;
 

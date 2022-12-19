@@ -13,18 +13,13 @@ import javax.persistence.*;
 @Getter
 @ToString
 @NoArgsConstructor
-@SequenceGenerator(name = "SUB_ALGORITHM_IDX_GENERATOR" , sequenceName = "SUB_ALGORITHM_SEQ" , allocationSize = 1)
 public class SubAlgorithm extends DefaultEntity {
+
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "SUB_ALGORITHM_IDX_GENERATOR"
-    )
-    @Column(name = "SUB_ALGORITHM_IDX")
-    private Long SubAlgorithmIdx;
-    private AlgorithmType algorithmType;
     @Column(name = "SUB_OPT")
     private String subOpt;
+    @Column(name = "ALGORITHM_TYPE")
+    private AlgorithmType algorithmType;
 
     @Builder
     public SubAlgorithm(AlgorithmType algorithmType , String subOpt){
