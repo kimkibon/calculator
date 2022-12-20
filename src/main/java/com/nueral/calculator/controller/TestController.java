@@ -1,14 +1,16 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.CharacterInfoDto;
+import com.nueral.calculator.dto.AllCharactersDto;
 import com.nueral.calculator.dto.UserSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.service.CharacterService;
 import com.nueral.calculator.service.UserService;
+import com.nueral.calculator.service.needExp.NeedExpService;
 import com.nueral.calculator.service.skill.SkillSaveService;
 import com.nueral.calculator.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +25,8 @@ public class TestController {
     private SkillSaveService skillService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NeedExpService expService;
 
 
     @GetMapping(value = "/test/insert")
@@ -41,7 +45,7 @@ public class TestController {
 
     @GetMapping(value = "/test/allCharacters")
     @ResponseBody
-    public List<CharacterInfoDto> findCharacterList(){
+    public List<AllCharactersDto> findCharacterList(){
         return characterService.findAllCharacterInfo();
     }
 
@@ -53,6 +57,12 @@ public class TestController {
         user.setPassword("dmadkr48");
         userService.savaUser(user);
         return "/home";
+    }
+
+    @GetMapping(value = "/exp")
+    public String expList(Model model){
+        model.addAttribute("expList" , expService.expList());
+        return "/exp";
     }
 
 }

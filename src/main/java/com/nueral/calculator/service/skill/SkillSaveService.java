@@ -56,6 +56,6 @@ public class SkillSaveService {
                 .build();
 
         skillLevelRepository.save(skillLevels);
-
     }
+
 }

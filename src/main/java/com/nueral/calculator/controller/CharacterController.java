@@ -1,5 +1,6 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.dto.AllCharactersDto;
 import com.nueral.calculator.dto.CharacterInfoDto;
 import com.nueral.calculator.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class CharacterController {
 
     @GetMapping(value = "/characterList")
     public String findCharacterList(Model model){
-        List<CharacterInfoDto> characterList = characterService.findAllCharacterInfo();
+        List<AllCharactersDto> characterList = characterService.findAllCharacterInfo();
         model.addAttribute("characterList" , characterList);
         return "/information/characterList";
     }

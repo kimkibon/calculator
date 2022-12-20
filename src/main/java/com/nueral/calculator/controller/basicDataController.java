@@ -1,5 +1,6 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.service.AuthKey.AuthKeyService;
 import com.nueral.calculator.service.CharacterService;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
 import com.nueral.calculator.service.friendship.GoodsService;
@@ -30,6 +31,8 @@ public class basicDataController {
     NeedSkillExpService needSkillExpService;
     @Autowired
     GoodsService goodsService;
+    @Autowired
+    AuthKeyService authKeyService;
 
     @GetMapping(value = "/baseAlgorithm")
     public void createBaseAlgorithm() {
@@ -369,7 +372,8 @@ public class basicDataController {
         characterService.save("임호텝", DealType.ap, RoleType.healer, AreaType.target, CompanyType.ucl, 3);
     }
     @GetMapping(value = "/baseExp")
-    public void createBaseExp(){
+    public String createBaseExp(){
+
         needStarExpService.saveStarExp(1,0);
         needStarExpService.saveStarExp(2,5);
         needStarExpService.saveStarExp(3,10);
@@ -467,6 +471,8 @@ public class basicDataController {
         expService.saveExp(12500,58,0,0,0,0,0,0);
         expService.saveExp(13400,59,0,0,0,0,0,0);
         expService.saveExp(14000,60,0,0,0,0,0,0);
+
+        return "/home";
     }
 
 }

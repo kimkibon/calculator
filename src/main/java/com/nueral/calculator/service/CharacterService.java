@@ -1,5 +1,6 @@
 package com.nueral.calculator.service;
 
+import com.nueral.calculator.dto.AllCharactersDto;
 import com.nueral.calculator.dto.CharacterInfoDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
@@ -25,12 +26,17 @@ public class CharacterService {
         return new CharacterInfoDto(characters);
     }
 
-    public List<CharacterInfoDto> findAllCharacterInfo(){
+    public List<AllCharactersDto> findAllCharacterInfo(){
         List<Characters> charactersList = characterRepository.findAll();
-        List<CharacterInfoDto> characterInfoDtoList = new ArrayList<>();
+        List<AllCharactersDto> characterInfoDtoList = new ArrayList<>();
 
-        for(int i = 0; i < charactersList.size(); i++){
-          characterInfoDtoList.add(new CharacterInfoDto(charactersList.get(i)));
+        for (Characters characters : charactersList) {
+            AllCharactersDto allCharactersDto = new AllCharactersDto();
+            allCharactersDto.setCharacterName(characters.getName());
+            allCharactersDto.setDealType(characters.getDealType().getType());
+            allCharactersDto.setRoleType(characters.getRoleType().getType());
+            allCharactersDto.setDefaultStar(characters.getDefaultStar());
+            characterInfoDtoList.add(allCharactersDto);
         }
 
         return characterInfoDtoList;
