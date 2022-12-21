@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html   lang = "kr"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <meta charset="UTF-8">
-    <title>뉴럴 클라우드 아카라이브 아카이브</title>
-</head>
+<html lang = "ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<a href="test"> 테스트 페이지 제작중</a>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
 
-<!--<a sec:authorize="hasAuthority('ADMIN')" href="adminOnly">adminOnly Page</a>-->
-<a sec:authorize="!isAuthenticated()" href="loginForm">Login</a>
-<a sec:authorize="isAuthenticated()" href="logout">Logout</a>
-<p sec:authorize="hasAuthority('ADMIN')">[이 부분은 운영자(ADMIN)에게만 나타남]</p>
-<a sec:authorize="hasAuthority('ADMIN')" href="users/joinForm">계정 생성</a>
-<p sec:authorize="hasAuthority('USER')">[이 부분은 손님(USER)에게만 나타남]</p>
-
-</body>
+<!-- Content -->
+<div layout:fragment="content">
+    <h1>Content</h1>
+    <a href="test"> 테스트 페이지 제작중</a>
+    <a sec:authorize="!isAuthenticated()" href="loginForm">Login</a>
+    <a sec:authorize="isAuthenticated()" href="logout">Logout</a>
+    <p sec:authorize="hasAuthority('ADMIN')">[이 부분은 운영자(ADMIN)에게만 나타남]</p>
+    <a sec:authorize="hasAuthority('ADMIN')" href="users/joinForm">계정 생성</a>
+    <p sec:authorize="hasAuthority('USER')">[이 부분은 손님(USER)에게만 나타남]</p>
+    <h1>Content</h1>
+</div>
 </html>
