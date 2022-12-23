@@ -1,16 +1,41 @@
 <!DOCTYPE html>
-<html lang="kr">
-<head>
-  <meta charset="UTF-8">
-  <title>로그인 페이지</title>
-</head>
-<body>
-<h1> login page</h1>
-<hr/>
-<form action="/login" method="post">
-  <input type="text" name="username" placeholder="Username"><br/>
-  <input type="password" name="password" placeholder="Password"><br/>
-  <button>login</button>
-</form>
-</body>
+<html lang = "kr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+<div layout:fragment="content" class="text-center">
+
+<main class="form-signin w-100 m-auto">
+  <form action="/login" method="post">
+    <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">login</h1>
+
+    <div class="form-floating">
+      <input type="text" name="Username" class="form-control" id="floatingInput" placeholder="id">
+      <label for="floatingInput">id</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="Password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+  </form>
+</main>
+
+
+
+</div>
 </html>
