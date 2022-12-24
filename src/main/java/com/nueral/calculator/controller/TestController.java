@@ -59,10 +59,10 @@ public class TestController {
         return "/home";
     }
 
-    @GetMapping(value = "/exp")
+    @GetMapping(value = "calculator/exp")
     public String expList(Model model){
         model.addAttribute("expList" , expService.expList());
-        return "/exp";
+        return "calculator/exp";
     }
 
 }

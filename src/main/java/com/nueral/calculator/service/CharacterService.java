@@ -21,9 +21,13 @@ public class CharacterService {
 
 
     public CharacterInfoDto findCharacterInfo(String name){
-        Characters characters = characterRepository.findByName(name).orElseThrow(NullPointerException::new);
 
-        return new CharacterInfoDto(characters);
+        Characters characters = characterRepository.findByName(name).orElse(new Characters());
+        if(characters.getName() == null){
+            return new CharacterInfoDto();
+        } else {
+            return new CharacterInfoDto(characters);
+        }
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){

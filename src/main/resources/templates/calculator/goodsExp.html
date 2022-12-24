@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang = "kr"
+<html lang = "ko"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -13,20 +13,16 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <!--    <script th:src="@{/js/page/home.js}"></script>-->
-  <script th:inline="javascript">
-    const character = /*[[${character}]]*/;
-  </script>
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
-  <div class="row">
-    <div class="col">케릭명</div>
-    <div class="col">케릭명</div>
-  </div>
-  <div class="row">
-    <div class="col">직업</div>
-    <div class="col">직업</div>
-  </div>
+  <h1>goodsExp</h1>
+  <a sec:authorize="!isAuthenticated()" href="loginForm">Login</a>
+  <a sec:authorize="isAuthenticated()" href="logout">Logout</a>
+  <p sec:authorize="hasAuthority('ADMIN')">[이 부분은 운영자(ADMIN)에게만 나타남]</p>
+  <a sec:authorize="hasAuthority('ADMIN')" href="users/joinForm">계정 생성</a>
+  <p sec:authorize="hasAuthority('USER')">[이 부분은 손님(USER)에게만 나타남]</p>
+  <h1>goodsExp</h1>
 </div>
 </html>

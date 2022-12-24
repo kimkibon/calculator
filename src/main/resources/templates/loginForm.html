@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang = "kr"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="kr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -16,26 +13,37 @@
 </th:block>
 <div layout:fragment="content" class="text-center">
 
-<main class="form-signin w-100 m-auto">
-  <form action="/login" method="post">
-    <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">login</h1>
+  <main class="form-signin w-100 m-auto">
+    <form action="/login" method="post">
+      <div class="container ">
+          <div class="col-3"></div>
+          <div class="col-xl-6">
+        <div class="row">
+            <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">login</h1>
+          </div>
+        <div class="row">
+            <div class="form-floating">
+              <input type="text" name="username" class="form-control" id="floatingInput" placeholder="id">
+              <label for="floatingInput">id</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-floating">
+              <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
 
-    <div class="form-floating">
-      <input type="text" name="Username" class="form-control" id="floatingInput" placeholder="id">
-      <label for="floatingInput">id</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" name="Password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
-    </div>
-
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
-  </form>
-</main>
+              <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+              <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+            </div>
+        </div>
+          </div>
+      </div>
+    </form>
+  </main>
 
 
 
 </div>
+
 </html>

@@ -420,8 +420,8 @@ public class basicDataController {
         expService.saveExp(430,7,0,0,0,0,0,0);
         expService.saveExp(390,8,0,0,0,0,0,0);
         expService.saveExp(440,9,0,0,0,0,0,0);
-        expService.saveExp(490,10,10,0,0,0,0,0);
-        expService.saveExp(540,11,0,0,0,0,0,0);
+        expService.saveExp(490,10,0,0,0,0,0,0);
+        expService.saveExp(540,11,10,0,0,0,0,0);
         expService.saveExp(580,12,0,0,0,0,0,0);
         expService.saveExp(620,13,0,0,0,0,0,0);
         expService.saveExp(660,14,0,0,0,0,0,0);
