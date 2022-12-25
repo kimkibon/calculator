@@ -16,7 +16,48 @@
 
 <!-- Content -->
 <div th:fragment="skillExp">
-  <h1>skillExp</h1>
-  <h1>skillExp</h1>
+  <script th:inline="javascript">
+    const skillExp = /*[[${skillExpList}]]*/
+
+    function changeSkillLevel(skillLevel) {
+      document.getElementById('skillLevel').value = skillLevel.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+
+      if (skillLevel > 10) {
+        document.getElementById('skillLevel').value = 10;
+      }
+
+      const skillExpList = skillExp.slice(skillLevel, 10);
+
+      const resultExp = skillExpList.reduce(function add(sum, currValue) {
+        return parseInt(sum) + parseInt(currValue.exp);
+      }, 0);
+      const resultCore = skillExpList.reduce(function add(sum, currValue) {
+        return parseInt(sum) + parseInt(currValue.core);
+      }, 0);
+
+      document.getElementById('resultSkillExp').innerText = resultExp + "";
+      document.getElementById('resultSkillCore').innerText = resultCore + "";
+    }
+
+  </script>
+  <div class="row row-cols-2">
+    <div class="col col-sm-auto">
+      <div class="row">
+        <div>
+          <input id="skillLevel" oninput="changeSkillLevel(this.value)" type="text" min="1">
+        </div>
+      </div>
+      <div class="row">
+          <div class="col">스킬 경험치</div>
+          <div class="col">
+            <p id="resultSkillExp">0
+          </div>
+          <div class="col">스킬 코어</div>
+          <div class="col">
+            <p id="resultSkillCore">0
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 </html>

@@ -28,16 +28,16 @@ public class CalculatorService {
     private NeedGoodsRepository goodsRepository;
 
     public List<NeedSkillExp> skillExpList(){
-        return needSkillExpRepository.findAll(Sort.by(Sort.Direction.DESC, "skillLevel"));
+        return needSkillExpRepository.findAll(Sort.by(Sort.Direction.ASC, "skillLevel"));
     }
     public List<NeedExp> expList(){
-        return needExpRepository.findAll(Sort.by(Sort.Direction.DESC, "characterLevel"));
+        return needExpRepository.findAll(Sort.by(Sort.Direction.ASC, "characterLevel"));
     }
     public List<NeedGoods> goodsExpList(){
-        return goodsRepository.findAll(Sort.by(Sort.Direction.DESC, "friendlyLevel"));
+        return goodsRepository.findAll(Sort.by(Sort.Direction.ASC, "friendlyLevel"));
     }
     public List<NeedStarExp> starExpList(){
-        return starExpRepository.findAll(Sort.by(Sort.Direction.DESC, "starLevel"));
+        return starExpRepository.findAll(Sort.by(Sort.Direction.ASC, "starLevel"));
     }
 
 }

@@ -13,11 +13,10 @@ import com.nueral.calculator.types.CompanyType;
 import com.nueral.calculator.types.DealType;
 import com.nueral.calculator.types.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,7 @@ public class CharacterService {
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){
-        List<Characters> charactersList = characterRepository.findAll();
+        List<Characters> charactersList = characterRepository.findAll(Sort.by(Sort.Direction.DESC, "defaultStar"));
         List<AllCharactersDto> characterInfoDtoList =
         charactersList.stream().map(AllCharactersDto::new).collect(Collectors.toList());
 
