@@ -9,6 +9,11 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <!--    <script th:src="@{/js/page/home.js}"></script>-->
+
+</th:block>
+
+<!-- Content -->
+<div  th:fragment="exp">
   <script th:inline="javascript">
     const exp = /*[[${expList}]]*/;
 
@@ -48,80 +53,51 @@
       document.getElementById('resultRainbow').innerText = resultRainbow + "";
     }
   </script>
-</th:block>
-
-
-
-<!-- Content -->
-<div layout:fragment="content">
-  <h1>exp</h1>
   <div class="row row-cols-2">
     <div class="col col-sm-auto">
       <div class="row">
-      <div>level 입력
-        <input id="expChange" oninput="changeExp(this.value)" type="text" min="1">
-      </div>
-      </div>
-      <div class="row">
-        <div class="col">exp</div>
-        <div class="col">white widget</div>
-        <div class="col">gray widget</div>
-        <div class="col">green widget</div>
-        <div class="col">blue widget</div>
-        <div class="col">purple widget</div>
-        <div class="col">rainbow widget</div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <p id="resultExp">213630
-        </div>
-        <div class="col">
-          <p id="resultGray">20
-        </div>
-        <div class="col">
-          <p id="resultGreen">30
-        </div>
-        <div class="col">
-          <p id="resultBlue">35
-        </div>
-        <div class="col">
-          <p id="resultPurple">45
-        </div>
-        <div class="col">
-          <p id="resultOrange">30
-        </div>
-        <div class="col">
-          <p id="resultRainbow">0
+        <div>
+          <input id="expChange" oninput="changeExp(this.value)" type="text" min="1">
         </div>
       </div>
-      </div>
-    </div>
-    <div class="col col-sm-auto">
-      <div class="row">
-        <div class="col">level</div>
-        <div class="col">exp</div>
-        <div class="col">white widget</div>
-        <div class="col">gray widget</div>
-        <div class="col">green widget</div>
-        <div class="col">blue widget</div>
-        <div class="col">purple widget</div>
-        <div class="col">rainbow widget</div>
-        <div th:each="expList : ${expList}">
-          <div class="row">
-            <div class="col" th:text="${expList.characterLevel}"></div>
-            <div class="col" th:text="${expList.exp}"></div>
-            <div class="col" th:text="${expList.gray}"></div>
-            <div class="col" th:text="${expList.green}"></div>
-            <div class="col" th:text="${expList.blue}"></div>
-            <div class="col" th:text="${expList.purple}"></div>
-            <div class="col" th:text="${expList.orange}"></div>
-            <div class="col" th:text="${expList.rainbow}"></div>
+      <div class="col">
+        <div class="row">
+          <div class="col">exp</div>
+          <div class="col">
+            <p id="resultExp">213630
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">white widget</div>
+          <div class="col">gray widget</div>
+          <div class="col">green widget</div>
+          <div class="col">blue widget</div>
+          <div class="col">purple widget</div>
+          <div class="col">rainbow widget</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p id="resultGray">20
+          </div>
+          <div class="col">
+            <p id="resultGreen">30
+          </div>
+          <div class="col">
+            <p id="resultBlue">35
+          </div>
+          <div class="col">
+            <p id="resultPurple">45
+          </div>
+          <div class="col">
+            <p id="resultOrange">30
+          </div>
+          <div class="col">
+            <p id="resultRainbow">0
           </div>
         </div>
       </div>
     </div>
   </div>
-  <h1>exp</h1>
 </div>
 
 </html>

@@ -42,10 +42,6 @@ public class Algorithm extends DefaultEntity {
     @JoinColumn(name = "SUB_OPT2" , referencedColumnName = "SUB_OPT")
     private SubAlgorithm subAlgorithm2;
 
-    public void setCharacters(Characters characters) {
-        this.characters = characters;
-    }
-
     @Builder
     public Algorithm(
             Characters characters, AlgorithmType algorithmType,

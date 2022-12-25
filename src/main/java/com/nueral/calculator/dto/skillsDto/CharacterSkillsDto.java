@@ -4,6 +4,7 @@ import com.nueral.calculator.entity.skill.AllSkills;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -11,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class CharacterSkillsDto {
-    private String CharacterName;
     private String skillType;
     private String skillName;
     private String explain;
@@ -21,6 +21,8 @@ public class CharacterSkillsDto {
     public CharacterSkillsDto(AllSkills allSkills){
         this.skillType = allSkills.getSkillType().getType();
         this.skillName = allSkills.getSkillName();
+        this.explain = allSkills.getExplain();
         this.effect = allSkills.getEffect();
+        this.skillLevelDtoList = allSkills.getSkillLevelsList().stream().map(SkillLevelDto::new).collect(Collectors.toList());
     }
 }

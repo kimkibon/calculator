@@ -47,10 +47,10 @@
           <a class="nav-link active" aria-current="page" href="/user/joinForm">회원추가</a>
         </li>
         <li class="nav-item">
-          <form class="col-md-12" role="search" action="/information/character" method="GET">
+          <form class="col-md-12" role="search" id="searchForm" action="/information/character" method="GET">
             <div class="input-group">
               <input class="form-control" type="search" placeholder="케릭터 이름" aria-label="케릭터 이름"
-                aria-describedby="button-addon2" id="name" th:name="name" th:value="${name}">
+                aria-describedby="button-addon2" id="name" th:name="name">
               <button class="btn btn-outline-success" id="button-addon2" type="submit">search</button>
             </div>
           </form>

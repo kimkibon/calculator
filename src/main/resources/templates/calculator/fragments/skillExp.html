@@ -3,8 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      layout:decorate="~{layout}">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -16,13 +15,8 @@
 </th:block>
 
 <!-- Content -->
-<div layout:fragment="content">
+<div th:fragment="skillExp">
   <h1>skillExp</h1>
-  <a sec:authorize="!isAuthenticated()" href="loginForm">Login</a>
-  <a sec:authorize="isAuthenticated()" href="logout">Logout</a>
-  <p sec:authorize="hasAuthority('ADMIN')">[이 부분은 운영자(ADMIN)에게만 나타남]</p>
-  <a sec:authorize="hasAuthority('ADMIN')" href="users/joinForm">계정 생성</a>
-  <p sec:authorize="hasAuthority('USER')">[이 부분은 손님(USER)에게만 나타남]</p>
   <h1>skillExp</h1>
 </div>
 </html>

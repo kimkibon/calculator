@@ -10,7 +10,6 @@ import com.nueral.calculator.service.skill.SkillSaveService;
 import com.nueral.calculator.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -57,12 +56,6 @@ public class TestController {
         user.setPassword("dmadkr48");
         userService.savaUser(user);
         return "/home";
-    }
-
-    @GetMapping(value = "calculator/exp")
-    public String expList(Model model){
-        model.addAttribute("expList" , expService.expList());
-        return "calculator/exp";
     }
 
 }

@@ -8,6 +8,7 @@ import com.nueral.calculator.service.needExp.NeedExpService;
 import com.nueral.calculator.service.needExp.NeedGoodsExpService;
 import com.nueral.calculator.service.needExp.NeedSkillExpService;
 import com.nueral.calculator.service.needExp.NeedStarExpService;
+import com.nueral.calculator.service.skill.SkillSaveService;
 import com.nueral.calculator.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,23 @@ public class basicDataController {
     GoodsService goodsService;
     @Autowired
     AuthKeyService authKeyService;
+    @Autowired
+    SkillSaveService skillService;
+
+    @GetMapping(value = "/baseSkills")
+    public String createTestSkills(){
+        skillService.saveAllSkills("수춘",SkillType.pas,"치유의 녹색","3회 일반공격마다 자신 연산력[1]%만큼 최대체력 상한을 높이며"+
+                "그만큼 체력을 회복한다. 최대 10회 발동."+
+                        "추가 체력 30마다 수춘의 연산방어력이 1 상승한다.","");
+        skillService.saveAllSkills("수춘",SkillType.act,"푸른 매듭","덩굴을 소환해 자신 주위 1칸 안의 적을 휘감아 3초간 무장해제 시킨다."+
+                "휘감긴 유닛은 0.6초 마다 연산력 [1]% 연산피해를 받으며,"+
+                "동시에 수준은 '연산력 0.5% X 휘감긴 적의 수량'의 체력을 회복한다.","무장해제 - 일반공격과 스킬발동을 도중에 끊고,"+
+                "지속 시간동안 일반 공격과 스킬 발동이 불가능하다.");
+        skillService.saveAllSkills("수춘",SkillType.ult,"가시덩굴 감옥","지정 범위 안의 적을 띄우고, 치명타가 가능한 연산력 [1]% 연산피해를 준다."+
+                "그리고 가시덩굴을 남겨서 지나가는 적을 고정시킨다. 가시덩굴 지속시간 [2]초","");
+
+        return "/home";
+    }
 
     @GetMapping(value = "/baseAlgorithm")
     public void createBaseAlgorithm() {

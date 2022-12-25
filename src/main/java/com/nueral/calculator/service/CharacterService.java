@@ -4,6 +4,10 @@ import com.nueral.calculator.dto.AllCharactersDto;
 import com.nueral.calculator.dto.CharacterInfoDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
+import com.nueral.calculator.repository.algorithm.AlgorithmRepository;
+import com.nueral.calculator.repository.friendship.GoodsCharacterRepository;
+import com.nueral.calculator.repository.friendship.GoodsStatusCharacterRepository;
+import com.nueral.calculator.repository.skill.AllSkillsRepository;
 import com.nueral.calculator.types.AreaType;
 import com.nueral.calculator.types.CompanyType;
 import com.nueral.calculator.types.DealType;
@@ -11,37 +15,38 @@ import com.nueral.calculator.types.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
+    @Autowired
+    private AllSkillsRepository allSkillsRepository;
+    @Autowired
+    private GoodsCharacterRepository goodsCharacterRepository;
+    @Autowired
+    private AlgorithmRepository algorithmRepository;
+    @Autowired
+    private GoodsStatusCharacterRepository goodsStatusCharacterRepository;
 
 
     public CharacterInfoDto findCharacterInfo(String name){
 
         Characters characters = characterRepository.findByName(name).orElse(new Characters());
-        if(characters.getName() == null){
-            return new CharacterInfoDto();
-        } else {
-            return new CharacterInfoDto(characters);
-        }
+
+        CharacterInfoDto characterInfoDto = new CharacterInfoDto(characters);
+
+        return characterInfoDto;
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){
         List<Characters> charactersList = characterRepository.findAll();
-        List<AllCharactersDto> characterInfoDtoList = new ArrayList<>();
-
-        for (Characters characters : charactersList) {
-            AllCharactersDto allCharactersDto = new AllCharactersDto();
-            allCharactersDto.setCharacterName(characters.getName());
-            allCharactersDto.setDealType(characters.getDealType().getType());
-            allCharactersDto.setRoleType(characters.getRoleType().getType());
-            allCharactersDto.setDefaultStar(characters.getDefaultStar());
-            characterInfoDtoList.add(allCharactersDto);
-        }
+        List<AllCharactersDto> characterInfoDtoList =
+        charactersList.stream().map(AllCharactersDto::new).collect(Collectors.toList());
 
         return characterInfoDtoList;
     }

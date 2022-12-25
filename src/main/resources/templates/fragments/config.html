@@ -1,15 +1,18 @@
-<html lagn="kr"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lagn="kr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!--configFragment 선언-->
 <th:block th:fragment="configFragment">
 
 
   <!-- 이 영역에 공통으로 사용할 css, js library를 선언한다. -->
-  <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
   <script th:src="@{/js/bootstrap.bundle.js}"></script>
-
+  <script th:inline="javascript">
+    function search() {
+      const name = document.getElementById('name').value;
+      location.href = "/information/character/" + name;
+    }
+  </script>
   <!-- Content Page의 CSS fragment 삽입 -->
   <th:block layout:fragment="css"></th:block>
 
@@ -17,4 +20,5 @@
   <th:block layout:fragment="script"></th:block>
 
 </th:block>
+
 </html>

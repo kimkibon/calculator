@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="kr" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="kr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+
+</th:block>
+
 <main role="main" class="container">
     <div layout:fragment="content" class="starter-template">
-        <div class="card mb-3" style="max-width: 300px;">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
-                </div>
-                <div class="col-md-6 g-0">
-                    <div class="card-body">
-                        <p class="card-title">이름</p>
-                        <div class="row">직업</div>
-                        <div class="row">타입</div>
-                        <div class="row">범위</div>
-                        <div class="row">회사</div>
+        <div class="row row-cols-8">
+            <div class="col col-lg" th:each="characterList : ${characterList}">
+                <div class="card" style="max-width: 120px; min-width: 120px;"
+                    th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
+                    <div class="col">
+                        <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
+                        <div th:text="${characterList.characterName}" class="card-footer text-muted">
+                            이름
+                        </div>
                     </div>
                 </div>
             </div>

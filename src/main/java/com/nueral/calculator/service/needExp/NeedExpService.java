@@ -28,8 +28,5 @@ public class NeedExpService {
         needExpRepository.save(needExp);
     }
 
-    public List<NeedExp> expList(){
-        return needExpRepository.findAll();
-    }
 
 }
