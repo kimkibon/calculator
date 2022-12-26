@@ -12,14 +12,26 @@
 
     <div layout:fragment="content" class="starter-template">
 
-        <hr class="border border-danger border-2">
+        <div class="row row-cols-3 justify-content-start">
+            <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;">
+                <div class="card" style="max-width: 130px; min-width: 130px;">
+                    <div class="col">
+                        <img src="/image/basic/defender.png" class="card-img-top p-1 img-fluid">
+                        <div class="card-footer text-muted">
+                            수위
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row row-cols-3 justify-content-start">
             <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('수위')}">
                 <div class="card" style="max-width: 130px; min-width: 130px;"
                     th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
                     <div class="col">
-                        <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
+                        <img th:id="${characterList.characterName}" th:src="${'/image/character/'+characterList.characterName+'.png'}" class="card-img-top p-1 img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                         <div th:text="${characterList.characterName}" class="card-footer text-muted">
                             이름
                         </div>
@@ -27,15 +39,27 @@
                 </div>
             </div>
         </div>
-
         <hr class="border border-danger border-2">
+
+        <div class="row row-cols-3 justify-content-start">
+            <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;">
+                <div class="card" style="max-width: 130px; min-width: 130px;">
+                    <div class="col">
+                        <img src="/image/basic/gunner.png" class="card-img-top p-1 img-fluid">
+                        <div class="card-footer text-muted">
+                            사수
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row row-cols-12 justify-content-start">
             <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('사수')}">
                 <div class="card" style="max-width: 130px; min-width: 130px;"
                     th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
                     <div class="col">
-                        <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
+                        <img th:id="${characterList.characterName}" th:src="${'/image/character/'+characterList.characterName+'.png'}" class="card-img-top p-1 img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                         <div th:text="${characterList.characterName}" class="card-footer text-muted">
                             이름
                         </div>
@@ -43,8 +67,20 @@
                 </div>
             </div>
         </div>
-
         <hr class="border border-danger border-2">
+
+        <div class="row row-cols-3 justify-content-start">
+            <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;">
+                <div class="card" style="max-width: 130px; min-width: 130px;">
+                    <div class="col">
+                        <img src="/image/basic/soldier.png" class="card-img-top p-1 img-fluid">
+                        <div class="card-footer text-muted">
+                            전사
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row row-cols-12 justify-content-start">
             <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('전사')}">
@@ -52,7 +88,7 @@
                 <div class="card" style="max-width: 130px; min-width: 130px;"
                     th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
                     <div class="col">
-                        <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
+                        <img th:id="${characterList.characterName}" th:src="${'/image/character/'+characterList.characterName+'.png'}" class="card-img-top p-1 img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                         <div th:text="${characterList.characterName}" class="card-footer text-muted">
                             이름
                         </div>
@@ -60,15 +96,27 @@
                 </div>
             </div>
         </div>
-
         <hr class="border border-danger border-2">
+
+        <div class="row row-cols-3 justify-content-start">
+            <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;">
+                <div class="card" style="max-width: 130px; min-width: 130px;">
+                    <div class="col">
+                        <img src="/image/basic/healer.png" class="card-img-top p-1 img-fluid">
+                        <div class="card-footer text-muted">
+                            치료사
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row row-cols-12 justify-content-start">
             <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('치료사')}">
                 <div class="card" style="max-width: 130px; min-width: 130px;"
                     th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
                     <div class="col">
-                        <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
+                        <img th:id="${characterList.characterName}" th:src="${'/image/character/'+characterList.characterName+'.png'}" class="card-img-top p-1 img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                         <div th:text="${characterList.characterName}" class="card-footer text-muted">
                             이름
                         </div>
@@ -76,15 +124,27 @@
                 </div>
             </div>
         </div>
-
         <hr class="border border-danger border-2">
+
+        <div class="row row-cols-3 justify-content-start">
+            <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;">
+                <div class="card" style="max-width: 130px; min-width: 130px;">
+                    <div class="col">
+                        <img src="/image/basic/specialist.png" class="card-img-top p-1 img-fluid">
+                        <div class="card-footer text-muted">
+                            해결사
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row row-cols-12 justify-content-start">
             <div class="col col-xl-1 m-1" style="max-width: 140px; min-width: 140px;" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('해결사')}">
                 <div class="card" style="max-width: 130px; min-width: 130px;"
                     th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
                     <div class="col">
-                        <img src="/image/잉켈스.png" class="card-img-top p-1 img-fluid" alt="...">
+                        <img th:id="${characterList.characterName}" th:src="${'/image/character/'+characterList.characterName+'.png'}" class="card-img-top p-1 img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                         <div th:text="${characterList.characterName}" class="card-footer text-muted">
                             이름
                         </div>
@@ -92,5 +152,6 @@
                 </div>
             </div>
         </div>
+        <hr class="border border-danger border-2">
     </div>
 </main>
