@@ -10,13 +10,51 @@
   <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
-<th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
-</th:block>
 
 <!-- Content -->
 <div th:fragment="starExp">
-  <h1>starExp</h1>
-  <h1>starExp</h1>
+
+  <script th:inline="javascript">
+    const starExp = /*[[${starExpList}]]*/
+
+    function changeStarLevel(starLevel) {
+
+      const skillExpList = starExp.slice(starLevel, 9);
+
+      const resultExp = skillExpList.reduce(function add(sum, currValue) {
+        return parseInt(sum) + parseInt(currValue.exp);
+      }, 0);
+
+      document.getElementById('resultStarExp').innerText = resultExp + "";
+    }
+  </script>
+
+  <div class="row row-cols-2">
+    <div class="col col-sm-auto">
+      <div class="row">
+        <div>
+          <select id="starLevel" onChange="changeStarLevel(this.value)">
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5"></option>
+            <option value="6"></option>
+            <option value="7"></option>
+            <option value="8"></option>
+            <option value="9"></option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">스킬 경험치</div>
+        <div class="col">
+          <p id="resultStarExp">0
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 </html>
