@@ -19,14 +19,26 @@
   <script th:inline="javascript">
     const skillExp = /*[[${skillExpList}]]*/
 
-    function changeSkillLevel(skillLevel) {
-      document.getElementById('skillLevel').value = skillLevel.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById('maxSkillLevel').value = goodsExp.length;
+      document.getElementById('minSkillLevel').value = 1;
+      changeSkillLevel();
+    });
 
-      if (skillLevel > 10) {
-        document.getElementById('skillLevel').value = 10;
+    function changeSkillLevel() {
+      document.getElementById('minSkillLevel').value = document.getElementById('minSkillLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      document.getElementById('maxSkillLevel').value = document.getElementById('maxSkillLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      const minSkillLevel = document.getElementById('minSkillLevel').value;
+      const maxSkillLevel = document.getElementById('maxSkillLevel').value;
+
+      if (minSkillLevel > skillExp.length) {
+        document.getElementById('minSkillLevel').value = skillExp.length;
+      }
+      if (maxSkillLevel > skillExp.length) {
+        document.getElementById('maxSkillLevel').value = skillExp.length;
       }
 
-      const skillExpList = skillExp.slice(skillLevel, 10);
+      const skillExpList = skillExp.slice(minSkillLevel, maxSkillLevel);
 
       const resultExp = skillExpList.reduce(function add(sum, currValue) {
         return parseInt(sum) + parseInt(currValue.exp);
@@ -40,12 +52,15 @@
     }
 
   </script>
-  <div class="row row-cols-2">
-    <div class="col col-sm-auto">
       <div class="row">
-        <div>
-          <input id="skillLevel" oninput="changeSkillLevel(this.value)" type="text" min="1">
-        </div>
+          <div class="col">
+              현재 레벨
+              <input id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+          </div>
+          <div class="col">
+              목표 레벨
+              <input id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+          </div>
       </div>
       <div class="row">
           <div class="col">스킬 경험치</div>
@@ -58,6 +73,4 @@
           </div>
       </div>
     </div>
-  </div>
-</div>
 </html>

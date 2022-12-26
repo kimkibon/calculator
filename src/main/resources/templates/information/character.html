@@ -39,19 +39,19 @@
     </div>
     <div th:each="skills : ${character.characterSkillsDtoList}" class="col">
       <div class="row">
-        <div class="col">스킬타입</div>
+        <div class="col col-sm-3">스킬타입</div>
         <div th:text="${skills?.skillType}" class="col">스킬타입</div>
       </div>
       <div class="row">
-        <div class="col">스킬이름</div>
+        <div class="col col-sm-3">스킬이름</div>
         <div th:text="${skills?.skillName}" class="col">스킬이름</div>
       </div>
       <div class="row">
-        <div class="col">스킬설명</div>
+        <div class="col col-sm-3">스킬설명</div>
         <div th:text="${skills?.explain}" class="col">스킬설명</div>
       </div>
       <div class="row">
-        <div class="col">스킬이펙트</div>
+        <div class="col col-sm-3">스킬이펙트</div>
         <div th:text="${skills?.effect}" class="col">스킬이펙트</div>
       </div>
     </div>

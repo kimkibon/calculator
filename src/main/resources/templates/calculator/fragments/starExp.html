@@ -16,44 +16,82 @@
 
   <script th:inline="javascript">
     const starExp = /*[[${starExpList}]]*/
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById('maxStarLevel').value = starExp.length;
+      document.getElementById('minStarLevel').value = 1;
+      changeStarLevel();
+    });
 
-    function changeStarLevel(starLevel) {
+    function changeStarLevel() {
 
-      const skillExpList = starExp.slice(starLevel, 9);
+      const minStarLevel = document.getElementById('minStarLevel').value;
+      const maxStarLevel = document.getElementById('maxStarLevel').value;
+
+      const skillExpList = starExp.slice(minStarLevel, maxStarLevel);
 
       const resultExp = skillExpList.reduce(function add(sum, currValue) {
         return parseInt(sum) + parseInt(currValue.exp);
       }, 0);
 
       document.getElementById('resultStarExp').innerText = resultExp + "";
+
+      document.getElementById('minDate').innerText = Math.round(resultExp/12) + "일";
+      document.getElementById('aveDate').innerText = Math.round(resultExp/7) + "일";
+      document.getElementById('maxDate').innerText = Math.round(resultExp/6) + "일";
+
+
     }
+
   </script>
 
-  <div class="row row-cols-2">
-    <div class="col col-sm-auto">
       <div class="row">
-        <div>
-          <select id="starLevel" onChange="changeStarLevel(this.value)">
-            <option value="1"></option>
-            <option value="2"></option>
-            <option value="3"></option>
-            <option value="4"></option>
-            <option value="5"></option>
-            <option value="6"></option>
-            <option value="7"></option>
-            <option value="8"></option>
-            <option value="9"></option>
+        <div class="col">
+          기초 성급
+          <select id="minStarLevel" onChange="changeStarLevel()">
+            <option value="1">★</option>
+            <option value="2">★☆</option>
+            <option value="3">★★</option>
+            <option value="4">★★☆</option>
+            <option value="5">★★★</option>
+            <option value="6">★★★☆</option>
+            <option value="7">★★★★</option>
+            <option value="8">★★★★☆</option>
+            <option value="9">★★★★★</option>
+          </select>
+        </div>
+        <div class="col">
+          목표 성급
+          <select id="maxStarLevel" onChange="changeStarLevel()">
+            <option value="1">★</option>
+            <option value="2">★☆</option>
+            <option value="3">★★</option>
+            <option value="4">★★☆</option>
+            <option value="5">★★★</option>
+            <option value="6">★★★☆</option>
+            <option value="7">★★★★</option>
+            <option value="8">★★★★☆</option>
+            <option value="9">★★★★★</option>
           </select>
         </div>
       </div>
       <div class="row">
-        <div class="col">스킬 경험치</div>
+        <div class="col">필요 조각</div>
         <div class="col">
           <p id="resultStarExp">0
         </div>
+        <div class="col">최소 시간</div>
+        <div class="col">
+          <p id="minDate"></p>
+        </div>
+        <div class="col">평균 시간</div>
+        <div class="col">
+          <p id="aveDate"></p>
+        </div>
+        <div class="col">최대 시간</div>
+        <div class="col">
+          <p id="maxDate"></p>
+        </div>
       </div>
-    </div>
-  </div>
 
 
 </div>

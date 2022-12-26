@@ -14,15 +14,27 @@
 <div  th:fragment="exp">
   <script th:inline="javascript">
     const exp = /*[[${expList}]]*/;
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById('maxCharacterLevel').value = exp.length;
+      document.getElementById('minCharacterLevel').value = 1;
+      changeCharacterLevel()
+    });
 
-    function changeCharacterLevel(level) {
-      document.getElementById('characterLevel').value = level.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+    function changeCharacterLevel() {
 
-      if (level > 60) {
-        document.getElementById('characterLevel').value = 60;
+      document.getElementById('minCharacterLevel').value = document.getElementById('minCharacterLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      document.getElementById('maxCharacterLevel').value = document.getElementById('maxCharacterLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      const minLevel = document.getElementById('minCharacterLevel').value;
+      const maxLevel = document.getElementById('maxCharacterLevel').value;
+
+      if (minLevel > exp.length) {
+        document.getElementById('minCharacterLevel').value = exp.length;
+      }
+      if (maxLevel > exp.length) {
+        document.getElementById('maxCharacterLevel').value = exp.length;
       }
 
-      const expList = exp.slice(level, 60);
+      const expList = exp.slice(minLevel, maxLevel);
 
       const resultExp = expList.reduce(function add(sum, currValue) {
         return parseInt(sum) + parseInt(currValue.exp);
@@ -54,11 +66,14 @@
       document.getElementById('resultRainbow').innerText = resultRainbow + "";
     }
   </script>
-  <div class="row row-cols-2">
-    <div class="col col-sm-auto">
       <div class="row">
-        <div>
-          <input id="characterLevel" oninput="changeCharacterLevel(this.value)" type="text" min="1">
+        <div class="col">
+          현재 레벨
+          <input id="minCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1">
+        </div>
+        <div class="col">
+          목표 레벨
+          <input id="maxCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1" value="70">
         </div>
       </div>
       <div class="col">
@@ -98,7 +113,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 
 </html>

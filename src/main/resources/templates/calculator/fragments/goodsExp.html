@@ -16,7 +16,68 @@
 
 <!-- Content -->
 <div th:fragment="goodsExp">
-  <h1>goodsExp</h1>
-  <h1>goodsExp</h1>
-</div>
+  <script th:inline="javascript">
+    const goodsExp = /*[[${goodsExpList}]]*/
+
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById('maxGoodsLevel').value = goodsExp.length;
+      document.getElementById('minGoodsLevel').value = 1;
+      changeGoodsLevel();
+    });
+
+    function changeGoodsLevel() {
+      document.getElementById('minGoodsLevel').value = document.getElementById('minGoodsLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      document.getElementById('maxGoodsLevel').value = document.getElementById('maxGoodsLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      const minGoodsLevel = document.getElementById('minGoodsLevel').value;
+      const maxGoodsLevel = document.getElementById('maxGoodsLevel').value;
+
+      if (minGoodsLevel > goodsExp.length) {
+        document.getElementById('minGoodsLevel').value = goodsExp.length;
+      }
+      if (maxGoodsLevel > goodsExp.length) {
+        document.getElementById('maxGoodsLevel').value = goodsExp.length;
+      }
+
+      const goodsExpList = goodsExp.slice(minGoodsLevel, maxGoodsLevel);
+
+      const resultGoodsExp = goodsExpList.reduce(function add(sum, currValue) {
+        return parseInt(sum) + parseInt(currValue.exp);
+      }, 0);
+
+      document.getElementById('resultGoodsExp').innerText = resultGoodsExp + "";
+      document.getElementById('resultBlueGoods').innerText = Math.round(resultGoodsExp/20) + "개";
+      document.getElementById('resultPurpleGoods').innerText = Math.round(resultGoodsExp/50) + "개";
+      document.getElementById('resultYellowGoods').innerText = Math.round(resultGoodsExp/125) + "개";
+    }
+
+  </script>
+      <div class="row">
+        <div class="col">
+          현재 레벨
+          <input id="minGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1">
+        </div>
+        <div class="col">
+          목표 레벨
+          <input id="maxGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">호감도 경험치</div>
+        <div class="col">
+          <p id="resultGoodsExp">0
+        </div>
+        <div class="col">파랑</div>
+        <div class="col">
+          <p id="resultBlueGoods">0
+        </div>
+        <div class="col">보라</div>
+        <div class="col">
+          <p id="resultPurpleGoods">0
+        </div>
+        <div class="col">노랑</div>
+        <div class="col">
+          <p id="resultYellowGoods">0
+        </div>
+      </div>
+    </div>
 </html>
