@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        const character = /*[[${character}]]*/;
+    </script>
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+
+    <div class="col">
+        <tbody>
+            <div class="row justify-content-center p-5">
+                <div colspan="2" class="col p-5">
+                    <p style="text-align:center" th:text="${character.characterName}"><strong>첼시</strong></p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col" style="max-width: 40%; min-width: 40%;">
+                    <image
+                        src="//ac2-p2.namu.la/20221216sac2/9f1e48884e02f827d703ed5870018b98f423a32f8c7da1356b86d25116c69c6f.png">
+                    </image>
+                </div>
+                <div class="col" style="max-width: 40%; min-width: 40%;">
+                    <image
+                        src="//ac2-p2.namu.la/20221216sac2/3d2e5a53f070b760711dc6392376903fb3991e4d1fb02176527902a845b2f56b.png">
+                    </image>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <div style="text-align:center"><strong>기본 투영</strong></div>
+                </div>
+                <div class="col">
+                    <div style="text-align:center"><strong>확장 투영</strong></div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div colspan="2" class="col" style="text-align:center; max-width:80%;">
+                    <image class="image-fluid"
+                        src="//ac2-p2.namu.la/20221216sac2/6ce18a764822f50e7bd57abb39329d4708a4baa747bc06cf179ed581fdd2768c.png" />
+                </div>
+            </div>
+            <div class="row">
+                <td colspan="2" class="col">
+                    <div style="text-align:center"><strong>완전 투영</strong></div>
+                </td>
+            </div>
+        </tbody>
+        <div class="container">
+        <div class="row row-cols-4">
+            <div class="col col-sm-2">직업</div>
+            <div class="col col-sm-4"><img style="max-width: 130px; min-width: 130px;" th:src="${'/image/basic/'+character.roleType+'.png'}"/></div>
+            <div class="col col-sm-2">회사</div>
+            <div class="col col-sm-4"><img style="max-width: 130px; min-width: 130px;" th:src="${'/image/basic/'+character.companyType+'.png'}"/></div>
+        </div>
+        <div class="row">
+            <div class="col">범위</div>
+            <div th:text="${character.areaType}" class="col">범위</div>
+            <div class="col">별</div>
+            <div th:text="${character.defaultStar}" class="col">별</div>
+            <div class="col">주스탯</div>
+            <div th:text="${character.dealType}" class="col">주력스탯</div>
+        </div>
+        </div>
+        <div class="container">
+            <div class="row row-cols-2">
+                <div class="col">
+                    <div class="row">
+                        선호 아이템
+                    </div>
+                    <div class="row">
+                        <div class="col" th:each="goods : ${character.goodsStatusCharactersDtoList}"
+                            th:if="${!goods.goodsLike}">
+                            <div th:text="goods.goodsName"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        불호 아이템
+                    </div>
+                    <div class="row">
+                        <div class="col" th:each="goods : ${character.goodsStatusCharactersDtoList}"
+                            th:if="${!goods.goodsLike}">
+                            <div th:text="goods.goodsName"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

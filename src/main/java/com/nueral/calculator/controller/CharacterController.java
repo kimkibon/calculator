@@ -31,4 +31,13 @@ public class CharacterController {
         return "/information/character";
     }
 
+    @GetMapping(value = "characterTest")
+    public String findCharacterTest(@RequestParam("name") String name, Model model){
+        CharacterInfoDto characterInfoDto =
+                characterService.findCharacterInfo(name);
+        model.addAttribute("character" , characterInfoDto);
+
+        return "/test/characterTest";
+    }
+
 }

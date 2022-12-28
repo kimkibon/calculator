@@ -10,13 +10,19 @@
 
 <body>
     <!-- header fragment 사용 -->
+    <div>
     <th:block th:replace="fragments/header :: headerFragment"></th:block>
+    </div>
     <!-- content fragment 사용 -->
-    <div class="container-fluid m-5 p-5">
+    <div class="container-fluid p-5">
+        <div class="container-fluid p-5">
         <th:block layout:fragment="content"></th:block>
+        </div>
     </div>
     <!-- footer fragment 사용 -->
+    <div>
     <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+    </div>
 </body>
 
 </html>

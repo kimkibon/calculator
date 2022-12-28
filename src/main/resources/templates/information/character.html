@@ -55,8 +55,61 @@
         <div th:text="${skills?.effect}" class="col">스킬이펙트</div>
       </div>
     </div>
+    <div class="col" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+      <div class="row">
+        <div class="col col-sm-3">타입</div>
+        <div class="col col-sm-3" th:text="${algorithm.algorithmType}">타입</div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-3">세트</div>
+        <div class="col col-sm-3" th:text="${algorithm.setAlgorithmDto.setAlgorithmName}">세트</div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-3">2세트 옵션</div>
+        <div class="col col-sm-3" th:text="${algorithm.setAlgorithmDto.twoSetOpt}">2세트 옵션</div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-3">3세트 옵션</div>
+        <div class="col col-sm-3" th:text="${algorithm.setAlgorithmDto?.threeSetOpt}">3세트 옵션</div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-3">메인 옵션</div>
+        <div class="col col-sm-3" th:text="${algorithm?.mainOpt}">메인 옵션</div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-3">서브 옵션</div>
+        <div class="col col-sm-3" th:text="${algorithm.subOpt1}">서브 옵션</div>
+      </div>
+      <div class="row">
+        <div class="col col-sm-3">서브 옵션</div>
+        <div class="col col-sm-3" th:text="${algorithm.subOpt2}">서브 옵션</div>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="col" th:each="goods : ${character.goodsStatusCharactersDtoList}">
+    <div class="row">
+      <div class="col col-sm-3">호감도 아이템</div>
+      <div class="col col-sm-3" th:text="${goods.goodsName}">호감도 아이템</div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-3">아이템 선호도</div>
+      <div class="col col-sm-3" th:text="${goods.goodsLike}">호감도 아이템</div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-3">아이템 레벨</div>
+      <div class="col col-sm-3" th:text="${goods.goodsLevel}">아이템 레벨</div>
+    </div>
+  </div>
+  <div class="col" th:each="goodsStatus : ${character.goodsCharacterDtoList}">
+    <div class="row">
+      <div class="col col-sm-3">호감도 능력치</div>
+      <div class="col col-sm-3" th:text="${goodsStatus.statusName}">호감도 아이템</div>
+    </div>
+    <div class="row">
+      <div class="col col-sm-3">호감도 능력치 스탯</div>
+      <div class="col col-sm-3" th:text="${goodsStatus.status}">호감도 아이템</div>
+    </div>
+  </div>
 </div>
 
 </html>
