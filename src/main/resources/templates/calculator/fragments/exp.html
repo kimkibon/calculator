@@ -11,14 +11,14 @@
   <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 <!-- Content -->
-<div  th:fragment="exp">
+<div th:fragment="exp">
   <script th:inline="javascript">
-    const exp = /*[[${expList}]]*/;
-    document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById('maxCharacterLevel').value = exp.length;
-      document.getElementById('minCharacterLevel').value = 1;
-      changeCharacterLevel()
-    });
+    const exp = /*[[${expList}]]*/
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('maxCharacterLevel').value = exp.length;
+        document.getElementById('minCharacterLevel').value = 1;
+        changeCharacterLevel()
+      });
 
     function changeCharacterLevel() {
 
@@ -66,52 +66,64 @@
       document.getElementById('resultRainbow').innerText = resultRainbow + "";
     }
   </script>
-      <div class="row">
-        <div class="col">
-          현재 레벨
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr scope="row">
+        <td>
+          <p> 현재 레벨 </p>
+        </td>
+        <td>
           <input id="minCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1">
-        </div>
-        <div class="col">
-          목표 레벨
+        </td>
+        <td>
+          <p> 목표 레벨 </p>
+        </td>
+        <td>
           <input id="maxCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1" value="70">
-        </div>
-      </div>
-      <div class="col">
-        <div class="row">
-          <div class="col">exp</div>
-          <div class="col">
-            <p id="resultExp">213630
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">white widget</div>
-          <div class="col">gray widget</div>
-          <div class="col">green widget</div>
-          <div class="col">blue widget</div>
-          <div class="col">purple widget</div>
-          <div class="col">rainbow widget</div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p id="resultGray">20
-          </div>
-          <div class="col">
-            <p id="resultGreen">30
-          </div>
-          <div class="col">
-            <p id="resultBlue">35
-          </div>
-          <div class="col">
-            <p id="resultPurple">45
-          </div>
-          <div class="col">
-            <p id="resultOrange">30
-          </div>
-          <div class="col">
-            <p id="resultRainbow">0
-          </div>
-        </div>
-      </div>
-    </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr class="row">
+        <th class="col">exp</th>
+        <th class="col">white widget</th>
+        <th class="col">gray widget</th>
+        <th class="col">green widget</th>
+        <th class="col">blue widget</th>
+        <th class="col">purple widget</th>
+        <th class="col">rainbow widget</th>
+      </tr>
+      <tr class="row">
+        <td class="col">
+          <p id="resultExp">213630
+        </td>
+        <td class="col">
+          <p id="resultGray">20
+        </td>
+        <td class="col">
+          <p id="resultGreen">30
+        </td>
+        <td class="col">
+          <p id="resultBlue">35
+        </td>
+        <td class="col">
+          <p id="resultPurple">45
+        </td>
+        <td class="col">
+          <p id="resultOrange">30
+        </td>
+        <td class="col">
+          <p id="resultRainbow">0
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 </html>

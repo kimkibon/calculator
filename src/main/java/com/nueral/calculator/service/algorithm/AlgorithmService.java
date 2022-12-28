@@ -29,15 +29,14 @@ public class AlgorithmService {
 
 
     public void saveAlgorithm(
-
             String charactersName, AlgorithmType algorithmType,
             String setAlgorithmName , String mainOpt,
             String subOpt , String subOpt2){
 
         SetAlgorithm setAlgorithm = setAlgorithmRepository.findAllByAlgorithmTypeAndSetAlgorithmName(algorithmType , setAlgorithmName).get();
-        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(algorithmType , mainOpt).get();
-        SubAlgorithm subAlgorithm = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt).get();
-        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt2).get();
+        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(algorithmType , mainOpt).orElseGet(()->mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(AlgorithmType.all,mainOpt).get());
+        SubAlgorithm subAlgorithm = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt).orElseGet(()->subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all,subOpt).get());
+        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt2).orElseGet(()->subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all,subOpt).get());
         Characters characters = characterRepository.findByName(charactersName).get();
 
         Algorithm algorithm = Algorithm.builder()

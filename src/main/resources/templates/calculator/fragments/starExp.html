@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang = "ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -16,11 +13,11 @@
 
   <script th:inline="javascript">
     const starExp = /*[[${starExpList}]]*/
-    document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById('maxStarLevel').value = starExp.length;
-      document.getElementById('minStarLevel').value = 1;
-      changeStarLevel();
-    });
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('maxStarLevel').value = starExp.length;
+        document.getElementById('minStarLevel').value = 1;
+        changeStarLevel();
+      });
 
     function changeStarLevel() {
 
@@ -35,18 +32,26 @@
 
       document.getElementById('resultStarExp').innerText = resultExp + "";
 
-      document.getElementById('minDate').innerText = Math.round(resultExp/12) + "일";
-      document.getElementById('aveDate').innerText = Math.round(resultExp/7) + "일";
-      document.getElementById('maxDate').innerText = Math.round(resultExp/6) + "일";
+      document.getElementById('minDate').innerText = Math.round(resultExp / 12) + "일";
+      document.getElementById('aveDate').innerText = Math.round(resultExp / 7) + "일";
+      document.getElementById('maxDate').innerText = Math.round(resultExp / 6) + "일";
 
 
     }
 
   </script>
 
-      <div class="row">
-        <div class="col">
-          기초 성급
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <p>
+            기초 성급
+          </p>
+        </th>
+        <th>
           <select id="minStarLevel" onChange="changeStarLevel()">
             <option value="1">★</option>
             <option value="2">★☆</option>
@@ -58,9 +63,11 @@
             <option value="8">★★★★☆</option>
             <option value="9">★★★★★</option>
           </select>
-        </div>
-        <div class="col">
-          목표 성급
+        </th>
+        <th>
+          <p> 목표 성급 </p>
+        </th>
+        <th>
           <select id="maxStarLevel" onChange="changeStarLevel()">
             <option value="1">★</option>
             <option value="2">★☆</option>
@@ -72,27 +79,36 @@
             <option value="8">★★★★☆</option>
             <option value="9">★★★★★</option>
           </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">필요 조각</div>
-        <div class="col">
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <th>필요 조각</th>
+        <th>최소 시간</th>
+        <th>평균 시간</th>
+        <th>최대 시간</th>
+      </tr>
+      <tr>
+        <td>
           <p id="resultStarExp">0
-        </div>
-        <div class="col">최소 시간</div>
-        <div class="col">
+        </td>
+        <td>
           <p id="minDate"></p>
-        </div>
-        <div class="col">평균 시간</div>
-        <div class="col">
+        </td>
+        <td>
           <p id="aveDate"></p>
-        </div>
-        <div class="col">최대 시간</div>
-        <div class="col">
+        </td>
+        <td>
           <p id="maxDate"></p>
-        </div>
-      </div>
-
-
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
 </html>

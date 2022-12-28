@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang = "ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -19,11 +16,11 @@
   <script th:inline="javascript">
     const skillExp = /*[[${skillExpList}]]*/
 
-    document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById('maxSkillLevel').value = goodsExp.length;
-      document.getElementById('minSkillLevel').value = 1;
-      changeSkillLevel();
-    });
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('maxSkillLevel').value = goodsExp.length;
+        document.getElementById('minSkillLevel').value = 1;
+        changeSkillLevel();
+      });
 
     function changeSkillLevel() {
       document.getElementById('minSkillLevel').value = document.getElementById('minSkillLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -52,25 +49,44 @@
     }
 
   </script>
-      <div class="row">
-          <div class="col">
-              현재 레벨
-              <input id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
-          </div>
-          <div class="col">
-              목표 레벨
-              <input id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
-          </div>
-      </div>
-      <div class="row">
-          <div class="col">스킬 경험치</div>
-          <div class="col">
-            <p id="resultSkillExp">0
-          </div>
-          <div class="col">스킬 코어</div>
-          <div class="col">
-            <p id="resultSkillCore">0
-          </div>
-      </div>
-    </div>
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr scope="row">
+        <td>
+          <p> 현재 레벨 </p>
+        </td>
+        <td>
+          <input id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+        </td>
+        <td>
+          <p> 목표 레벨 </p>
+        </td>
+        <td>
+          <input id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <thead>
+  </thead>
+  <tbody>
+    <table class="table">
+      <tr>
+        <th>스킬 경험치</th>
+        <th>스킬 코어</th>
+      </tr>
+      <tr>
+        <td>
+          <p id="resultSkillExp">0
+        </td>
+        <td>
+          <p id="resultSkillCore">0
+        </td>
+      </tr>
+  </tbody>
+  </table>
+</div>
+
 </html>

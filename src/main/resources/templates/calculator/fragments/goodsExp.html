@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang = "ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -19,11 +16,11 @@
   <script th:inline="javascript">
     const goodsExp = /*[[${goodsExpList}]]*/
 
-    document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById('maxGoodsLevel').value = goodsExp.length;
-      document.getElementById('minGoodsLevel').value = 1;
-      changeGoodsLevel();
-    });
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('maxGoodsLevel').value = goodsExp.length;
+        document.getElementById('minGoodsLevel').value = 1;
+        changeGoodsLevel();
+      });
 
     function changeGoodsLevel() {
       document.getElementById('minGoodsLevel').value = document.getElementById('minGoodsLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -45,39 +42,59 @@
       }, 0);
 
       document.getElementById('resultGoodsExp').innerText = resultGoodsExp + "";
-      document.getElementById('resultBlueGoods').innerText = Math.round(resultGoodsExp/20) + "개";
-      document.getElementById('resultPurpleGoods').innerText = Math.round(resultGoodsExp/50) + "개";
-      document.getElementById('resultYellowGoods').innerText = Math.round(resultGoodsExp/125) + "개";
+      document.getElementById('resultBlueGoods').innerText = Math.round(resultGoodsExp / 20) + "개";
+      document.getElementById('resultPurpleGoods').innerText = Math.round(resultGoodsExp / 50) + "개";
+      document.getElementById('resultYellowGoods').innerText = Math.round(resultGoodsExp / 125) + "개";
     }
 
   </script>
-      <div class="row">
-        <div class="col">
-          현재 레벨
+
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr scope="row">
+        <td>
+          <p> 현재 레벨 </p>
+        </td>
+        <td>
           <input id="minGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1">
-        </div>
-        <div class="col">
-          목표 레벨
+        </td>
+        <td>
+          <p> 목표 레벨 </p>
+        </td>
+        <td>
           <input id="maxGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">호감도 경험치</div>
-        <div class="col">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-responsive-sm">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <th>호감도</th>
+        <th> 파랑 </th>
+        <th> 보라 </th>
+        <th> 노랑 </th>
+      </tr>
+      <tr>
+        <td>
           <p id="resultGoodsExp">0
-        </div>
-        <div class="col">파랑</div>
-        <div class="col">
+        </td>
+        <td>
           <p id="resultBlueGoods">0
-        </div>
-        <div class="col">보라</div>
-        <div class="col">
+        </td>
+        <td>
           <p id="resultPurpleGoods">0
-        </div>
-        <div class="col">노랑</div>
-        <div class="col">
+        </td>
+        <td>
           <p id="resultYellowGoods">0
-        </div>
-      </div>
-    </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </html>

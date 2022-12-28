@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="kr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -8,108 +9,137 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
   <script th:inline="javascript">
-    const character = /*[[${character}]]*/;
-  </script>
+        const character = /*[[${character}]]*/;
+        const skills = character.characterSkillsDtoList;
+        const pasSkillLevel = skills[0].skillLevelDtoList;
+        const actSkillLevel = skills[1].skillLevelDtoList;
+        const ultSkillLevel = skills[2].skillLevelDtoList;
+
+        document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([1],pasSkillLevel[pasSkillLevel.length].status1);
+        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([1],pasSkillLevel[actSkillLevel.length].status1);
+        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([1],pasSkillLevel[ultSkillLevel.length].status1);
+        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([2],pasSkillLevel[pasSkillLevel.length].status2);
+        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([2],pasSkillLevel[actSkillLevel.length].status2);
+        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([2],pasSkillLevel[ultSkillLevel.length].status2);
+        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([3],pasSkillLevel[pasSkillLevel.length].status3);
+        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([3],pasSkillLevel[actSkillLevel.length].status3);
+        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([3],pasSkillLevel[ultSkillLevel.length].status3);
+        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([4],pasSkillLevel[pasSkillLevel.length].status4);
+        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([4],pasSkillLevel[actSkillLevel.length].status4);
+        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([4],pasSkillLevel[ultSkillLevel.length].status4);
+      });
+    </script>
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
-  <div class="col">
-    <div class="row">
-      <div class="col">케릭명</div>
-      <div th:text="${character.characterName}" class="col">케릭명</div>
+  <div class="row m-5">
+    <div class="col col-md-2">
+      <img th:src="${'/image/character/'+character.characterName+'.png'}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
     </div>
-    <div class="row">
-      <div class="col">직업</div>
-      <div th:text="${character.roleType}" class="col">직업</div>
-    </div>
-    <div class="row">
-      <div class="col">범위</div>
-      <div th:text="${character.areaType}" class="col">범위</div>
-    </div>
-    <div class="row">
-      <div class="col">회사</div>
-      <div th:text="${character.companyType}" class="col">회사</div>
-    </div>
-    <div class="row">
-      <div class="col">별</div>
-      <div th:text="${character.defaultStar}" class="col">별</div>
-    </div>
-    <div th:each="skills : ${character.characterSkillsDtoList}" class="col">
-      <div class="row">
-        <div class="col col-sm-3">스킬타입</div>
-        <div th:text="${skills?.skillType}" class="col">스킬타입</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">스킬이름</div>
-        <div th:text="${skills?.skillName}" class="col">스킬이름</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">스킬설명</div>
-        <div th:text="${skills?.explain}" class="col">스킬설명</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">스킬이펙트</div>
-        <div th:text="${skills?.effect}" class="col">스킬이펙트</div>
-      </div>
-    </div>
-    <div class="col" th:each="algorithm : ${character.characterAlgorithmDtoList}">
-      <div class="row">
-        <div class="col col-sm-3">타입</div>
-        <div class="col col-sm-3" th:text="${algorithm.algorithmType}">타입</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">세트</div>
-        <div class="col col-sm-3" th:text="${algorithm.setAlgorithmDto.setAlgorithmName}">세트</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">2세트 옵션</div>
-        <div class="col col-sm-3" th:text="${algorithm.setAlgorithmDto.twoSetOpt}">2세트 옵션</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">3세트 옵션</div>
-        <div class="col col-sm-3" th:text="${algorithm.setAlgorithmDto?.threeSetOpt}">3세트 옵션</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">메인 옵션</div>
-        <div class="col col-sm-3" th:text="${algorithm?.mainOpt}">메인 옵션</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">서브 옵션</div>
-        <div class="col col-sm-3" th:text="${algorithm.subOpt1}">서브 옵션</div>
-      </div>
-      <div class="row">
-        <div class="col col-sm-3">서브 옵션</div>
-        <div class="col col-sm-3" th:text="${algorithm.subOpt2}">서브 옵션</div>
-      </div>
+    <div class="col col-md-10">
+      <table class="table table-border">
+        <tbody>
+        <tr>
+          <th class="table-active">name</th>
+          <td><p th:text="${character.characterName}"></p></td>
+          <th class="table-active">
+            <p>company</p>
+          </th>
+          <td><p th:text="${character.companyType}"></p></td>
+        </tr>
+        <tr>
+          <th class="table-active">
+            <p>class</p>
+          </th>
+          <td><p th:text="${character.roleType}"></p></td>
+          <th class="table-active">
+            <p>star</p>
+          </th>
+          <td><p th:text="${character.defaultStar}"></p></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="col" th:each="goods : ${character.goodsStatusCharactersDtoList}">
-    <div class="row">
-      <div class="col col-sm-3">호감도 아이템</div>
-      <div class="col col-sm-3" th:text="${goods.goodsName}">호감도 아이템</div>
-    </div>
-    <div class="row">
-      <div class="col col-sm-3">아이템 선호도</div>
-      <div class="col col-sm-3" th:text="${goods.goodsLike}">호감도 아이템</div>
-    </div>
-    <div class="row">
-      <div class="col col-sm-3">아이템 레벨</div>
-      <div class="col col-sm-3" th:text="${goods.goodsLevel}">아이템 레벨</div>
-    </div>
+  <div class="row m-5">
+    <thead>
+    <table class="table table-border">
+      <tr>
+        <th class="table-active"><p>type</p></th>
+        <th class="table-active"><p>skill name</p></th>
+        <th class="table-active"><p>skill effect</p></th>
+        <th class="table-active"><p>sub effect</p></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="skills : ${character.characterSkillsDtoList}">
+        <td class="text-break" style="width: 1rem;" th:id="${skills?.skillType}"><p th:text="${skills?.skillType}"></p></td>
+        <td class="text-break" style="width: 2rem;"><p th:text="${skills?.skillName}"></p></td>
+        <td class="text-break" style="width: 16rem;"><p th:id="${skills.skillName}" th:text="${skills?.explain}"></p></td>
+        <td class="text-break" style="width: 6rem;"><p th:text="${skills?.effect}"></p></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="col" th:each="goodsStatus : ${character.goodsCharacterDtoList}">
-    <div class="row">
-      <div class="col col-sm-3">호감도 능력치</div>
-      <div class="col col-sm-3" th:text="${goodsStatus.statusName}">호감도 아이템</div>
-    </div>
-    <div class="row">
-      <div class="col col-sm-3">호감도 능력치 스탯</div>
-      <div class="col col-sm-3" th:text="${goodsStatus.status}">호감도 아이템</div>
-    </div>
+  <div class="row m-5">
+    <table class="table table-border">
+      <thead>
+      <tr>
+        <th class="table-active"><p>아이템</p></th>
+        <th class="table-active"><p>선호도</p></th>
+        <th class="table-active"><p>티어</p></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="goods : ${character.goodsCharacterDtoList}" >
+        <td class="text-break"><p th:text="${goods.goodsName}"></p></td>
+        <td class="text-break"><p th:if="${goods.goodsLike}">좋아함</p>
+          <p th:if="${!goods.goodsLike}">싫어함</p></td>
+        <td class="text-break"><p th:text="${goods.goodsLevel}"></p></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row m-5">
+    <table class="table table-border">
+      <tbody>
+      <tr>
+        <th class="table-active"><p>능력치</p></th>
+        <th class="table-active"><p>스탯</p></th>
+      </tr>
+      <tr th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
+        <td class="text-break"><p th:text="${goodsStatus?.statusName}"></p></td>
+        <td class="text-break"><p th:text="${goodsStatus?.status}"></p></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row m-5">
+    <table class="table table-border">
+      <thead>
+      <tr>
+        <th class="table-active"><p>타입</p></th>
+        <th class="table-active"><p>세트</p></th>
+        <th class="table-active"><p>세트옵션</p></th>
+        <th class="table-active"><p>메인옵션</p></th>
+        <th class="table-active"><p>서브옵션</p></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="algorithm : ${character.characterAlgorithmDtoList}">
+        <td class="text-break"><p th:text="${algorithm?.algorithmType}"></p></td>
+        <td class="text-break"><p th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></p></td>
+        <td class="text-break"><p th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></p><p th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></p></td>
+        <td class="text-break"><p th:text="${algorithm?.mainOpt}"></p></td>
+        <td class="text-break"><p th:text="${algorithm?.subOpt1}"></p><p th:text="${algorithm?.subOpt2}"></p></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
+</div>
 </html>

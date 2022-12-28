@@ -9,8 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public enum SkillType {
-    pas("패시브 스킬"),
-    act("액티브 스킬"),
+    pas("패시브"),
+    act("액티브"),
     ult("궁극기");
 
     private final String type;
