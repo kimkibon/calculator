@@ -55,16 +55,16 @@
     <tbody>
       <tr scope="row">
         <td>
-          <p> 현재 레벨 </p>
+          <div class="input-group">
+          <span class="input-group-text"> 현재 레벨 </span>
+          <input class="form-control" style="width:130px;"  id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+          </div>
         </td>
         <td>
-          <input id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
-        </td>
-        <td>
-          <p> 목표 레벨 </p>
-        </td>
-        <td>
-          <input id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+          <div class="input-group">
+          <span class="input-group-text"> 목표 레벨 </span>
+          <input class="form-control" style="width:130px;"  id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+          </div>
         </td>
       </tr>
     </tbody>

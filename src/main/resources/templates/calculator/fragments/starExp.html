@@ -16,13 +16,22 @@
       document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('maxStarLevel').value = starExp.length;
         document.getElementById('minStarLevel').value = 1;
+        document.getElementById('buyPiece').value = 0;
         changeStarLevel();
       });
 
     function changeStarLevel() {
-
       const minStarLevel = document.getElementById('minStarLevel').value;
       const maxStarLevel = document.getElementById('maxStarLevel').value;
+      document.getElementById('buyPiece').value = document.getElementById('buyPiece').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+
+      let buyPiece = 0;
+
+      if(document.getElementById('buyPiece').value == '' || document.getElementById('buyPiece').value == undefined){
+        buyPiece = 0;
+      } else {
+       buyPiece = parseInt(document.getElementById('buyPiece').value);
+       }
 
       const skillExpList = starExp.slice(minStarLevel, maxStarLevel);
 
@@ -30,12 +39,32 @@
         return parseInt(sum) + parseInt(currValue.exp);
       }, 0);
 
-      document.getElementById('resultStarExp').innerText = resultExp + "";
+      if(buyPiece > parseInt(resultExp)){
+        document.getElementById('buyPiece').value = resultExp;
+      }
 
-      document.getElementById('minDate').innerText = Math.round(resultExp / 12) + "일";
-      document.getElementById('aveDate').innerText = Math.round(resultExp / 7) + "일";
-      document.getElementById('maxDate').innerText = Math.round(resultExp / 6) + "일";
+      document.getElementById('resultStarExp').innerText = (resultExp - buyPiece) + "";
 
+      document.getElementById('minDate').innerText = Math.ceil((resultExp - buyPiece) / 12) + "일";
+      document.getElementById('aveDate').innerText = Math.ceil((resultExp - buyPiece) / 7) + "일";
+      document.getElementById('maxDate').innerText = Math.ceil((resultExp - buyPiece) / 6) + "일";
+
+      let needPiece = 0;
+
+      for(i = buyPiece; i < parseInt(resultExp); i++){
+        if(i <= 25){
+          needPiece += 5;
+        } else if(i > 25 && i <= 50){
+          needPiece += 10;
+        } else if(i > 50 && i <= 75){
+          needPiece += 15;
+        } else if(i > 75 && i <= 100){
+          needPiece += 20
+        } else if(i > 100){
+          needPiece += 25
+        }
+      }
+        document.getElementById('needPiece').innerText = needPiece;
 
     }
 
@@ -47,12 +76,11 @@
     <tbody>
       <tr>
         <th>
-          <p>
+          <div class="input-group">
+          <span class="input-group-text">
             기초 성급
-          </p>
-        </th>
-        <th>
-          <select id="minStarLevel" onChange="changeStarLevel()">
+          </span>
+          <select class="form-control" style="width:130px;" id="minStarLevel" onChange="changeStarLevel()">
             <option value="1">★</option>
             <option value="2">★☆</option>
             <option value="3">★★</option>
@@ -63,12 +91,12 @@
             <option value="8">★★★★☆</option>
             <option value="9">★★★★★</option>
           </select>
+          </div>
         </th>
         <th>
-          <p> 목표 성급 </p>
-        </th>
-        <th>
-          <select id="maxStarLevel" onChange="changeStarLevel()">
+          <div class="input-group">
+          <span class="input-group-text"> 목표 성급 </span>
+          <select class="form-control" style="width:130px;" id="maxStarLevel" onChange="changeStarLevel()">
             <option value="1">★</option>
             <option value="2">★☆</option>
             <option value="3">★★</option>
@@ -79,7 +107,21 @@
             <option value="8">★★★★☆</option>
             <option value="9">★★★★★</option>
           </select>
+          </div>
         </th>
+      <tr>
+        <td>
+          <div class="input-group">
+            <span class="input-group-text"> 구입 조각 </span>
+            <input class="form-control" style="width:130px;" type="number" id="buyPiece" oninput="changeStarLevel()" value="0"/>
+          </div>
+        </td>
+        <td>
+          <div class="input-group">
+            <span class="input-group-text"> 필요 파편 </span><span class="form-control" id="needPiece">0</span>
+          </div>
+        </td>
+      </tr>
       </tr>
     </tbody>
   </table>
@@ -98,13 +140,13 @@
           <p id="resultStarExp">0
         </td>
         <td>
-          <p id="minDate"></p>
+          <p id="minDate">0</p>
         </td>
         <td>
-          <p id="aveDate"></p>
+          <p id="aveDate">0</p>
         </td>
         <td>
-          <p id="maxDate"></p>
+          <p id="maxDate">0</p>
         </td>
       </tr>
     </tbody>
