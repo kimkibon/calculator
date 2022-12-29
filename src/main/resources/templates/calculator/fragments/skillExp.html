@@ -51,41 +51,44 @@
   </script>
   <table class="table">
     <thead>
+
     </thead>
     <tbody>
       <tr scope="row">
         <td>
           <div class="input-group">
-          <span class="input-group-text"> 현재 레벨 </span>
-          <input class="form-control" style="width:130px;"  id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+            <span class="input-group-text"> 현재 레벨 </span>
+            <input class="form-control" style="width:50px;" id="minSkillLevel" oninput="changeSkillLevel()" type="text"
+              min="1">
           </div>
         </td>
         <td>
           <div class="input-group">
-          <span class="input-group-text"> 목표 레벨 </span>
-          <input class="form-control" style="width:130px;"  id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1">
+            <span class="input-group-text"> 목표 레벨 </span>
+            <input class="form-control" style="width:50px;" id="maxSkillLevel" oninput="changeSkillLevel()" type="text"
+              min="1">
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <thead>
-  </thead>
-  <tbody>
-    <table class="table">
-      <tr>
-        <th>스킬 경험치</th>
-        <th>스킬 코어</th>
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr class="table-active">
+        <th><span>스킬 경험치</span></th>
+        <th><span>스킬 코어</span></th>
       </tr>
       <tr>
         <td>
-          <p id="resultSkillExp">0
+          <span id="resultSkillExp">0</span>
         </td>
         <td>
-          <p id="resultSkillCore">0
+          <span id="resultSkillCore">0</span>
         </td>
       </tr>
-  </tbody>
+    </tbody>
   </table>
 </div>
 

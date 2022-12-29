@@ -1,4 +1,4 @@
-package com.nueral.calculator.dto;
+package com.nueral.calculator.dto.character;
 
 import com.nueral.calculator.dto.AlgorithmDto.CharacterAlgorithmDto;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterDto;

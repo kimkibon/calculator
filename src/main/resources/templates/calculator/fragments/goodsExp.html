@@ -55,16 +55,18 @@
     <tbody>
       <tr scope="row">
         <td>
-          <p> 현재 레벨 </p>
+          <div class="input-group">
+            <span class="input-group-text"> 현재 레벨 </span>
+            <input class="form-control" style="width:50px;" id="minGoodsLevel" oninput="changeGoodsLevel()" type="text"
+              min="1">
+          </div>
         </td>
         <td>
-          <input class="form-control" style="width:50px;"  id="minGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1">
-        </td>
-        <td>
-          <p> 목표 레벨 </p>
-        </td>
-        <td>
-          <input class="form-control" style="width:50px;"  id="maxGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1">
+          <div class="input-group">
+            <span class="input-group-text"> 목표 레벨 </span>
+            <input class="form-control" style="width:50px;" id="maxGoodsLevel" oninput="changeGoodsLevel()" type="text"
+              min="1">
+          </div>
         </td>
       </tr>
     </tbody>
@@ -73,24 +75,24 @@
     <thead>
     </thead>
     <tbody>
-      <tr>
-        <th>호감도</th>
-        <th> 파랑 </th>
-        <th> 보라 </th>
-        <th> 노랑 </th>
+      <tr class="table-active">
+        <th><span>호감도</span></th>
+        <th><span> 노랑 </span></th>
+        <th><span> 보라 </span></th>
+        <th><span> 파랑 </span></th>
       </tr>
       <tr>
         <td>
-          <p id="resultGoodsExp">0
+          <span id="resultGoodsExp">0</span>
         </td>
         <td>
-          <p id="resultBlueGoods">0
+          <span id="resultYellowGoods">0</span>
         </td>
         <td>
-          <p id="resultPurpleGoods">0
+          <span id="resultPurpleGoods">0</span>
         </td>
         <td>
-          <p id="resultYellowGoods">0
+          <span id="resultBlueGoods">0</span>
         </td>
       </tr>
     </tbody>

@@ -71,17 +71,20 @@
     </thead>
     <tbody>
       <tr scope="row">
+
         <td>
-          <p> 현재 레벨 </p>
+          <div class="input-group">
+            <span class="input-group-text"> 현재 레벨 </span>
+            <input class="form-control" style="width:50px;" id="minCharacterLevel" oninput="changeCharacterLevel()"
+              type="text" min="1" value="1">
+          </div>
         </td>
         <td>
-          <input class="form-control" style="width:50px;"  id="minCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1" value="1">
-        </td>
-        <td>
-          <p> 목표 레벨 </p>
-        </td>
-        <td>
-          <input class="form-control" style="width:50px;"  id="maxCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1" value="70">
+          <div class="input-group">
+            <span class="input-group-text"> 목표 레벨 </span>
+            <input class="form-control" style="width:50px;" id="maxCharacterLevel" oninput="changeCharacterLevel()"
+              type="text" min="1" value="70">
+          </div>
         </td>
       </tr>
     </tbody>
@@ -90,36 +93,36 @@
     <thead>
     </thead>
     <tbody>
-      <tr>
-        <th>exp</th>
-        <th>white widget</th>
-        <th>gray widget</th>
-        <th>green widget</th>
-        <th>blue widget</th>
-        <th>purple widget</th>
-        <th>rainbow widget</th>
+      <tr class="table-active">
+        <th><span>경험치</span></th>
+        <th><span> 흰색 </span></th>
+        <th><span> 회색 </span></th>
+        <th><span>초록색</span></th>
+        <th><span>파란색</span></th>
+        <th><span>보라색</span></th>
+        <th><span>무지개</span></th>
       </tr>
       <tr>
         <td>
-          <p id="resultExp">213630
+          <span id="resultExp">213630</span>
         </td>
         <td>
-          <p id="resultGray">20
+          <span id="resultGray">20</span>
         </td>
         <td>
-          <p id="resultGreen">30
+          <span id="resultGreen">30</span>
         </td>
         <td>
-          <p id="resultBlue">35
+          <span id="resultBlue">35</span>
         </td>
         <td>
-          <p id="resultPurple">45
+          <span id="resultPurple">45</span>
         </td>
         <td>
-          <p id="resultOrange">30
+          <span id="resultOrange">30</span>
         </td>
         <td>
-          <p id="resultRainbow">0
+          <span id="resultRainbow">0</span>
         </td>
       </tr>
     </tbody>

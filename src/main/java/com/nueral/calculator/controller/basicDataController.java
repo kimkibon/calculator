@@ -1,7 +1,7 @@
 package com.nueral.calculator.controller;
 
 import com.nueral.calculator.service.AuthKey.AuthKeyService;
-import com.nueral.calculator.service.CharacterService;
+import com.nueral.calculator.dto.character.CharacterService;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
 import com.nueral.calculator.service.friendship.GoodsService;
 import com.nueral.calculator.service.needExp.NeedExpService;
@@ -37,25 +37,10 @@ public class basicDataController {
     @Autowired
     SkillSaveService skillService;
 
-    @GetMapping(value = "/baseSkills")
-    public String createTestSkills(){
-        skillService.saveAllSkills("수춘",SkillType.pas,"치유의 녹색","3회 일반공격마다 자신 연산력[1]%만큼 최대체력 상한을 높이며"+
-                "그만큼 체력을 회복한다. 최대 10회 발동."+
-                        "추가 체력 30마다 수춘의 연산방어력이 1 상승한다.","");
-        skillService.saveAllSkills("수춘",SkillType.act,"푸른 매듭","덩굴을 소환해 자신 주위 1칸 안의 적을 휘감아 3초간 무장해제 시킨다."+
-                "휘감긴 유닛은 0.6초 마다 연산력 [1]% 연산피해를 받으며,"+
-                "동시에 수준은 '연산력 0.5% X 휘감긴 적의 수량'의 체력을 회복한다.","무장해제 - 일반공격과 스킬발동을 도중에 끊고,"+
-                "지속 시간동안 일반 공격과 스킬 발동이 불가능하다.");
-        skillService.saveAllSkills("수춘",SkillType.ult,"가시덩굴 감옥","지정 범위 안의 적을 띄우고, 치명타가 가능한 연산력 [1]% 연산피해를 준다."+
-                "그리고 가시덩굴을 남겨서 지나가는 적을 고정시킨다. 가시덩굴 지속시간 [2]초","");
-
-        return "/home";
-    }
-
 
     @GetMapping(value = "/baseCharacter")
     public void createBaseCharacter() {
-        characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab, 1);
+        characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab, 3);
         characterService.save("이블린", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
         characterService.save("크로크", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
         characterService.save("보니", DealType.ap, RoleType.depender, AreaType.target, CompanyType.ucl, 1);
@@ -97,51 +82,26 @@ public class basicDataController {
         characterService.save("초코", DealType.ap, RoleType.healer, AreaType.target, CompanyType.uas, 1);
         characterService.save("임호텝", DealType.ap, RoleType.healer, AreaType.target, CompanyType.ucl, 3);
     }
+
+    @GetMapping(value = "/goodsTest")
+    public String goodsTest(){
+       return "/home";
+    }
     @GetMapping(value = "/baseTest")
     public String createBaseTest(){
         characterService.save("전지", DealType.ad, RoleType.gunner, AreaType.area, CompanyType.cma, 5);
-
-        goodsService.GoodsStatusCharacter("전지","출력강화",1);
-        goodsService.GoodsStatusCharacter("전지","코어가속",2);
-        goodsService.GoodsStatusCharacter("전지","진형강화",3);
 
         goodsService.saveGoodsCharacter("전지","곰돌이 인형",1);
         goodsService.saveGoodsCharacter("전지","카툰 인형",1);
         goodsService.saveGoodsCharacter("전지","찐빵",1);
 
-        skillService.saveAllSkills("전지",SkillType.pas,"금상첨화","'일반공격이 대상에게 '꽃자수'를 부여한다."+
-                "'꽃자수': 표식이 터질 때 공격력의 [1]% X 스택 수 의 물리피해를 준다.","");
-        skillService.saveAllSkills("전지",SkillType.act,"화룡첨봉","'꽃무리' 상태가 된다. 지속 6초"+
-                "이 상태에서 일반공격은 3갈래 관통 공격이 되어, 경로상의 적에게"+
-                        "공격력 [1]% 물리피해를 준다. 스킬 종료 시 모든 '꽃자수' 표식을 터트린다.","");
-        skillService.saveAllSkills("전지",SkillType.ult,"건곤일침","'지정 방향으로 바늘을 던져, 범위 안에 적에게 총합 공격력 [1]% 물리피해를 준다."+
-                "'꽃무리' 상태에서 사용한 경우, '꽃무리' 지속시간이 4초 연장된다.","");
+        goodsService.GoodsStatusCharacter("전지","출력강화",1);
+        goodsService.GoodsStatusCharacter("전지","코어가속",2);
+        goodsService.GoodsStatusCharacter("전지","진형강화",3);
 
-        skillService.saveSkillLevels(1,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(2,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(3,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(4,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(5,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(6,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(7,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(8,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(9,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(10,"전지","금상첨화",0,0,0,0);
-        skillService.saveSkillLevels(1,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(2,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(3,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(4,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(5,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(6,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(7,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(8,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(9,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(10,"전지","화룡첨봉",0,0,0,0);
-        skillService.saveSkillLevels(1,"전지","건곤일침",0,0,0,0);
-        skillService.saveSkillLevels(2,"전지","건곤일침",0,0,0,0);
-        skillService.saveSkillLevels(3,"전지","건곤일침",0,0,0,0);
-        skillService.saveSkillLevels(4,"전지","건곤일침",0,0,0,0);
-        skillService.saveSkillLevels(5,"전지","건곤일침",0,0,0,0);
+        skillService.saveAllSkills("전지",SkillType.pas,"금상첨화","'일반공격이 대상에게 '꽃자수'를 부여한다. '꽃자수': 표식이 터질 때 공격력의 40% X 스택 수 의 물리피해를 준다.","");
+        skillService.saveAllSkills("전지",SkillType.act,"화룡첨봉","'꽃무리' 상태가 된다. 지속 6초. 이 상태에서 일반공격은 3갈래 관통 공격이 되어, 경로상의 적에게 공격력 120% 물리피해를 준다. 스킬 종료 시 모든 '꽃자수' 표식을 터트린다.","");
+        skillService.saveAllSkills("전지",SkillType.ult,"건곤일침","'지정 방향으로 바늘을 던져, 범위 안에 적에게 총합 공격력 800% 물리피해를 준다. '꽃무리' 상태에서 사용한 경우, '꽃무리' 지속시간이 4초 연장된다.","");
 
         algorithmService.saveAlgorithm("전지",AlgorithmType.atk,"이질 회귀","공격력 퍼센트","피해량 증가","공격력 퍼센트");
         algorithmService.saveAlgorithm("전지",AlgorithmType.def,"코드압축","체력 퍼센트","공격력","치명타 확률");
@@ -320,73 +280,17 @@ public class basicDataController {
         algorithmService.saveSetAlgorithm("게임론", AlgorithmType.spc, "회피 +8%", "");
         algorithmService.saveSetAlgorithm("집속", AlgorithmType.spc, "치명률 +10%", "");
 
-        goodsService.saveGoodsStatus("출력강화", "공격력 [] 상승");
-        goodsService.saveGoodsStatus("코어가속", "충전속도 []% 상승");
-        goodsService.saveGoodsStatus("진형강화", "모든 피해량[]% 상승");
-        goodsService.saveGoodsStatus("멘탈활성", "연상력 [] 상승");
-        goodsService.saveGoodsStatus("코드안정", "체력 [] 상승");
-        goodsService.saveGoodsStatus("협력강타", "치명률 []% 상승");
-        goodsService.saveGoodsStatus("필승격려", "치명타 피해 []% 상승");
-        goodsService.saveGoodsStatus("우정방패", "방어력 [] 상승");
-        goodsService.saveGoodsStatus("어깨동무", "피해차감 []% 상승");
-        goodsService.saveGoodsStatus("치유연대", "치유량 []% 상승");
-        goodsService.saveGoodsStatus("상호엄호", "회피율 []% 상승");
-
-        goodsService.saveGoodsStatusLevel("출력강화", 1, 7);
-        goodsService.saveGoodsStatusLevel("출력강화", 2, 16);
-        goodsService.saveGoodsStatusLevel("출력강화", 3, 27);
-        goodsService.saveGoodsStatusLevel("출력강화", 4, 40);
-        goodsService.saveGoodsStatusLevel("출력강화", 5, 55);
-        goodsService.saveGoodsStatusLevel("코어가속", 1, 1);
-        goodsService.saveGoodsStatusLevel("코어가속", 2, 2.5);
-        goodsService.saveGoodsStatusLevel("코어가속", 3, 4);
-        goodsService.saveGoodsStatusLevel("코어가속", 4, 6);
-        goodsService.saveGoodsStatusLevel("코어가속", 5, 8);
-        goodsService.saveGoodsStatusLevel("진형강화", 1, 0.5);
-        goodsService.saveGoodsStatusLevel("진형강화", 2, 1);
-        goodsService.saveGoodsStatusLevel("진형강화", 3, 2);
-        goodsService.saveGoodsStatusLevel("진형강화", 4, 3.5);
-        goodsService.saveGoodsStatusLevel("진형강화", 5, 5);
-        goodsService.saveGoodsStatusLevel("멘탈활성", 1, 7);
-        goodsService.saveGoodsStatusLevel("멘탈활성", 2, 16);
-        goodsService.saveGoodsStatusLevel("멘탈활성", 3, 27);
-        goodsService.saveGoodsStatusLevel("멘탈활성", 4, 40);
-        goodsService.saveGoodsStatusLevel("멘탈활성", 5, 55);
-        goodsService.saveGoodsStatusLevel("코드안정", 1, 170);
-        goodsService.saveGoodsStatusLevel("코드안정", 2, 380);
-        goodsService.saveGoodsStatusLevel("코드안정", 3, 650);
-        goodsService.saveGoodsStatusLevel("코드안정", 4, 960);
-        goodsService.saveGoodsStatusLevel("코드안정", 5, 1320);
-        goodsService.saveGoodsStatusLevel("협력강타", 1, 1);
-        goodsService.saveGoodsStatusLevel("협력강타", 2, 2.5);
-        goodsService.saveGoodsStatusLevel("협력강타", 3, 4);
-        goodsService.saveGoodsStatusLevel("협력강타", 4, 6);
-        goodsService.saveGoodsStatusLevel("협력강타", 5, 8);
-        goodsService.saveGoodsStatusLevel("필승격려", 1, 1.5);
-        goodsService.saveGoodsStatusLevel("필승격려", 2, 3.5);
-        goodsService.saveGoodsStatusLevel("필승격려", 3, 6);
-        goodsService.saveGoodsStatusLevel("필승격려", 4, 8.5);
-        goodsService.saveGoodsStatusLevel("필승격려", 5, 12);
-        goodsService.saveGoodsStatusLevel("우정방패", 1, 7);
-        goodsService.saveGoodsStatusLevel("우정방패", 2, 16);
-        goodsService.saveGoodsStatusLevel("우정방패", 3, 27);
-        goodsService.saveGoodsStatusLevel("우정방패", 4, 40);
-        goodsService.saveGoodsStatusLevel("우정방패", 5, 55);
-        goodsService.saveGoodsStatusLevel("어깨동무", 1, 0.5);
-        goodsService.saveGoodsStatusLevel("어깨동무", 2, 1);
-        goodsService.saveGoodsStatusLevel("어깨동무", 3, 2);
-        goodsService.saveGoodsStatusLevel("어깨동무", 4, 3.5);
-        goodsService.saveGoodsStatusLevel("어깨동무", 5, 5);
-        goodsService.saveGoodsStatusLevel("치유연대", 1, 0.5);
-        goodsService.saveGoodsStatusLevel("치유연대", 2, 1);
-        goodsService.saveGoodsStatusLevel("치유연대", 3, 2);
-        goodsService.saveGoodsStatusLevel("치유연대", 4, 3.5);
-        goodsService.saveGoodsStatusLevel("치유연대", 5, 5);
-        goodsService.saveGoodsStatusLevel("상호엄호", 1, 1);
-        goodsService.saveGoodsStatusLevel("상호엄호", 2, 2.5);
-        goodsService.saveGoodsStatusLevel("상호엄호", 3, 4);
-        goodsService.saveGoodsStatusLevel("상호엄호", 4, 6);
-        goodsService.saveGoodsStatusLevel("상호엄호", 5, 8);
+        goodsService.saveGoodsStatus("출력강화", "공격력 55 상승");
+        goodsService.saveGoodsStatus("코어가속", "충전속도 8% 상승");
+        goodsService.saveGoodsStatus("진형강화", "모든 피해량 5% 상승");
+        goodsService.saveGoodsStatus("멘탈활성", "연상력 55 상승");
+        goodsService.saveGoodsStatus("코드안정", "체력 1320 상승");
+        goodsService.saveGoodsStatus("협력강타", "치명률 8% 상승");
+        goodsService.saveGoodsStatus("필승격려", "치명타 피해 12% 상승");
+        goodsService.saveGoodsStatus("우정방패", "방어력 55 상승");
+        goodsService.saveGoodsStatus("어깨동무", "피해차감 5% 상승");
+        goodsService.saveGoodsStatus("치유연대", "치유량 5% 상승");
+        goodsService.saveGoodsStatus("상호엄호", "회피율 8% 상승");
 
         goodsService.saveAllGoods("찐빵", 1, 20, 12, 16);
         goodsService.saveAllGoods("패스트푸드", 1, 20, 12, 16);
@@ -404,14 +308,14 @@ public class basicDataController {
         goodsService.saveAllGoods("카툰 인형", 2, 50, 30, 40);
         goodsService.saveAllGoods("보틀셔틀", 2, 50, 30, 40);
         goodsService.saveAllGoods("컴뱃 나이프", 2, 50, 30, 40);
-        goodsService.saveAllGoods("찐빵 한박스", 3, 125, 100, 75);
-        goodsService.saveAllGoods("커플 세트", 3, 125, 100, 75);
-        goodsService.saveAllGoods("디럭스 케익", 3, 125, 100, 75);
-        goodsService.saveAllGoods("커피", 3, 125, 100, 75);
-        goodsService.saveAllGoods("티타임 세트", 3, 125, 100, 75);
-        goodsService.saveAllGoods("곰돌이 인형", 3, 125, 100, 75);
-        goodsService.saveAllGoods("프라모델", 3, 125, 100, 75);
-        goodsService.saveAllGoods("소장용 명검", 3, 125, 100, 75);
+        goodsService.saveAllGoods("찐빵 한박스", 3, 125, 75, 100);
+        goodsService.saveAllGoods("커플 세트", 3, 125, 75, 100);
+        goodsService.saveAllGoods("디럭스 케익", 3, 125, 75, 100);
+        goodsService.saveAllGoods("커피", 3, 125, 75, 100);
+        goodsService.saveAllGoods("티타임 세트", 3, 125, 75, 100);
+        goodsService.saveAllGoods("곰돌이 인형", 3, 125, 75, 100);
+        goodsService.saveAllGoods("프라모델", 3, 125, 75, 100);
+        goodsService.saveAllGoods("소장용 명검", 3, 125, 75, 100);
 
         return "/home";
     }

@@ -22,10 +22,6 @@ public class GoodsStatus extends DefaultEntity {
     private String name;
     private String status;
 
-    @OneToMany(mappedBy = "goodsStatus")
-    @ToString.Exclude
-    private List<GoodsStatusLevel> goodsStatusLevelList;
-
 
     @Builder
     public GoodsStatus(String name , String status){

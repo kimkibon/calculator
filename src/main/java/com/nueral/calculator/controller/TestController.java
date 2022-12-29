@@ -1,9 +1,9 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.AllCharactersDto;
+import com.nueral.calculator.dto.character.AllCharactersDto;
 import com.nueral.calculator.dto.UserSaveDto;
 import com.nueral.calculator.entity.Characters;
-import com.nueral.calculator.service.CharacterService;
+import com.nueral.calculator.dto.character.CharacterService;
 import com.nueral.calculator.service.UserService;
 import com.nueral.calculator.service.needExp.NeedExpService;
 import com.nueral.calculator.service.skill.SkillSaveService;
@@ -27,20 +27,6 @@ public class TestController {
     @Autowired
     private NeedExpService expService;
 
-
-    @GetMapping(value = "/test/insert")
-    @ResponseBody
-    public Characters find(){
-        Characters characters = characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab,1);
-        System.out.println("insert character---------------------------------------------------------------------------------------------");
-        skillService.saveAllSkills("수춘", SkillType.pas,"치유의 녹색","","");
-        System.out.println("insert skill-------------------------------------------------------------------------------------------------");
-        skillService.saveSkillLevels(1,"수춘","치유의 녹색",1,1,1,1	);
-        System.out.println("insert skillLevel---------------------------------------------------------------------------------------------");
-        System.out.println(characters.toString());
-
-        return characters;
-    }
 
     @GetMapping(value = "/test/allCharacters")
     @ResponseBody

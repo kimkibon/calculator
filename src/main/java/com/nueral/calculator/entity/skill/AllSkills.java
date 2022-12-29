@@ -32,10 +32,6 @@ public class AllSkills extends DefaultEntity {
     private String explain;
     private String effect;
 
-    @OneToMany(mappedBy = "allSkills")
-    @ToString.Exclude
-    private List<SkillLevels> skillLevelsList;
-
 
     @Builder
     public AllSkills(

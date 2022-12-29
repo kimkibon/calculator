@@ -16,8 +16,6 @@ public class GoodsService {
     @Autowired
     private GoodsStatusRepository goodsStatusRepository;
     @Autowired
-    private GoodsStatusLevelRepository goodsStatusLevelRepository;
-    @Autowired
     private GoodsStatusCharacterRepository goodsStatusCharacterRepository;
     @Autowired
     private CharacterRepository characterRepository;
@@ -47,19 +45,6 @@ public class GoodsService {
 
     }
 
-    public void saveGoodsStatusLevel(String goodsStatusName , int statusLevel , double status){
-
-        GoodsStatus goodsStatus = goodsStatusRepository.findByName(goodsStatusName);
-
-        GoodsStatusLevel goodsStatusLevel = GoodsStatusLevel.builder()
-                .goodsStatus(goodsStatus)
-                .statusLevel(statusLevel)
-                .status(status)
-                .build();
-
-        goodsStatusLevelRepository.save(goodsStatusLevel);
-    }
-
     public void saveGoodsCharacter(String characterName, String GoodsName, int goodsLike){
         Characters characters = characterRepository.findByName(characterName).get();
         AllGoods allGoods = allGoodsRepository.name(GoodsName);
@@ -70,11 +55,12 @@ public class GoodsService {
             like = false;
         }
 
-        GoodsCharacter.builder()
+        GoodsCharacter goodsCharacter = GoodsCharacter.builder()
                 .goodsLike(like)
                 .allGoods(allGoods)
                 .characters(characters)
                 .build();
+        goodsCharacterRepository.save(goodsCharacter);
     }
 
     public void GoodsStatusCharacter(String characterName, String goodsStatusName , int statusLevel){

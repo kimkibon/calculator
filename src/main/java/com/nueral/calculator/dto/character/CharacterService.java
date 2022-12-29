@@ -1,7 +1,5 @@
-package com.nueral.calculator.service;
+package com.nueral.calculator.dto.character;
 
-import com.nueral.calculator.dto.AllCharactersDto;
-import com.nueral.calculator.dto.CharacterInfoDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.algorithm.AlgorithmRepository;
@@ -65,5 +63,10 @@ public class CharacterService {
 
         characterRepository.saveAndFlush(characters);
         return characters;
+    }
+
+    public void saveByDto(CharacterSaveDto characterSaveDto){
+        Characters characters = new Characters(characterSaveDto);
+        characterRepository.save(characters);
     }
 }

@@ -1,7 +1,7 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.CharacterInfoDto;
-import com.nueral.calculator.service.CharacterService;
+import com.nueral.calculator.dto.character.CharacterInfoDto;
+import com.nueral.calculator.dto.character.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

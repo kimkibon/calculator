@@ -27,11 +27,11 @@
 
       let buyPiece = 0;
 
-      if(document.getElementById('buyPiece').value == '' || document.getElementById('buyPiece').value == undefined){
+      if (document.getElementById('buyPiece').value == '' || document.getElementById('buyPiece').value == undefined) {
         buyPiece = 0;
       } else {
-       buyPiece = parseInt(document.getElementById('buyPiece').value);
-       }
+        buyPiece = parseInt(document.getElementById('buyPiece').value);
+      }
 
       const skillExpList = starExp.slice(minStarLevel, maxStarLevel);
 
@@ -39,7 +39,7 @@
         return parseInt(sum) + parseInt(currValue.exp);
       }, 0);
 
-      if(buyPiece > parseInt(resultExp)){
+      if (buyPiece > parseInt(resultExp)) {
         document.getElementById('buyPiece').value = resultExp;
       }
 
@@ -51,20 +51,20 @@
 
       let needPiece = 0;
 
-      for(i = buyPiece; i < parseInt(resultExp); i++){
-        if(i <= 25){
+      for (i = buyPiece; i < parseInt(resultExp); i++) {
+        if (i <= 25) {
           needPiece += 5;
-        } else if(i > 25 && i <= 50){
+        } else if (i > 25 && i <= 50) {
           needPiece += 10;
-        } else if(i > 50 && i <= 75){
+        } else if (i > 50 && i <= 75) {
           needPiece += 15;
-        } else if(i > 75 && i <= 100){
+        } else if (i > 75 && i <= 100) {
           needPiece += 20
-        } else if(i > 100){
+        } else if (i > 100) {
           needPiece += 25
         }
       }
-        document.getElementById('needPiece').innerText = needPiece;
+      document.getElementById('needPiece').innerText = needPiece;
 
     }
 
@@ -77,48 +77,49 @@
       <tr>
         <th>
           <div class="input-group">
-          <span class="input-group-text">
-            기초 성급
-          </span>
-          <select class="form-control" style="width:130px;" id="minStarLevel" onChange="changeStarLevel()">
-            <option value="1">★</option>
-            <option value="2">★☆</option>
-            <option value="3">★★</option>
-            <option value="4">★★☆</option>
-            <option value="5">★★★</option>
-            <option value="6">★★★☆</option>
-            <option value="7">★★★★</option>
-            <option value="8">★★★★☆</option>
-            <option value="9">★★★★★</option>
-          </select>
+            <span class="input-group-text">
+              기초 성급
+            </span>
+            <select class="form-control" style="width:130px;" id="minStarLevel" onChange="changeStarLevel()">
+              <option value="1">★</option>
+              <option value="2">★☆</option>
+              <option value="3">★★</option>
+              <option value="4">★★☆</option>
+              <option value="5">★★★</option>
+              <option value="6">★★★☆</option>
+              <option value="7">★★★★</option>
+              <option value="8">★★★★☆</option>
+              <option value="9">★★★★★</option>
+            </select>
           </div>
         </th>
         <th>
           <div class="input-group">
-          <span class="input-group-text"> 목표 성급 </span>
-          <select class="form-control" style="width:130px;" id="maxStarLevel" onChange="changeStarLevel()">
-            <option value="1">★</option>
-            <option value="2">★☆</option>
-            <option value="3">★★</option>
-            <option value="4">★★☆</option>
-            <option value="5">★★★</option>
-            <option value="6">★★★☆</option>
-            <option value="7">★★★★</option>
-            <option value="8">★★★★☆</option>
-            <option value="9">★★★★★</option>
-          </select>
+            <span class="input-group-text"> 목표 성급 </span>
+            <select class="form-control" style="width:130px;" id="maxStarLevel" onChange="changeStarLevel()">
+              <option value="1">★</option>
+              <option value="2">★☆</option>
+              <option value="3">★★</option>
+              <option value="4">★★☆</option>
+              <option value="5">★★★</option>
+              <option value="6">★★★☆</option>
+              <option value="7">★★★★</option>
+              <option value="8">★★★★☆</option>
+              <option value="9">★★★★★</option>
+            </select>
           </div>
         </th>
       <tr>
         <td>
           <div class="input-group">
             <span class="input-group-text"> 구입 조각 </span>
-            <input class="form-control" style="width:130px;" type="number" id="buyPiece" oninput="changeStarLevel()" value="0"/>
+            <input class="form-control" style="width:50px;" type="number" id="buyPiece" oninput="changeStarLevel()"
+              value="0" />
           </div>
         </td>
         <td>
           <div class="input-group">
-            <span class="input-group-text"> 필요 파편 </span><span class="form-control" id="needPiece">0</span>
+            <span class="input-group-text"> 필요 파편 </span><span class="form-control" id="needPiece" readonly>0</span>
           </div>
         </td>
       </tr>
@@ -129,7 +130,7 @@
     <thead>
     </thead>
     <tbody>
-      <tr>
+      <tr class="table-active">
         <th>필요 조각</th>
         <th>최소 시간</th>
         <th>평균 시간</th>
@@ -137,7 +138,7 @@
       </tr>
       <tr>
         <td>
-          <p id="resultStarExp">0
+          <p id="resultStarExp">0</p>
         </td>
         <td>
           <p id="minDate">0</p>

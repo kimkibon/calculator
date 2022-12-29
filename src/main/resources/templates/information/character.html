@@ -11,25 +11,20 @@
 <th:block layout:fragment="script">
   <script th:inline="javascript">
         const character = /*[[${character}]]*/;
-        const skills = character.characterSkillsDtoList;
-        const pasSkillLevel = skills[0].skillLevelDtoList;
-        const actSkillLevel = skills[1].skillLevelDtoList;
-        const ultSkillLevel = skills[2].skillLevelDtoList;
 
         document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([1],pasSkillLevel[pasSkillLevel.length].status1);
-        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([1],pasSkillLevel[actSkillLevel.length].status1);
-        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([1],pasSkillLevel[ultSkillLevel.length].status1);
-        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([2],pasSkillLevel[pasSkillLevel.length].status2);
-        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([2],pasSkillLevel[actSkillLevel.length].status2);
-        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([2],pasSkillLevel[ultSkillLevel.length].status2);
-        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([3],pasSkillLevel[pasSkillLevel.length].status3);
-        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([3],pasSkillLevel[actSkillLevel.length].status3);
-        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([3],pasSkillLevel[ultSkillLevel.length].status3);
-        document.getElementById(character.characterSkillsDtoList[0].skillName).innerText = skills[0].explain.replace([4],pasSkillLevel[pasSkillLevel.length].status4);
-        document.getElementById(character.characterSkillsDtoList[1].skillName).innerText = skills[1].explain.replace([4],pasSkillLevel[actSkillLevel.length].status4);
-        document.getElementById(character.characterSkillsDtoList[2].skillName).innerText = skills[2].explain.replace([4],pasSkillLevel[ultSkillLevel.length].status4);
+        defaultStarSet()
       });
+      function defaultStarSet(){
+      switch(character.defaultStar){
+          case 1: document.getElementById('star').innerText = '★'
+          break;
+          case 3: document.getElementById('star').innerText = '★★'
+          break;
+          case 5: document.getElementById('star').innerText = '★★★'
+          break;
+        }
+      }
     </script>
   <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
@@ -45,100 +40,106 @@
         <tbody>
         <tr>
           <th class="table-active">name</th>
-          <td><p th:text="${character.characterName}"></p></td>
+          <td><span th:text="${character.characterName}"></span></td>
           <th class="table-active">
-            <p>company</p>
+            <span>company</span>
           </th>
-          <td><p th:text="${character.companyType}"></p></td>
+          <td><span th:text="${character.companyType}"></span></td>
         </tr>
         <tr>
           <th class="table-active">
-            <p>class</p>
+            <span>class</span>
           </th>
-          <td><p th:text="${character.roleType}"></p></td>
+          <td><span th:text="${character.roleType}"></span></td>
           <th class="table-active">
-            <p>star</p>
+            <span>star</span>
           </th>
-          <td><p th:text="${character.defaultStar}"></p></td>
+          <td><span th:id="star" th:text="${character.defaultStar}"></span></td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="row m-5">
-    <thead>
-    <table class="table table-border">
+    <div class="col">
+    <table class="table table-border" onclick="skillLevelSelect()">
+      <thead>
       <tr>
-        <th class="table-active"><p>type</p></th>
-        <th class="table-active"><p>skill name</p></th>
-        <th class="table-active"><p>skill effect</p></th>
-        <th class="table-active"><p>sub effect</p></th>
+        <th class="table-active"><span>type</span></th>
+        <th class="table-active"><span>skill name</span></th>
+        <th class="table-active"><span>skill effect</span></th>
+        <th class="table-active"><span>sub effect</span></th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="skills : ${character.characterSkillsDtoList}">
-        <td class="text-break" style="width: 1rem;" th:id="${skills?.skillType}"><p th:text="${skills?.skillType}"></p></td>
-        <td class="text-break" style="width: 2rem;"><p th:text="${skills?.skillName}"></p></td>
-        <td class="text-break" style="width: 16rem;"><p th:id="${skills.skillName}" th:text="${skills?.explain}"></p></td>
-        <td class="text-break" style="width: 6rem;"><p th:text="${skills?.effect}"></p></td>
+        <td class="text-break" style="width: 1rem;" th:id="${skills?.skillType}"><span th:text="${skills?.skillType}"></span></td>
+        <td class="text-break" style="width: 2rem;"><span th:text="${skills?.skillName}"></span></td>
+        <td class="text-break" style="width: 16rem;"><span th:id="${skills.skillName}" th:text="${skills.explain}"></span></td>
+        <td class="text-break" style="width: 6rem;"><span th:text="${skills?.effect}"></span></td>
       </tr>
       </tbody>
     </table>
+    </div>
   </div>
   <div class="row m-5">
+    <div class="col">
     <table class="table table-border">
       <thead>
       <tr>
-        <th class="table-active"><p>아이템</p></th>
-        <th class="table-active"><p>선호도</p></th>
-        <th class="table-active"><p>티어</p></th>
+        <th class="table-active"><span>아이템</span></th>
+        <th class="table-active"><span>선호도</span></th>
+        <th class="table-active"><span>티어</span></th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="goods : ${character.goodsCharacterDtoList}" >
-        <td class="text-break"><p th:text="${goods.goodsName}"></p></td>
-        <td class="text-break"><p th:if="${goods.goodsLike}">좋아함</p>
-          <p th:if="${!goods.goodsLike}">싫어함</p></td>
-        <td class="text-break"><p th:text="${goods.goodsLevel}"></p></td>
+        <td class="text-break"><span th:text="${goods.goodsName}"></span></td>
+        <td class="text-break"><span th:if="${goods.goodsLike}">좋아함</span>
+          <span th:if="${!goods.goodsLike}">싫어함</span></td>
+        <td class="text-break"><span th:text="${goods.goodsLevel}"></span></td>
       </tr>
       </tbody>
     </table>
-  </div>
-  <div class="row m-5">
+    </div>
+    <div class="col">
     <table class="table table-border">
       <tbody>
       <tr>
-        <th class="table-active"><p>능력치</p></th>
-        <th class="table-active"><p>스탯</p></th>
+        <th class="table-active"><span>능력치</span></th>
+        <th class="table-active"><span>스탯</span></th>
       </tr>
       <tr th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
-        <td class="text-break"><p th:text="${goodsStatus?.statusName}"></p></td>
-        <td class="text-break"><p th:text="${goodsStatus?.status}"></p></td>
+        <td class="text-break"><span th:id="${goodsStatus?.statusName}" th:text="${goodsStatus?.statusName}"></span></td>
+        <td class="text-break"><span th:text="${goodsStatus?.status}"></span></td>
       </tr>
       </tbody>
     </table>
   </div>
+  </div>
   <div class="row m-5">
+    <div class="col">
     <table class="table table-border">
       <thead>
       <tr>
-        <th class="table-active"><p>타입</p></th>
-        <th class="table-active"><p>세트</p></th>
-        <th class="table-active"><p>세트옵션</p></th>
-        <th class="table-active"><p>메인옵션</p></th>
-        <th class="table-active"><p>서브옵션</p></th>
+        <th class="table-active"><span>타입</span></th>
+        <th class="table-active"><span>세트</span></th>
+        <th class="table-active"><span>세트옵션</span></th>
+        <th class="table-active"><span>메인옵션</span></th>
+        <th class="table-active"><span>서브옵션</span></th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="algorithm : ${character.characterAlgorithmDtoList}">
-        <td class="text-break"><p th:text="${algorithm?.algorithmType}"></p></td>
-        <td class="text-break"><p th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></p></td>
-        <td class="text-break"><p th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></p><p th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></p></td>
-        <td class="text-break"><p th:text="${algorithm?.mainOpt}"></p></td>
-        <td class="text-break"><p th:text="${algorithm?.subOpt1}"></p><p th:text="${algorithm?.subOpt2}"></p></td>
+        <td class="text-break"><span th:text="${algorithm?.algorithmType}"></span></td>
+        <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></span></td>
+        <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></span><br><span th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></span></td>
+        <td class="text-break"><span th:text="${algorithm?.mainOpt}"></span></td>
+        <td class="text-break"><span th:text="${algorithm?.subOpt1}"></span><br><span th:text="${algorithm?.subOpt2}"></span></td>
       </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </div>
 </div>

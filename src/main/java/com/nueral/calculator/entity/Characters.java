@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.friendship.GoodsCharacter;
 import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;
@@ -69,6 +69,15 @@ public class Characters extends DefaultEntity{
         this.areaType = areaType;
         this.defaultStar = defaultStar;
         this.companyType = companyType;
+    }
+
+    public Characters(CharacterSaveDto characterSaveDto){
+        this.name = characterSaveDto.getCharacterName();
+        this.dealType = DealType.valueOf(characterSaveDto.getDealType());
+        this.roleType = RoleType.valueOf(characterSaveDto.getRoleType());
+        this.areaType = AreaType.valueOf(characterSaveDto.getAreaType());
+        this.defaultStar = characterSaveDto.getDefaultStar();
+        this.companyType = CompanyType.valueOf(characterSaveDto.getCompanyType());
     }
 
 }

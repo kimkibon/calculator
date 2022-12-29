@@ -4,7 +4,6 @@ import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.friendship.AllGoods;
 import com.nueral.calculator.entity.friendship.GoodsStatus;
 import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;
-import com.nueral.calculator.entity.friendship.GoodsStatusLevel;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.friendship.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ public class GoodsService {
     private GoodsCharacterRepository goodsCharacterRepository;
     @Autowired
     private GoodsStatusRepository goodsStatusRepository;
-    @Autowired
-    private GoodsStatusLevelRepository goodsStatusLevelRepository;
     @Autowired
     private GoodsStatusCharacterRepository goodsStatusCharacterRepository;
     @Autowired
@@ -51,19 +48,6 @@ public class GoodsService {
 
         goodsStatusRepository.save(goodsStatus);
 
-    }
-
-    public void saveGoodsStatusLevel(String goodsStatusName , int statusLevel , double status){
-
-        GoodsStatus goodsStatus = goodsStatusRepository.findByName(goodsStatusName);
-
-        GoodsStatusLevel goodsStatusLevel = GoodsStatusLevel.builder()
-                .goodsStatus(goodsStatus)
-                .statusLevel(statusLevel)
-                .status(status)
-                .build();
-
-        goodsStatusLevelRepository.save(goodsStatusLevel);
     }
 
     public void GoodsStatusCharacter(String characterName, String goodsStatusName , int statusLevel){
