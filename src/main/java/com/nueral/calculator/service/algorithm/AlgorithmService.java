@@ -1,5 +1,6 @@
 package com.nueral.calculator.service.algorithm;
 
+import com.nueral.calculator.dto.save.AlgorithmSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.algorithm.MainAlgorithm;
@@ -50,6 +51,14 @@ public class AlgorithmService {
 
         algorithmRepository.save(algorithm);
 
+    }
+
+    public void saveAlgorithmBtDto(AlgorithmSaveDto algorithmSaveDto){
+        Characters characters = characterRepository.findByName(algorithmSaveDto.getCharacterName()).orElseThrow();
+
+        Algorithm algorithm = Algorithm.builder()
+                .build();
+//To do;
     }
 
     public void saveMainAlgorithm(AlgorithmType algorithmType , String mainOpt){

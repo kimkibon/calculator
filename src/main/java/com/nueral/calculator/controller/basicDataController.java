@@ -1,7 +1,7 @@
 package com.nueral.calculator.controller;
 
 import com.nueral.calculator.service.AuthKey.AuthKeyService;
-import com.nueral.calculator.dto.character.CharacterService;
+import com.nueral.calculator.service.characterService.CharacterService;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
 import com.nueral.calculator.service.friendship.GoodsService;
 import com.nueral.calculator.service.needExp.NeedExpService;

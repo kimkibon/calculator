@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +21,7 @@ public class AllSkills extends DefaultEntity {
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
     @JoinColumn(name = "CHARACTER_NAME" , referencedColumnName ="CHARACTER_NAME")
+    @ToString.Exclude
     private Characters characters;
 
     @Enumerated(EnumType.STRING)
@@ -31,6 +31,10 @@ public class AllSkills extends DefaultEntity {
     private String skillName;
     private String explain;
     private String effect;
+
+    public void setCharacters(Characters characters) {
+        this.characters = characters;
+    }
 
 
     @Builder

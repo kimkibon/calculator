@@ -1,11 +1,10 @@
-package com.nueral.calculator.dto.character;
+package com.nueral.calculator.service.characterService;
 
+import com.nueral.calculator.dto.character.AllCharactersDto;
+import com.nueral.calculator.dto.character.CharacterInfoDto;
+import com.nueral.calculator.dto.save.CharacterSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
-import com.nueral.calculator.repository.algorithm.AlgorithmRepository;
-import com.nueral.calculator.repository.friendship.GoodsCharacterRepository;
-import com.nueral.calculator.repository.friendship.GoodsStatusCharacterRepository;
-import com.nueral.calculator.repository.skill.AllSkillsRepository;
 import com.nueral.calculator.types.AreaType;
 import com.nueral.calculator.types.CompanyType;
 import com.nueral.calculator.types.DealType;
@@ -21,31 +20,18 @@ import java.util.stream.Collectors;
 public class CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
-    @Autowired
-    private AllSkillsRepository allSkillsRepository;
-    @Autowired
-    private GoodsCharacterRepository goodsCharacterRepository;
-    @Autowired
-    private AlgorithmRepository algorithmRepository;
-    @Autowired
-    private GoodsStatusCharacterRepository goodsStatusCharacterRepository;
-
 
     public CharacterInfoDto findCharacterInfo(String name){
 
         Characters characters = characterRepository.findByName(name).orElse(new Characters());
 
-        CharacterInfoDto characterInfoDto = new CharacterInfoDto(characters);
-
-        return characterInfoDto;
+        return new CharacterInfoDto(characters);
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){
         List<Characters> charactersList = characterRepository.findAll(Sort.by(Sort.Direction.DESC, "defaultStar"));
-        List<AllCharactersDto> characterInfoDtoList =
-        charactersList.stream().map(AllCharactersDto::new).collect(Collectors.toList());
 
-        return characterInfoDtoList;
+        return charactersList.stream().map(AllCharactersDto::new).collect(Collectors.toList());
     }
 
     public Characters save(

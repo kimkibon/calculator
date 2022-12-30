@@ -1,5 +1,6 @@
 package com.nueral.calculator.service.skill;
 
+import com.nueral.calculator.dto.save.AllSkillsSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.repository.CharacterRepository;
@@ -31,6 +32,20 @@ public class SkillSaveService {
 
         allSkillsRepository.save(allSkills);
 
+    }
+
+    public void saveAllSkillsByDto(AllSkillsSaveDto allSkillsSaveDto){
+        Characters characters = characterRepository.findByName(allSkillsSaveDto.getCharacterName()).orElseThrow();
+
+        AllSkills allSkills = AllSkills.builder()
+                .characters(characters)
+                .skillType(SkillType.valueOf(allSkillsSaveDto.getSkillName()))
+                .skillName(allSkillsSaveDto.getSkillName())
+                .explain(allSkillsSaveDto.getExplain())
+                .explain(allSkillsSaveDto.getEffect())
+                .build();
+
+        allSkillsRepository.save(allSkills);
     }
 
 }
