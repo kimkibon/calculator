@@ -80,7 +80,7 @@
             <span class="input-group-text">
               기초 성급
             </span>
-            <select class="form-control" style="width:130px;" id="minStarLevel" onChange="changeStarLevel()">
+            <select class="form-control" style="width:120px;" id="minStarLevel" onChange="changeStarLevel()">
               <option value="1">★</option>
               <option value="2">★☆</option>
               <option value="3">★★</option>
@@ -96,7 +96,7 @@
         <th>
           <div class="input-group">
             <span class="input-group-text"> 목표 성급 </span>
-            <select class="form-control" style="width:130px;" id="maxStarLevel" onChange="changeStarLevel()">
+            <select class="form-control" style="width:120px;" id="maxStarLevel" onChange="changeStarLevel()">
               <option value="1">★</option>
               <option value="2">★☆</option>
               <option value="3">★★</option>
@@ -113,13 +113,14 @@
         <td>
           <div class="input-group">
             <span class="input-group-text"> 구입 조각 </span>
-            <input class="form-control" style="width:50px;" type="number" id="buyPiece" oninput="changeStarLevel()"
+            <input class="form-control" style="width:120px;" type="number" id="buyPiece" oninput="changeStarLevel()"
               value="0" />
           </div>
         </td>
         <td>
           <div class="input-group">
-            <span class="input-group-text"> 필요 파편 </span><span class="form-control" id="needPiece" readonly>0</span>
+            <span class="input-group-text"> 필요 파편 </span>
+            <span style="width:120px;" class="form-control" id="needPiece" readonly>0</span>
           </div>
         </td>
       </tr>

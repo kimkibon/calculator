@@ -39,7 +39,7 @@ public class basicDataController {
 
 
     @GetMapping(value = "/baseCharacter")
-    public void createBaseCharacter() {
+    public String createBaseCharacter() {
         characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab, 3);
         characterService.save("이블린", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
         characterService.save("크로크", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
@@ -81,6 +81,7 @@ public class basicDataController {
         characterService.save("파나케이아", DealType.ap, RoleType.healer, AreaType.target, CompanyType.ucl, 3);
         characterService.save("초코", DealType.ap, RoleType.healer, AreaType.target, CompanyType.uas, 1);
         characterService.save("임호텝", DealType.ap, RoleType.healer, AreaType.target, CompanyType.ucl, 3);
+        return "/home";
     }
 
     @GetMapping(value = "/goodsTest")

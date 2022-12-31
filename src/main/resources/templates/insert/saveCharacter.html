@@ -14,7 +14,66 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-
+    <div class="row">
+        <form th:action="@{/insert/character}" method="post" th:object="${CharacterSaveDto}" enctype="multipart/form-data">
+        <div class="col col-md-auto">
+            <input type="file" name="file" accept="image/*">
+        </div>
+        <div class="col col-md-10">
+            <table class="table table-border">
+                <tbody class="input-group">
+                <tr>
+                    <th class="table-active">name</th>
+                    <td><input type="text" th:field="*{characterName}"></td>
+                    <th class="table-active">
+                        <span>company</span>
+                    </th>
+                    <td><select th:field="*{companyType}">
+                        <option th:value="'cma'" selected="selected">CYBER MEDIA</option>
+                        <option th:value="'sva'">SVAROG</option>
+                        <option th:value="'lab'">42LAB</option>
+                        <option th:value="'uas'">UNIVERSAL ANYTHING SERVICE</option>
+                        <option th:value="'ucl'">ULTIMATE COMPANY LIMITED</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <th class="table-active">
+                        <span>class</span>
+                    </th>
+                    <td><select th:field="*{roleType}">
+                    <option th:value="'depender'" selected="selected">수위</option>
+                    <option th:value="'gunner'">사수</option>
+                    <option th:value="'soldier'">전사</option>
+                    <option th:value="'healer'">치료사</option>
+                    <option th:value="'specialist'">해결사</option>
+                </select></td>
+                    <th class="table-active">
+                        <span>main stat</span>
+                    </th>
+                    <td><select th:field="*{dealType}">
+                        <option th:value="'ad'" selected="selected">물리</option>
+                        <option th:value="'ap'">연산</option>
+                        <option th:value="'al'">복합</option>
+                    </select></td>
+                    <th class="table-active">
+                        <span>area type</span>
+                    </th>
+                    <td><select th:field="*{areaType}">
+                    <option th:value="'target'" selected="selected">단일</option>
+                    <option th:value="'area'">범위</option>
+                </select></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button type="submit">저장</button> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </form>
+    </div>
 </div>
 
 </html>

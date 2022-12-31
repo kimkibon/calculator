@@ -17,6 +17,7 @@ spring:
     password: Pol20222022
     username: polstory
     url: jdbc:oracle:thin:@BasicKim?TNS_ADMIN=./src/main/resources/wallet
+#    url: jdbc:oracle:thin:@BasicKim?TNS_ADMIN=/mnt/hgfs/test/wallet
 
   jpa:
     hibernate:

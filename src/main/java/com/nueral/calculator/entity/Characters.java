@@ -4,6 +4,7 @@ import com.nueral.calculator.dto.save.CharacterSaveDto;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.friendship.GoodsCharacter;
 import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;
+import com.nueral.calculator.entity.images.Skins;
 import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.types.AreaType;
 import com.nueral.calculator.types.CompanyType;
@@ -43,6 +44,8 @@ public class Characters extends DefaultEntity{
 
     private int defaultStar;
 
+    private String profile;
+
     @OneToMany(mappedBy = "characters" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<AllSkills> allSkillsList;
@@ -59,16 +62,21 @@ public class Characters extends DefaultEntity{
     @ToString.Exclude
     private List<GoodsCharacter> goodsCharacterList;
 
+    @OneToMany(mappedBy = "characters" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Skins> skinsList;
+
     @Builder
     public Characters(
             String name, DealType dealType , RoleType roleType,
-            AreaType areaType , int defaultStar , CompanyType companyType ){
+            AreaType areaType , int defaultStar , CompanyType companyType , String profile){
         this.name = name;
         this.dealType = dealType;
         this.roleType = roleType;
         this.areaType = areaType;
         this.defaultStar = defaultStar;
         this.companyType = companyType;
+        this.profile = profile;
     }
 
     public Characters(CharacterSaveDto characterSaveDto){
@@ -78,6 +86,7 @@ public class Characters extends DefaultEntity{
         this.areaType = AreaType.valueOf(characterSaveDto.getAreaType());
         this.defaultStar = characterSaveDto.getDefaultStar();
         this.companyType = CompanyType.valueOf(characterSaveDto.getCompanyType());
+        this.profile = characterSaveDto.getProfile();
     }
 
 }

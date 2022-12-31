@@ -9,9 +9,11 @@ import com.nueral.calculator.types.AreaType;
 import com.nueral.calculator.types.CompanyType;
 import com.nueral.calculator.types.DealType;
 import com.nueral.calculator.types.RoleType;
+import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 public class CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
+    @Autowired
+    private FileUtil fileUtil;
 
     public CharacterInfoDto findCharacterInfo(String name){
 
@@ -45,13 +49,16 @@ public class CharacterService {
                 .companyType(companyType)
                 .areaType(areaType)
                 .defaultStar(defaultStar)
+                .profile("/image/character/profile/"+name+".png")
                 .build();
 
         characterRepository.saveAndFlush(characters);
         return characters;
     }
 
-    public void saveByDto(CharacterSaveDto characterSaveDto){
+    public void saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
+        String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(),"profile" , file);
+        characterSaveDto.setProfile(insertFile);
         Characters characters = new Characters(characterSaveDto);
         characterRepository.save(characters);
     }

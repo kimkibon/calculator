@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -31,9 +31,9 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-  <div class="row m-5">
-    <div class="col col-md-2">
-      <img th:src="${'/image/character/'+character.characterName+'.png'}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+  <div class="row">
+    <div class="col col-md-auto">
+      <img class="image-fluid" th:src="${character.profile}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
     </div>
     <div class="col col-md-10">
       <table class="table table-border">
@@ -56,13 +56,23 @@
           </th>
           <td><span th:id="star" th:text="${character.defaultStar}"></span></td>
         </tr>
+        <tr>
+          <th class="table-active">
+            <span>main stat</span>
+          </th>
+          <td><span th:text="${character.dealType}"></span></td>
+          <th class="table-active">
+            <span>area type</span>
+          </th>
+          <td><span th:text="${character.areaType}"></span></td>
+        </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="row m-5">
+  <div class="row">
     <div class="col">
-    <table class="table table-border" onclick="skillLevelSelect()">
+    <table class="table table-border">
       <thead>
       <tr>
         <th class="table-active"><span>type</span></th>
@@ -82,8 +92,8 @@
     </table>
     </div>
   </div>
-  <div class="row m-5">
-    <div class="col">
+  <div class="row">
+    <div class="col col-xl-6">
     <table class="table table-border">
       <thead>
       <tr>
@@ -102,7 +112,7 @@
       </tbody>
     </table>
     </div>
-    <div class="col">
+    <div class="col col-xl-6">
     <table class="table table-border">
       <tbody>
       <tr>
@@ -117,7 +127,7 @@
     </table>
   </div>
   </div>
-  <div class="row m-5">
+  <div class="row">
     <div class="col">
     <table class="table table-border">
       <thead>
@@ -141,6 +151,9 @@
     </table>
     </div>
   </div>
-</div>
+  <div class="row text-align-center" th:each="skin : ${character.skinDtoList}">
+    <span th:text="${skin.type}"></span>
+    <img class="image-fluid" th:src="${skin.stdName}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+  </div>
 </div>
 </html>

@@ -1,6 +1,7 @@
 package com.nueral.calculator.dto.save;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -14,4 +15,5 @@ public class CharacterSaveDto {
     private String areaType;
     private String companyType;
     private int defaultStar;
+    private String profile;
 }
