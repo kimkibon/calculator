@@ -10,31 +10,31 @@ public class CalculatorController {
 
     @Autowired
     private CalculatorService calculatorService;
-    @GetMapping(value = "calculator/skillExp")
+    @GetMapping(value = "/calculator/skillExp")
     public String skillExpList(Model model){
         model.addAttribute("skillExpList" , calculatorService.skillExpList());
         return "calculator/skillExp";
     }
 
-    @GetMapping(value = "calculator/exp")
+    @GetMapping(value = "/calculator/exp")
     public String expList(Model model){
         model.addAttribute("expList" , calculatorService.expList());
         return "calculator/exp";
     }
 
-    @GetMapping(value = "calculator/starExp")
+    @GetMapping(value = "/calculator/starExp")
     public String starExp(Model model){
         model.addAttribute("starExpList" , calculatorService.starExpList());
         return "calculator/starExp";
     }
 
-    @GetMapping(value = "calculator/goodsExp")
+    @GetMapping(value = "/calculator/goodsExp")
     public String goodsExp(Model model){
         model.addAttribute("goodsExpList" , calculatorService.goodsExpList());
         return "calculator/goodsExp";
     }
 
-    @GetMapping(value = "calculator/allExp")
+    @GetMapping(value = "/calculator/allExp")
     public String allExp(Model model){
         model.addAttribute("expList" , calculatorService.expList());
         model.addAttribute("skillExpList" , calculatorService.skillExpList());

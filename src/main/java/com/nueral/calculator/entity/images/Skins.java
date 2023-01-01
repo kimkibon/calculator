@@ -3,13 +3,15 @@ package com.nueral.calculator.entity.images;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.images.id.SkinsId;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @IdClass(SkinsId.class)
 public class Skins extends DefaultEntity {
@@ -24,7 +26,8 @@ public class Skins extends DefaultEntity {
     private String type;
 
     @Builder
-    public Skins(String stdName, String type){
+    public Skins(Characters characters, String stdName, String type){
+        this.characters = characters;
         this.stdName = stdName;
         this.type = type;
     }

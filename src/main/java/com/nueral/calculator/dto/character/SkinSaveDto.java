@@ -11,5 +11,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class SkinSaveDto {
     String characterName;
     String type;
-    MultipartFile multipartFile;
+    MultipartFile file;
 }

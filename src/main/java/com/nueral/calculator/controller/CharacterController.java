@@ -16,28 +16,28 @@ public class CharacterController {
     @Autowired
     private CharacterService characterService;
 
-    @GetMapping(value = "characterList")
+    @GetMapping(value = "/characterList")
     public String findCharacterList(Model model){
         model.addAttribute("characterList" , characterService.findAllCharacterInfo());
-        return "/information/characterList";
+        return "information/characterList";
     }
 
-    @GetMapping(value = "character")
+    @GetMapping(value = "/character")
     public String findCharacter(@RequestParam("name") String name, Model model){
         CharacterInfoDto characterInfoDto =
                 characterService.findCharacterInfo(name);
         model.addAttribute("character" , characterInfoDto);
 
-        return "/information/character";
+        return "information/character";
     }
 
-    @GetMapping(value = "characterTest")
+    @GetMapping(value = "/characterTest")
     public String findCharacterTest(@RequestParam("name") String name, Model model){
         CharacterInfoDto characterInfoDto =
                 characterService.findCharacterInfo(name);
         model.addAttribute("character" , characterInfoDto);
 
-        return "/test/characterTest";
+        return "test/characterTest";
     }
 
 }

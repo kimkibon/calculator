@@ -56,10 +56,20 @@ public class CharacterService {
         return characters;
     }
 
-    public void saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
+    public CharacterSaveDto beforeSave(String name){
+        Characters characters = characterRepository.findByName(name).orElse(new Characters());
+        return new CharacterSaveDto(characters);
+    }
+
+    public String saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
         String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(),"profile" , file);
         characterSaveDto.setProfile(insertFile);
         Characters characters = new Characters(characterSaveDto);
-        characterRepository.save(characters);
+        try {
+            characterRepository.save(characters);
+            return "/home";
+        } catch (Exception e){
+            return "/saveError";
+        }
     }
 }

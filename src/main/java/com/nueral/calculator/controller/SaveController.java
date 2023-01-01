@@ -22,21 +22,19 @@ public class SaveController {
     private SkinService skinService;
 
     @PostMapping("character")
-    public String saveCharacter(@ModelAttribute CharacterSaveDto characterSaveDto, @RequestParam("file")MultipartFile file) throws Exception {
-        System.out.println(characterSaveDto.toString());
-        characterService.saveByDto(characterSaveDto , file);
-        return "/home";
+    public String saveCharacterByDto(@ModelAttribute CharacterSaveDto characterSaveDto, @RequestParam("file") MultipartFile file) throws Exception {
+        return characterService.saveByDto(characterSaveDto , file);
     }
 
-    @GetMapping("saveCharacter")
-    public String saveCharacterPro(Model model) throws Exception {
-        model.addAttribute("CharacterSaveDto", new CharacterSaveDto());
-        return "/insert/saveCharacter";
+    @GetMapping("/saveCharacter")
+    public String saveCharacterPro(@RequestParam("name")String name , Model model) {
+        CharacterSaveDto characterSaveDto = characterService.beforeSave(name);
+        model.addAttribute("CharacterSaveDto", characterSaveDto);
+        return "insert/saveCharacter";
     }
 
-    @PostMapping("skins")
-    public String saveSkins(@ModelAttribute List<SkinSaveDto> skinDtoList) throws Exception {
-        skinService.saveSkins(skinDtoList);
-        return "/home";
+    @PostMapping("/skins")
+    public String saveSkins(@ModelAttribute List<SkinSaveDto> skinDtoList) {
+        return skinService.saveSkins(skinDtoList);
     }
 }

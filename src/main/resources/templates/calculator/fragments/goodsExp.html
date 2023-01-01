@@ -42,9 +42,9 @@
       }, 0);
 
       document.getElementById('resultGoodsExp').innerText = resultGoodsExp + "";
-      document.getElementById('resultBlueGoods').innerText = Math.round(resultGoodsExp / 20) + "개";
-      document.getElementById('resultPurpleGoods').innerText = Math.round(resultGoodsExp / 50) + "개";
-      document.getElementById('resultYellowGoods').innerText = Math.round(resultGoodsExp / 125) + "개";
+      document.getElementById('resultBlueGoods').innerText = Math.ceil(resultGoodsExp / 20) + "개";
+      document.getElementById('resultPurpleGoods').innerText = Math.ceil(resultGoodsExp / 50) + "개";
+      document.getElementById('resultYellowGoods').innerText = Math.ceil(resultGoodsExp / 125) + "개";
     }
 
   </script>
