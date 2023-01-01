@@ -24,13 +24,20 @@
       const minStarLevel = document.getElementById('minStarLevel').value;
       const maxStarLevel = document.getElementById('maxStarLevel').value;
       document.getElementById('buyPiece').value = document.getElementById('buyPiece').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+      document.getElementById('hasPiece').value = document.getElementById('hasPiece').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 
       let buyPiece = 0;
+      let hasPiece = 0;
 
       if (document.getElementById('buyPiece').value == '' || document.getElementById('buyPiece').value == undefined) {
         buyPiece = 0;
       } else {
         buyPiece = parseInt(document.getElementById('buyPiece').value);
+      }
+      if (document.getElementById('hasPiece').value == '' || document.getElementById('hasPiece').value == undefined) {
+        hasPiece = 0;
+      } else {
+        hasPiece = parseInt(document.getElementById('hasPiece').value);
       }
 
       const skillExpList = starExp.slice(minStarLevel, maxStarLevel);
@@ -39,19 +46,22 @@
         return parseInt(sum) + parseInt(currValue.exp);
       }, 0);
 
-      if (buyPiece > parseInt(resultExp)) {
-        document.getElementById('buyPiece').value = resultExp;
+      if (buyPiece+hasPiece > parseInt(resultExp)) {
+        document.getElementById('buyPiece').value = resultExp-hasPiece;
+        buyPiece = resultExp-hasPiece;
       }
 
-      document.getElementById('resultStarExp').innerText = (resultExp - buyPiece) + "";
+      let sumExp = resultExp - buyPiece - hasPiece
 
-      document.getElementById('minDate').innerText = Math.ceil((resultExp - buyPiece) / 12) + "일";
-      document.getElementById('aveDate').innerText = Math.ceil((resultExp - buyPiece) / 7) + "일";
-      document.getElementById('maxDate').innerText = Math.ceil((resultExp - buyPiece) / 6) + "일";
+      document.getElementById('resultStarExp').innerText = (sumExp) + "";
+
+      document.getElementById('minDate').innerText = Math.ceil(sumExp / 12) + "일";
+      document.getElementById('aveDate').innerText = Math.ceil(sumExp / 7) + "일";
+      document.getElementById('maxDate').innerText = Math.ceil(sumExp / 6) + "일";
 
       let needPiece = 0;
 
-      for (i = buyPiece; i < parseInt(resultExp); i++) {
+      for (i = 0; i < sumExp; i++) {
         if (i <= 25) {
           needPiece += 5;
         } else if (i > 25 && i <= 50) {
@@ -112,18 +122,23 @@
       <tr>
         <td>
           <div class="input-group">
-            <span class="input-group-text"> 구입 조각 </span>
+            <span class="input-group-text">구입 조각 </span>
             <input class="form-control" style="width:120px;" type="number" id="buyPiece" oninput="changeStarLevel()"
-              value="0" />
+                   value="0" />
           </div>
-        </td>
+        </td><td>
+        <div class="input-group">
+          <span class="input-group-text"> 현재 조각 </span>
+          <input class="form-control" style="width:120px;" type="number" id="hasPiece" oninput="changeStarLevel()"
+                 value="0" />
+        </div>
+      </td>
         <td>
           <div class="input-group">
             <span class="input-group-text"> 필요 파편 </span>
             <span style="width:120px;" class="form-control" id="needPiece" readonly>0</span>
           </div>
         </td>
-      </tr>
       </tr>
     </tbody>
   </table>

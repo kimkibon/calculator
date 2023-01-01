@@ -38,7 +38,7 @@ public class basicDataController {
     SkillSaveService skillService;
 
 
-    @GetMapping(value = "/baseCharacter")
+    @GetMapping(value = "baseCharacter")
     public String createBaseCharacter() {
         characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab, 3);
         characterService.save("이블린", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
@@ -84,11 +84,11 @@ public class basicDataController {
         return "/home";
     }
 
-    @GetMapping(value = "/goodsTest")
+    @GetMapping(value = "goodsTest")
     public String goodsTest(){
        return "/home";
     }
-    @GetMapping(value = "/baseTest")
+    @GetMapping(value = "baseTest")
     public String createBaseTest(){
         characterService.save("전지", DealType.ad, RoleType.gunner, AreaType.area, CompanyType.cma, 5);
 
@@ -109,7 +109,7 @@ public class basicDataController {
         algorithmService.saveAlgorithm("전지",AlgorithmType.spc,"무중력 가속","치명타 확률","치명타 확률","치명타 피해");
         return "/home";
     }
-    @GetMapping(value = "/baseData")
+    @GetMapping(value = "baseData")
     public String createBaseExp(){
 
         needStarExpService.saveStarExp(1,0);

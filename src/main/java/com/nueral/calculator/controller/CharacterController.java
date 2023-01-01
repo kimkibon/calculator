@@ -26,9 +26,12 @@ public class CharacterController {
     public String findCharacter(@RequestParam("name") String name, Model model){
         CharacterInfoDto characterInfoDto =
                 characterService.findCharacterInfo(name);
-        model.addAttribute("character" , characterInfoDto);
-
-        return "information/character";
+        if(characterInfoDto.getCharacterName() != null) {
+            model.addAttribute("character", characterInfoDto);
+            return "information/character";
+        } else {
+            return "/home";
+        }
     }
 
     @GetMapping(value = "/characterTest")
