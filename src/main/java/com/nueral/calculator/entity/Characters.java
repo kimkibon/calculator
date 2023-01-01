@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@DynamicUpdate
+@DynamicInsert
 public class Characters extends DefaultEntity{
 
     //케릭터 이름
@@ -43,7 +47,6 @@ public class Characters extends DefaultEntity{
     private CompanyType companyType;
 
     private int defaultStar;
-
     private String profile;
 
     @OneToMany(mappedBy = "characters" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)

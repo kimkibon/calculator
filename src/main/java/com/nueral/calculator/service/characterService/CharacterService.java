@@ -26,10 +26,12 @@ public class CharacterService {
     private FileUtil fileUtil;
 
     public CharacterInfoDto findCharacterInfo(String name){
-
+        CharacterInfoDto characterInfoDto = new CharacterInfoDto();
         Characters characters = characterRepository.findByName(name).orElse(new Characters());
-
-        return new CharacterInfoDto(characters);
+        if(characters.getName() != null){
+            characterInfoDto = new CharacterInfoDto(characters);
+        }
+        return characterInfoDto;
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){
@@ -62,9 +64,12 @@ public class CharacterService {
     }
 
     public String saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
-        String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(),"profile" , file);
-        characterSaveDto.setProfile(insertFile);
-        Characters characters = new Characters(characterSaveDto);
+        System.out.println(!file.isEmpty());
+        if(!file.isEmpty()) {
+            String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(), "profile", file);
+            characterSaveDto.setProfile(insertFile);
+        }
+            Characters characters = new Characters(characterSaveDto);
         try {
             characterRepository.save(characters);
             return "/home";

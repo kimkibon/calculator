@@ -37,12 +37,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable();
+        http
                 .authorizeRequests()
+                .antMatchers("/users/**").hasAnyAuthority(Role.ADMIN.getAuthority())
+                .antMatchers("/insert/**" , "/update/**")
+                .hasAnyAuthority(Role.USER.getAuthority() , Role.ADMIN.getAuthority())
                 .antMatchers("/**","/static/js/**","/static/css/**","/static/img/**").permitAll()
-//                .antMatchers("/users").hasRole(Role.ADMIN.getAuthority())
-                .antMatchers("/insert/**" , "/update/**").hasAnyRole(Role.USER.getAuthority() , Role.ADMIN.getAuthority())
-
                 .and()
                 .formLogin()
                 .loginPage("/loginForm")
@@ -50,14 +51,8 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/")
-                .successHandler((request, response, authentication) -> {
-                    System.out.println("authentication : " + authentication.getName() + "  " + authentication);
-                    response.sendRedirect("/");
-                })
-                .failureHandler((request, response, exception) -> {
-                    System.out.println("exception : " + exception.getMessage());
-                    response.sendRedirect("/loginForm");
-                })
+                .successHandler((request, response, authentication) -> response.sendRedirect("/"))
+                .failureHandler((request, response, exception) -> response.sendRedirect("/loginForm"))
                 .permitAll()
         ;
 

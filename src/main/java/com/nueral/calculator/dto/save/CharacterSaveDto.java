@@ -19,11 +19,11 @@ public class CharacterSaveDto {
 
     public CharacterSaveDto(Characters characters){
         this.characterName = characters.getName();
-        this.areaType = characters.getAreaType().getType();
-        this.companyType = characters.getCompanyType().getKorean();
+        this.areaType = characters.getAreaType().name();
+        this.companyType = characters.getCompanyType().name();
         this.profile = characters.getProfile();
-        this.dealType = characters.getDealType().getType();
+        this.dealType = characters.getDealType().name();
         this.defaultStar = characters.getDefaultStar();
-        this.roleType = characters.getRoleType().getType();
+        this.roleType = characters.getRoleType().name();
     }
 }

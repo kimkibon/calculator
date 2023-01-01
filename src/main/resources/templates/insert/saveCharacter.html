@@ -18,7 +18,7 @@
 <!-- Content -->
 <div layout:fragment="content">
     <div class="row">
-        <form th:action="@{/insert/character}" method="post" th:object="${CharacterSaveDto}"
+        <form th:action="@{/insert/saveCharacter}" method="post" th:object="${CharacterSaveDto}"
               enctype="multipart/form-data">
             <div class="col col-md-auto">
                 <input type="file" name="file" accept="image/*">

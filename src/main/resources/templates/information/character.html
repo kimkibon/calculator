@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+<html lang="ko"
+      layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.thymeleaf.org"
 >
 
 <!-- index.html 고유 CSS 추가 -->
@@ -25,7 +29,8 @@
           break;
         }
       }
-    </script>
+
+  </script>
   <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 
@@ -33,7 +38,8 @@
 <div layout:fragment="content">
   <div class="row">
     <div class="col col-md-auto">
-      <img class="image-fluid" th:src="${character.profile}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+      <img class="image-fluid" th:src="${character.profile}"
+           onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
     </div>
     <div class="col col-md-10">
       <table class="table table-border">
@@ -68,88 +74,114 @@
         </tr>
         </tbody>
       </table>
+      <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+        <input type="hidden" name="name" th:value="${character.characterName}">
+        <button class="btn btn-outline-primary" type="submit">기본 정보 수정</button>
+      </form>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-border">
+        <thead>
+        <tr>
+          <th class="table-active"><span>type</span></th>
+          <th class="table-active"><span>skill name</span></th>
+          <th class="table-active"><span>skill effect</span></th>
+          <th class="table-active"><span>sub effect</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="skills : ${character.characterSkillsDtoList}">
+          <td class="text-break" style="width: 1rem;" th:id="${skills?.skillType}"><span
+                  th:text="${skills?.skillType}"></span></td>
+          <td class="text-break" style="width: 2rem;"><span th:text="${skills?.skillName}"></span></td>
+          <td class="text-break" style="width: 16rem;"><span th:id="${skills.skillName}"
+                                                             th:text="${skills.explain}"></span></td>
+          <td class="text-break" style="width: 6rem;"><span th:text="${skills?.effect}"></span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+      <input type="hidden" name="name" th:value="${character.characterName}">
+      <button class="btn btn-outline-primary" type="submit">스킬 수정</button>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col col-xl-6">
+      <table class="table table-border">
+        <thead>
+        <tr>
+          <th class="table-active"><span>아이템</span></th>
+          <th class="table-active"><span>선호도</span></th>
+          <th class="table-active"><span>티어</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="goods : ${character.goodsCharacterDtoList}">
+          <td class="text-break"><span th:text="${goods.goodsName}"></span></td>
+          <td class="text-break"><span th:if="${goods.goodsLike}">좋아함</span>
+            <span th:if="${!goods.goodsLike}">싫어함</span></td>
+          <td class="text-break"><span th:text="${goods.goodsLevel}"></span></td>
+        </tr>
+        </tbody>
+        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+          <input type="hidden" name="name" th:value="${character.characterName}">
+          <button class="btn btn-outline-primary" type="submit">호감도 아이템 수정</button>
+        </form>
+      </table>
+    </div>
+    <div class="col col-xl-6">
+      <table class="table table-border">
+        <tbody>
+        <tr>
+          <th class="table-active"><span>능력치</span></th>
+          <th class="table-active"><span>스탯</span></th>
+        </tr>
+        <tr th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
+          <td class="text-break"><span th:id="${goodsStatus?.statusName}" th:text="${goodsStatus?.statusName}"></span>
+          </td>
+          <td class="text-break"><span th:text="${goodsStatus?.status}"></span></td>
+        </tr>
+        </tbody>
+        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+          <input type="hidden" name="name" th:value="${character.characterName}">
+          <button class="btn btn-outline-primary" type="submit">호감도 스탯 수정</button>
+        </form>
+      </table>
     </div>
   </div>
   <div class="row">
     <div class="col">
-    <table class="table table-border">
-      <thead>
-      <tr>
-        <th class="table-active"><span>type</span></th>
-        <th class="table-active"><span>skill name</span></th>
-        <th class="table-active"><span>skill effect</span></th>
-        <th class="table-active"><span>sub effect</span></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="skills : ${character.characterSkillsDtoList}">
-        <td class="text-break" style="width: 1rem;" th:id="${skills?.skillType}"><span th:text="${skills?.skillType}"></span></td>
-        <td class="text-break" style="width: 2rem;"><span th:text="${skills?.skillName}"></span></td>
-        <td class="text-break" style="width: 16rem;"><span th:id="${skills.skillName}" th:text="${skills.explain}"></span></td>
-        <td class="text-break" style="width: 6rem;"><span th:text="${skills?.effect}"></span></td>
-      </tr>
-      </tbody>
-    </table>
+      <table class="table table-border">
+        <thead>
+        <tr>
+          <th class="table-active"><span>타입</span></th>
+          <th class="table-active"><span>세트</span></th>
+          <th class="table-active"><span>세트옵션</span></th>
+          <th class="table-active"><span>메인옵션</span></th>
+          <th class="table-active"><span>서브옵션</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="algorithm : ${character.characterAlgorithmDtoList}">
+          <td class="text-break"><span th:text="${algorithm?.algorithmType}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></span><br><span
+                  th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.mainOpt}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.subOpt1}"></span><br><span
+                  th:text="${algorithm?.subOpt2}"></span></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-  <div class="row">
-    <div class="col col-xl-6">
-    <table class="table table-border">
-      <thead>
-      <tr>
-        <th class="table-active"><span>아이템</span></th>
-        <th class="table-active"><span>선호도</span></th>
-        <th class="table-active"><span>티어</span></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="goods : ${character.goodsCharacterDtoList}" >
-        <td class="text-break"><span th:text="${goods.goodsName}"></span></td>
-        <td class="text-break"><span th:if="${goods.goodsLike}">좋아함</span>
-          <span th:if="${!goods.goodsLike}">싫어함</span></td>
-        <td class="text-break"><span th:text="${goods.goodsLevel}"></span></td>
-      </tr>
-      </tbody>
-    </table>
-    </div>
-    <div class="col col-xl-6">
-    <table class="table table-border">
-      <tbody>
-      <tr>
-        <th class="table-active"><span>능력치</span></th>
-        <th class="table-active"><span>스탯</span></th>
-      </tr>
-      <tr th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
-        <td class="text-break"><span th:id="${goodsStatus?.statusName}" th:text="${goodsStatus?.statusName}"></span></td>
-        <td class="text-break"><span th:text="${goodsStatus?.status}"></span></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col">
-    <table class="table table-border">
-      <thead>
-      <tr>
-        <th class="table-active"><span>타입</span></th>
-        <th class="table-active"><span>세트</span></th>
-        <th class="table-active"><span>세트옵션</span></th>
-        <th class="table-active"><span>메인옵션</span></th>
-        <th class="table-active"><span>서브옵션</span></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="algorithm : ${character.characterAlgorithmDtoList}">
-        <td class="text-break"><span th:text="${algorithm?.algorithmType}"></span></td>
-        <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></span></td>
-        <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></span><br><span th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></span></td>
-        <td class="text-break"><span th:text="${algorithm?.mainOpt}"></span></td>
-        <td class="text-break"><span th:text="${algorithm?.subOpt1}"></span><br><span th:text="${algorithm?.subOpt2}"></span></td>
-      </tr>
-      </tbody>
-    </table>
-    </div>
+    <form sec:authorize="isAuthenticated()" th:action="@{/insert/algorithm}" method="get">
+      <input type="hidden" name="name" th:value="${character.characterName}">
+      <button class="btn btn-outline-primary" type="submit">알고리즘 수정</button>
+    </form>
   </div>
   <div class="row text-align-center" th:each="skin : ${character.skinDtoList}">
     <span th:text="${skin.type}"></span>

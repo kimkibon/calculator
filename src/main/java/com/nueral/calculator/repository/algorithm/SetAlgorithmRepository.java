@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface SetAlgorithmRepository extends JpaRepository<SetAlgorithm , Long> {
-
     Optional<SetAlgorithm> findAllByAlgorithmTypeAndSetAlgorithmName(AlgorithmType algorithmType , String name);
 }

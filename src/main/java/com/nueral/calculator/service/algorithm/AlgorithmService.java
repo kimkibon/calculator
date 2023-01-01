@@ -15,6 +15,10 @@ import com.nueral.calculator.types.AlgorithmType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class AlgorithmService {
     @Autowired
@@ -53,11 +57,35 @@ public class AlgorithmService {
 
     }
 
-    public void saveAlgorithmBtDto(AlgorithmSaveDto algorithmSaveDto){
-        Characters characters = characterRepository.findByName(algorithmSaveDto.getCharacterName()).orElseThrow();
+    public String saveAlgorithmByDto(List<AlgorithmSaveDto> algorithmSaveDto){
+        try{
+        for(AlgorithmSaveDto dto :algorithmSaveDto) {
+            AlgorithmType algorithmType = AlgorithmType.valueOf(dto.getAlgorithmType());
+            String setAlgorithmName = dto.getSetAlgorithm();
+            String mainOpt = dto.getMainAlgorithm();
+            String subOpt = dto.getSubAlgorithm();
+            String subOpt2 = dto.getSubAlgorithm2();
+            String charactersName = dto.getCharacterName();
 
-        Algorithm algorithm = Algorithm.builder()
-                .build();
+            SetAlgorithm setAlgorithm = setAlgorithmRepository.findAllByAlgorithmTypeAndSetAlgorithmName(algorithmType, setAlgorithmName).get();
+            MainAlgorithm mainAlgorithm = mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(algorithmType, mainOpt).orElseGet(() -> mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(AlgorithmType.all, mainOpt).get());
+            SubAlgorithm subAlgorithm = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType, subOpt).orElseGet(() -> subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all, subOpt).get());
+            SubAlgorithm subAlgorithm2 = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType, subOpt2).orElseGet(() -> subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all, subOpt2).get());
+            Characters characters = characterRepository.findByName(charactersName).get();
+
+            Algorithm algorithm = Algorithm.builder()
+                    .algorithmType(algorithmType)
+                    .setAlgorithm(setAlgorithm)
+                    .subAlgorithm(subAlgorithm)
+                    .characters(characters)
+                    .mainAlgorithm(mainAlgorithm)
+                    .subAlgorithm2(subAlgorithm2)
+                    .build();
+            algorithmRepository.save(algorithm);
+        } return "/home";
+        } catch (Exception e){
+            return "/saveError";
+        }
 //To do;
     }
 
@@ -94,6 +122,14 @@ public class AlgorithmService {
 
         setAlgorithmRepository.save(setAlgorithm);
 
+    }
+
+    public Map<String,Object> saveAlgorithmPro(){
+        Map<String,Object> objectMap = new HashMap<>();
+        objectMap.put("set",setAlgorithmRepository.findAll());
+        objectMap.put("main",mainAlgorithmRepository.findAll());
+        objectMap.put("sub",subAlgorithmRepository.findAll());
+        return objectMap;
     }
 
 }

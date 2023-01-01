@@ -9,11 +9,11 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class SkinDto {
-    String name;
+    String stdName;
     String type;
 
     public SkinDto(Skins skins){
-       this.name = skins.getStdName();
+       this.stdName = skins.getStdName();
        this.type = skins.getType();
     }
 }
