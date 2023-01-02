@@ -49,11 +49,7 @@ public class GoodsService {
         Characters characters = characterRepository.getReferenceById(characterName);
         AllGoods allGoods = allGoodsRepository.getReferenceById(GoodsName);
         boolean like;
-        if(goodsLike == 1){
-            like = true;
-        } else {
-            like = false;
-        }
+        like = goodsLike == 1;
 
         GoodsCharacter goodsCharacter = GoodsCharacter.builder()
                 .goodsLike(like)
