@@ -22,16 +22,17 @@ public class SetAlgorithm extends DefaultEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ALGORITHM_TYPE")
     private AlgorithmType algorithmType;
-
     private String twoSetOpt;
     private String threeSetOpt;
+    private String pickUpDay;
 
     @Builder
     public SetAlgorithm(AlgorithmType algorithmType , String twoSetOpt,
-                        String threeSetOpt , String setAlgorithmName){
+                        String threeSetOpt , String setAlgorithmName ,String puckUpDay){
         this.algorithmType = algorithmType;
         this.twoSetOpt = twoSetOpt;
         this.threeSetOpt = threeSetOpt;
         this.setAlgorithmName = setAlgorithmName;
+        this.pickUpDay = puckUpDay;
     }
 }

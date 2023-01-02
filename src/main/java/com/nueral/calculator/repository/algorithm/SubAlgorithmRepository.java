@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface SubAlgorithmRepository extends JpaRepository<SubAlgorithm , Long> {
+public interface SubAlgorithmRepository extends JpaRepository<SubAlgorithm , String> {
 
     Optional<SubAlgorithm> findAllByAlgorithmTypeAndSubOpt(AlgorithmType algorithmType , String SubOpt);
 

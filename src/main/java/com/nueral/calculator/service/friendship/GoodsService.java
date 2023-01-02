@@ -46,8 +46,8 @@ public class GoodsService {
     }
 
     public void saveGoodsCharacter(String characterName, String GoodsName, int goodsLike){
-        Characters characters = characterRepository.findByName(characterName).get();
-        AllGoods allGoods = allGoodsRepository.name(GoodsName);
+        Characters characters = characterRepository.getReferenceById(characterName);
+        AllGoods allGoods = allGoodsRepository.getReferenceById(GoodsName);
         boolean like;
         if(goodsLike == 1){
             like = true;
@@ -65,8 +65,8 @@ public class GoodsService {
 
     public void GoodsStatusCharacter(String characterName, String goodsStatusName , int statusLevel){
 
-        Characters characters = characterRepository.findByName(characterName).get();
-        GoodsStatus goodsStatus = goodsStatusRepository.findByName(goodsStatusName);
+        Characters characters = characterRepository.getReferenceById(characterName);
+        GoodsStatus goodsStatus = goodsStatusRepository.getReferenceById(goodsStatusName);
 
         GoodsStatusCharacter goodsStatusCharacter = GoodsStatusCharacter.builder()
                 .characters(characters)

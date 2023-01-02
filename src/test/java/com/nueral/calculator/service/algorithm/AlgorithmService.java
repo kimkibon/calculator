@@ -32,11 +32,11 @@ public class AlgorithmService {
             String setAlgorithmName , String mainOpt,
             String subOpt , String subOpt2){
 
-        SetAlgorithm setAlgorithm = setAlgorithmRepository.findAllByAlgorithmTypeAndSetAlgorithmName(algorithmType , setAlgorithmName).get();
-        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(algorithmType , mainOpt).get();
-        SubAlgorithm subAlgorithm = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt).get();
-        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt2).get();
-        Characters characters = characterRepository.findByName(charactersName).get();
+        SetAlgorithm setAlgorithm = setAlgorithmRepository.getReferenceById(setAlgorithmName);
+        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.getReferenceById(mainOpt);
+        SubAlgorithm subAlgorithm = subAlgorithmRepository.getReferenceById(subOpt);
+        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.getReferenceById(subOpt2);
+        Characters characters = characterRepository.getReferenceById(charactersName);
 
         Algorithm algorithm = Algorithm.builder()
                 .algorithmType(algorithmType)

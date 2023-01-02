@@ -38,11 +38,11 @@ public class AlgorithmService {
             String setAlgorithmName , String mainOpt,
             String subOpt , String subOpt2){
 
-        SetAlgorithm setAlgorithm = setAlgorithmRepository.findAllByAlgorithmTypeAndSetAlgorithmName(algorithmType , setAlgorithmName).get();
-        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(algorithmType , mainOpt).orElseGet(()->mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(AlgorithmType.all,mainOpt).get());
-        SubAlgorithm subAlgorithm = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt).orElseGet(()->subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all,subOpt).get());
-        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType,subOpt2).orElseGet(()->subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all,subOpt2).get());
-        Characters characters = characterRepository.findByName(charactersName).get();
+        SetAlgorithm setAlgorithm = setAlgorithmRepository.getReferenceById(setAlgorithmName);
+        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.getReferenceById(mainOpt);
+        SubAlgorithm subAlgorithm = subAlgorithmRepository.getReferenceById(subOpt);
+        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.getReferenceById(subOpt2);
+        Characters characters = characterRepository.getReferenceById(charactersName);
 
         Algorithm algorithm = Algorithm.builder()
                 .algorithmType(algorithmType)
@@ -60,21 +60,15 @@ public class AlgorithmService {
     public String saveAlgorithmByDto(List<AlgorithmSaveDto> algorithmSaveDto){
         try{
         for(AlgorithmSaveDto dto :algorithmSaveDto) {
-            AlgorithmType algorithmType = AlgorithmType.valueOf(dto.getAlgorithmType());
-            String setAlgorithmName = dto.getSetAlgorithm();
-            String mainOpt = dto.getMainAlgorithm();
-            String subOpt = dto.getSubAlgorithm();
-            String subOpt2 = dto.getSubAlgorithm2();
-            String charactersName = dto.getCharacterName();
 
-            SetAlgorithm setAlgorithm = setAlgorithmRepository.findAllByAlgorithmTypeAndSetAlgorithmName(algorithmType, setAlgorithmName).get();
-            MainAlgorithm mainAlgorithm = mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(algorithmType, mainOpt).orElseGet(() -> mainAlgorithmRepository.findAllByAlgorithmTypeAndMainOpt(AlgorithmType.all, mainOpt).get());
-            SubAlgorithm subAlgorithm = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType, subOpt).orElseGet(() -> subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all, subOpt).get());
-            SubAlgorithm subAlgorithm2 = subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(algorithmType, subOpt2).orElseGet(() -> subAlgorithmRepository.findAllByAlgorithmTypeAndSubOpt(AlgorithmType.all, subOpt2).get());
-            Characters characters = characterRepository.findByName(charactersName).get();
+            SetAlgorithm setAlgorithm = setAlgorithmRepository.getReferenceById(dto.getSetAlgorithm());
+            MainAlgorithm mainAlgorithm = mainAlgorithmRepository.getReferenceById(dto.getMainAlgorithm());
+            SubAlgorithm subAlgorithm = subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm());
+            SubAlgorithm subAlgorithm2 = subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm2());
+            Characters characters = characterRepository.getReferenceById(dto.getCharacterName());
 
             Algorithm algorithm = Algorithm.builder()
-                    .algorithmType(algorithmType)
+                    .algorithmType(AlgorithmType.valueOf(dto.getAlgorithmType()))
                     .setAlgorithm(setAlgorithm)
                     .subAlgorithm(subAlgorithm)
                     .characters(characters)
