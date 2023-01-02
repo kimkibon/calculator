@@ -66,68 +66,75 @@
       document.getElementById('resultRainbow').innerText = resultRainbow + "";
     }
   </script>
-  <table class="table">
-    <thead>
-    <h2>캐릭터 경험치 계산기</h2>
-    </thead>
-    <tbody>
-      <tr scope="row">
-
-        <td>
-          <div class="input-group">
-            <span class="input-group-text"> 현재 레벨 </span>
-            <input class="form-control" style="width:50px;" id="minCharacterLevel" oninput="changeCharacterLevel()"
-              type="text" min="1" value="1">
-          </div>
-        </td>
-        <td>
-          <div class="input-group">
-            <span class="input-group-text"> 목표 레벨 </span>
-            <input class="form-control" style="width:50px;" id="maxCharacterLevel" oninput="changeCharacterLevel()"
-              type="text" min="1" value="70">
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <table class="table">
-    <thead>
-    </thead>
-    <tbody>
-      <tr class="table-active">
-        <th><span>경험치</span></th>
-        <th><span> 흰색 </span></th>
-        <th><span> 회색 </span></th>
-        <th><span>초록색</span></th>
-        <th><span>파란색</span></th>
-        <th><span>보라색</span></th>
-        <th><span>무지개</span></th>
-      </tr>
-      <tr>
-        <td>
-          <span id="resultExp">213630</span>
-        </td>
-        <td>
-          <span id="resultGray">20</span>
-        </td>
-        <td>
-          <span id="resultGreen">30</span>
-        </td>
-        <td>
-          <span id="resultBlue">35</span>
-        </td>
-        <td>
-          <span id="resultPurple">45</span>
-        </td>
-        <td>
-          <span id="resultOrange">30</span>
-        </td>
-        <td>
-          <span id="resultRainbow">0</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col">
+      <h2 class="m-2">캐릭터 경험치 계산기</h2>
+    </div>
+    <div class="row m-1">
+      <div class="col">
+        <div class="form-floating">
+          <input class="form-control" id="minCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1"
+            value="1">
+          <label for="minCharacterLevel"> 현재 레벨 </label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <input class="form-control" id="maxCharacterLevel" oninput="changeCharacterLevel()" type="text" min="1"
+            value="70">
+          <label for="maxCharacterLevel">목표 레벨</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row m-1">
+      <div class="form-floating">
+        <div class="form-control" id="resultExp">213630</div>
+        <label for="resultExp">필요 경험치</label>
+      </div>
+    </div>
+    <div class="row m-1">
+    <div class="d-flex justify-content-between">
+      <div class="col">
+        <div class="form-floating">
+          <div class="form-control" id="resultGray">20</div>
+          <label class="col-sm-2 col-form-label col-form-label-sm" for="resultGray">간이</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <div class="form-control border-success text-success" id="resultGreen">30</div>
+          <label class="col-sm-2 col-form-label col-form-label-sm text-success" for="resultGreen">표준</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <div class="form-control border-primary text-primary" id="resultBlue">35</div>
+          <label class="col-sm-2 col-form-label col-form-label-sm text-primary" for="resultBlue">고급</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <div class="form-control border-danger text-danger" id="resultPurple">45</div>
+          <label class="col-sm-2 col-form-label col-form-label-sm text-danger" for="resultPurple">특급</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <div class="form-control border-warning text-warning" id="resultOrange">30</div>
+          <label class="col-sm-2 col-form-label col-form-label-sm text-warning" for="resultOrange">첨단</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <div class="form-control border-info text-info" id="resultRainbow">0</div>
+          <label class="col-sm-2 col-form-label col-form-label-sm text-info" for="resultRainbow">극한</label>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
 </div>
 
 </html>
