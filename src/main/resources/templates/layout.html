@@ -4,25 +4,20 @@
 <head>
     <meta charset="UTF-8" />
     <title>thymeleaf layout</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1.0">
     <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
 
 <body>
     <!-- header fragment 사용 -->
-    <div>
-    <th:block th:replace="fragments/header :: headerFragment"></th:block>
-    </div>
+    <th:block th:replace="fragments/header :: headerFragment" class="fixed-top"></th:block>
+
     <!-- content fragment 사용 -->
-    <div class="container-fluid p-5">
-        <div class="container-fluid p-5">
-        <th:block layout:fragment="content"></th:block>
-        </div>
-    </div>
+    <th:block layout:fragment="content"></th:block>
+
     <!-- footer fragment 사용 -->
-    <div>
     <th:block th:replace="fragments/footer :: footerFragment"></th:block>
-    </div>
 </body>
 
 </html>

@@ -3,27 +3,28 @@
 
 <!--headerFragment 선언-->
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1">
 
-<nav th:fragment="headerFragment" class="navbar navbar-expand-lg bg-light fixed-top">
+<nav th:fragment="headerFragment" class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/home">아카계산기</a>
+    <a class="navbar-brand" href="/home">뉴럴 클라우드 계산기</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
       aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-around" id="navbarToggler">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarToggler">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
             <a class="nav-link" href="/calculator/allExp">계산기 모음</a>
         </li>
         <li class="nav-item">
           <a href="/information/characterList" class="nav-link">
-            케릭터
+            캐릭터
           </a>
         </li>
         <li sec:authorize="hasAnyAuthority('USER','ADMIN')" class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/insert/saveCharacter">케릭터 추가</a>
+          <a class="nav-link active" aria-current="page" href="/insert/saveCharacter">캐릭터 추가</a>
         </li>
         <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
           <a class="nav-link active" aria-current="page" href="/user/joinForm">회원추가</a>
@@ -31,19 +32,19 @@
         <li class="nav-item">
           <form class="col-md-12" role="search" id="searchForm" action="/information/character" method="GET">
             <div class="input-group">
-              <input class="form-control" type="search" placeholder="케릭터 이름" aria-label="케릭터 이름"
+              <input class="form-control" type="search" placeholder="캐릭터 이름" aria-label="캐릭터 이름"
                 aria-describedby="button-addon2" id="name" th:name="name">
               <button class="btn btn-outline-success" id="button-addon2" type="submit">search</button>
             </div>
           </form>
         </li>
+        <li class="nav-item">
+          <button sec:authorize="!isAuthenticated()" type="button" class="btn btn-outline-primary nav-item"
+                  onClick="location.href='/loginForm'">로그인</button>
+          <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-danger nav-item"
+                  onClick="location.href='/logout'">로그아웃</button>
+        </li>
       </ul>
-      <div class="nav-item">
-        <button sec:authorize="!isAuthenticated()" type="button" class="btn btn-outline-primary nav-item"
-          onClick="location.href='/loginForm'">로그인</button>
-        <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-danger nav-item"
-          onClick="location.href='/logout'">로그아웃</button>
-      </div>
     </div>
   </div>
 </nav>

@@ -28,7 +28,7 @@ import java.util.List;
 @DynamicInsert
 public class Characters extends DefaultEntity{
 
-    //케릭터 이름
+    //캐릭터 이름
     @Id
     @Column(name = "CHARACTER_NAME")
     private String name;

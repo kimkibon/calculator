@@ -13,24 +13,13 @@
 </th:block>
 <!-- Content -->
 <div layout:fragment="content">
-    <div class="row">
-        <div class="col">
-            <th:block th:replace="calculator/fragments/exp :: exp"></th:block>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col m-2">
-            <th:block th:replace="calculator/fragments/starExp :: starExp"></th:block>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col m-2">
-            <th:block th:replace="calculator/fragments/goodsExp :: goodsExp"></th:block>
-        </div>
-        <div class="col m-2">
-            <th:block th:replace="calculator/fragments/skillExp :: skillExp"></th:block>
-        </div>
-    </div>
+    <th:block th:replace="calculator/fragments/exp :: exp" class="container-fluid"></th:block>
+
+    <th:block th:replace="calculator/fragments/starExp :: starExp" class="container-fluid"></th:block>
+
+    <th:block th:replace="calculator/fragments/goodsExp :: goodsExp" class="container-fluid"></th:block>
+
+    <th:block th:replace="calculator/fragments/skillExp :: skillExp" class="container-fluid"></th:block>
 </div>
 
 </html>
