@@ -1,102 +1,134 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html
+  lang="ko"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}"
+>
+  <!-- index.html 고유 CSS 추가 -->
+  <th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+  </th:block>
+  <!-- index.html 고유 스크립트 추가 -->
+  <th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+  </th:block>
 
-<!-- index.html 고유 CSS 추가 -->
-<th:block layout:fragment="css">
-  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-</th:block>
-<!-- index.html 고유 스크립트 추가 -->
-<th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
-</th:block>
+  <!-- Content -->
+  <div th:fragment="goodsExp">
+    <script th:inline="javascript">
+      const goodsExp =
+        /*[[${goodsExpList}]]*/
 
-<!-- Content -->
-<div th:fragment="goodsExp">
-  <script th:inline="javascript">
-    const goodsExp = /*[[${goodsExpList}]]*/
+        document.addEventListener("DOMContentLoaded", function () {
+          document.getElementById("maxGoodsLevel").value = goodsExp.length;
+          document.getElementById("minGoodsLevel").value = 1;
+          changeGoodsLevel();
+        });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById('maxGoodsLevel').value = goodsExp.length;
-        document.getElementById('minGoodsLevel').value = 1;
-        changeGoodsLevel();
-      });
+      function changeGoodsLevel() {
+        document.getElementById("minGoodsLevel").value = document
+          .getElementById("minGoodsLevel")
+          .value.replace(/[^0-9.]/g, "")
+          .replace(/(\..*)\./g, "$1");
+        document.getElementById("maxGoodsLevel").value = document
+          .getElementById("maxGoodsLevel")
+          .value.replace(/[^0-9.]/g, "")
+          .replace(/(\..*)\./g, "$1");
+        const minGoodsLevel = document.getElementById("minGoodsLevel").value;
+        const maxGoodsLevel = document.getElementById("maxGoodsLevel").value;
 
-    function changeGoodsLevel() {
-      document.getElementById('minGoodsLevel').value = document.getElementById('minGoodsLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-      document.getElementById('maxGoodsLevel').value = document.getElementById('maxGoodsLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-      const minGoodsLevel = document.getElementById('minGoodsLevel').value;
-      const maxGoodsLevel = document.getElementById('maxGoodsLevel').value;
+        if (minGoodsLevel > goodsExp.length) {
+          document.getElementById("minGoodsLevel").value = goodsExp.length;
+        }
+        if (maxGoodsLevel > goodsExp.length) {
+          document.getElementById("maxGoodsLevel").value = goodsExp.length;
+        }
 
-      if (minGoodsLevel > goodsExp.length) {
-        document.getElementById('minGoodsLevel').value = goodsExp.length;
+        const goodsExpList = goodsExp.slice(minGoodsLevel, maxGoodsLevel);
+
+        const resultGoodsExp = goodsExpList.reduce(function add(
+          sum,
+          currValue
+        ) {
+          return parseInt(sum) + parseInt(currValue.exp);
+        },
+        0);
+
+        document.getElementById("resultGoodsExp").innerText =
+          resultGoodsExp + "";
+        document.getElementById("resultBlueGoods").innerText =
+          Math.ceil(resultGoodsExp / 20) + "개";
+        document.getElementById("resultPurpleGoods").innerText =
+          Math.ceil(resultGoodsExp / 50) + "개";
+        document.getElementById("resultYellowGoods").innerText =
+          Math.ceil(resultGoodsExp / 125) + "개";
       }
-      if (maxGoodsLevel > goodsExp.length) {
-        document.getElementById('maxGoodsLevel').value = goodsExp.length;
-      }
+    </script>
 
-      const goodsExpList = goodsExp.slice(minGoodsLevel, maxGoodsLevel);
-
-      const resultGoodsExp = goodsExpList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.exp);
-      }, 0);
-
-      document.getElementById('resultGoodsExp').innerText = resultGoodsExp + "";
-      document.getElementById('resultBlueGoods').innerText = Math.ceil(resultGoodsExp / 20) + "개";
-      document.getElementById('resultPurpleGoods').innerText = Math.ceil(resultGoodsExp / 50) + "개";
-      document.getElementById('resultYellowGoods').innerText = Math.ceil(resultGoodsExp / 125) + "개";
-    }
-
-  </script>
-
-  <table class="table">
-    <thead>
-    </thead>
-    <tbody>
-      <tr scope="row">
-        <td>
-          <div class="input-group">
-            <span class="input-group-text"> 현재 레벨 </span>
-            <input class="form-control" style="width:50px;" id="minGoodsLevel" oninput="changeGoodsLevel()" type="text"
-              min="1">
+    <div class="row m-1">
+      <div class="row">
+        <h2 class="col col-md-auto m-2">호감도 경험치 계산기</h2>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="minGoodsLevel"
+            oninput="changeGoodsLevel()"
+            type="text"
+            min="1"
+          />
+          <label for="minGoodsLevel"> 현재 레벨 </label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <input
+            class="form-control"
+            id="maxGoodsLevel"
+            oninput="changeGoodsLevel()"
+            type="text"
+            min="1"
+          />
+          <label for="maxGoodsLevel"> 목표 레벨 </label>
+        </div>
+      </div>
+    </div>
+    <div class="row m-1">
+      <div class="d-flex justify-content-between">
+        <div class="col">
+          <div class="form-floating">
+            <span class="form-control" id="resultGoodsExp">0</span>
+            <label for="resultGoodsExp">호감도</label>
           </div>
-        </td>
-        <td>
-          <div class="input-group">
-            <span class="input-group-text"> 목표 레벨 </span>
-            <input class="form-control" style="width:50px;" id="maxGoodsLevel" oninput="changeGoodsLevel()" type="text"
-              min="1">
+        </div>
+        <div class="col">
+          <div class="form-floating">
+            <span class="form-control border-warning text-warning" id="resultYellowGoods"
+              >0</span
+            >
+            <label class="text-warning" for="resultYellowGoods"> 특급 </label>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <table class="table table-responsive-sm">
-    <thead>
-    </thead>
-    <tbody>
-      <tr class="table-active">
-        <th><span>호감도</span></th>
-        <th><span> 노랑 </span></th>
-        <th><span> 보라 </span></th>
-        <th><span> 파랑 </span></th>
-      </tr>
-      <tr>
-        <td>
-          <span id="resultGoodsExp">0</span>
-        </td>
-        <td>
-          <span id="resultYellowGoods">0</span>
-        </td>
-        <td>
-          <span id="resultPurpleGoods">0</span>
-        </td>
-        <td>
-          <span id="resultBlueGoods">0</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
+        </div>
+        <div class="col">
+          <div class="form-floating">
+            <span class="form-control border-danger text-danger" id="resultPurpleGoods"
+              >0</span
+            >
+            <label class="text-danger" for="resultPurpleGoods"> 고급 </label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating">
+            <span class="form-control border-primary text-primary" id="resultBlueGoods"
+              >0</span
+            >
+            <label class="text-primary" for="resultBlueGoods"> 일반 </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </html>
