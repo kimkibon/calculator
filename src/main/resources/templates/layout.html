@@ -2,17 +2,18 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-bs-theme="dark"
 >
 
 <head>
     <meta charset="UTF-8" />
-    <title>thymeleaf layout</title>
+    <title>뉴럴 클라우드 계산기</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 minimum-scale=1.0">
     <th:block th:replace="fragments/config :: configFragment"></th:block>
 </head>
 
-<body>
+<body style="overflow-x: hidden">
     <!-- header fragment 사용 -->
     <th:block th:replace="fragments/header :: headerFragment" class="fixed-top"></th:block>
 

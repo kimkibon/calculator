@@ -209,6 +209,16 @@ public class basicDataController {
         expService.saveExp(12500,58,0,0,0,0,0,0);
         expService.saveExp(13400,59,0,0,0,0,0,0);
         expService.saveExp(14000,60,0,0,0,0,0,0);
+        expService.saveExp(17000,61,0,0,0,0,25,35);
+        expService.saveExp(22000,62,0,0,0,0,0,0);
+        expService.saveExp(29000,63,0,0,0,0,0,0);
+        expService.saveExp(38000,64,0,0,0,0,0,0);
+        expService.saveExp(49000,65,0,0,0,0,0,0);
+        expService.saveExp(41000,66,0,0,0,0,0,0);
+        expService.saveExp(74000,67,0,0,0,0,0,0);
+        expService.saveExp(88000,68,0,0,0,0,0,0);
+        expService.saveExp(103000,69,0,0,0,0,0,0);
+        expService.saveExp(119000,70,0,0,0,0,0,0);
 
         algorithmService.saveSubAlgorithm(AlgorithmType.all, "공격력");
         algorithmService.saveSubAlgorithm(AlgorithmType.all, "연산력");

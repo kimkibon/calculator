@@ -15,12 +15,17 @@
 
 <!-- Content -->
 <div layout:fragment="content">
+    <div class="row m-2">
     <h1>Content</h1>
-    <a href="test"> 테스트 페이지 제작중</a>
-    <p sec:authorize="hasAuthority('ADMIN')">[이 부분은 운영자(ADMIN)에게만 나타남]</p>
-    <a sec:authorize="hasAuthority('ADMIN')" href="users/joinForm">계정 생성</a>
-    <p sec:authorize="hasAuthority('USER')">[이 부분은 손님(USER)에게만 나타남]</p>
-    <h1>Content</h1>
+        <div class="row">
+    <a class="nav-link" href="/calculator/allExp">계산기 모음</a>
+        </div>
+        <div class="row">
+            <a href="/information/characterList" class="nav-link">
+                캐릭터
+            </a>
+        </div>
+    </div>
 </div>
 
 </html>

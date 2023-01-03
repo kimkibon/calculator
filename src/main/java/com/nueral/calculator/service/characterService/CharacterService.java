@@ -77,4 +77,8 @@ public class CharacterService {
             return "/saveError";
         }
     }
+
+    public void deleteCharacter(String name){
+        characterRepository.deleteById(name);
+    }
 }

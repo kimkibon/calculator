@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/users/**").hasAnyAuthority(Role.ADMIN.getAuthority())
+                .antMatchers("/users/**" , "/admin/**").hasAnyAuthority(Role.ADMIN.getAuthority())
                 .antMatchers("/insert/**" , "/update/**")
                 .hasAnyAuthority(Role.USER.getAuthority() , Role.ADMIN.getAuthority())
                 .antMatchers("/**","/static/js/**","/static/css/**","/static/img/**").permitAll()
