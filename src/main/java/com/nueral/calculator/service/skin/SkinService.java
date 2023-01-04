@@ -51,7 +51,12 @@ public class SkinService {
     }
 
     public List<String> skinTypes(){
-        return skinRepository.findType().stream().map(String::new).collect(Collectors.toList());
+        List<String> skinType = skinRepository.findType().stream().map(String::new).collect(Collectors.toList());
+        if(skinType.isEmpty()){
+            skinType.add("기본 투영");
+            skinType.add("확장 투영");
+            skinType.add("완전 투영");
+        }
+        return skinType;
     }
-
 }

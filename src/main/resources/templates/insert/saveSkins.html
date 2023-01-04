@@ -15,9 +15,11 @@
 <!-- Content -->
 <div layout:fragment="content">
   <div class="row row-cols-auto m-1">
-    <form th:action="@{/insert/saveSkins}" method="post" th:object="${SkinSaveDto}">
-
-    </form>
+    <select class="form-control" id="skinType">
+      <option th:value="${type}" th:each="type, i : ${skinType}" th:text="${type}"></option>
+      <option value="input">직접 선택</option>
+    </select>
+    <input type="text" class="form-control" readonly="readonly">
   </div>
 </div>
 

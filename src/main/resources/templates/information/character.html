@@ -33,8 +33,8 @@
 <!-- Content -->
 <div layout:fragment="content">
 
-  <div class="row" th:if="${#lists.size(character.skinDtoList)} != 0">
-    <div class="col">
+  <div class="row m-1" th:if="${#lists.size(character.skinDtoList)} != 0">
+    <div class="col p-1">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators" th:each="skins , i : ${character.skinDtoList}">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class=""
@@ -68,8 +68,8 @@
       </div>
     </div>
   </div>
-  <div class="row" th:if="${#lists.size(character.skinDtoList)} == 0">
-    <div class="col m-1">
+  <div class="row m-1" th:if="${#lists.size(character.skinDtoList)} == 0">
+    <div class="col p-1">
       <div class="card">
         <img class="card-img" th:src="${character.profile}"
           onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
@@ -85,14 +85,14 @@
   <div class="m-1">
     <div class="row">
       <div class="d-flex justify-content-between">
-        <div class="col col-md">
+        <div class="col col-md p-1">
           <div class="form-floating">
             <span class="form-control" type="text" id="name" th:text="${character.characterName}">
             </span>
             <label for="name">이름</label>
           </div>
         </div>
-        <div class="col col-md">
+        <div class="col col-md p-1">
           <div class="form-floating">
             <span class="form-control" id="companyType" th:text="${character.companyType}">
             </span>
@@ -103,14 +103,14 @@
     </div>
     <div class="row">
       <div class="d-flex">
-        <div class="col col-md">
+        <div class="col col-md p-1">
           <div class="form-floating">
             <span class="form-control" id="defaultStar" th:text="${character.defaultStar}">
             </span>
             <label for="defaultStar">star</label>
           </div>
         </div>
-        <div class="col col-md">
+        <div class="col col-md p-1">
           <div class="form-floating">
             <span class="form-control" id="roleType" th:text="${character.roleType}">
             </span>
@@ -121,14 +121,14 @@
     </div>
     <div class="row">
       <div class="d-flex">
-        <div class="col col-md">
+        <div class="col col-md p-1">
           <div class="form-floating">
             <span class="form-control" id="dealType" th:text="${character.dealType}">
             </span>
             <label for="dealType">주 스탯</label>
           </div>
         </div>
-        <div class="col col-md">
+        <div class="col col-md p-1">
           <div class="form-floating">
             <span class="form-control" id="areaType" th:text="${character.areaType}">
             </span>
