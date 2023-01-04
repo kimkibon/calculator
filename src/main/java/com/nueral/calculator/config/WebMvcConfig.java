@@ -1,7 +1,9 @@
 package com.nueral.calculator.config;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -21,10 +23,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/joinForm").setViewName("joinForm");
     }
 
-    private final long MAX_AGE_SECS = 3600;
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        long MAX_AGE_SECS = 3600;
         registry.addMapping("/**")
                 .allowedOriginPatterns("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
@@ -36,6 +37,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean
     public SpringSecurityDialect securityDialect(){
         return new SpringSecurityDialect();
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/image/**")
+                .addResourceLocations("file:///"+System.getProperty("user.dir")+"/webapp/static/image/");
     }
 
 }

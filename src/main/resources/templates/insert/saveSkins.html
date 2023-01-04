@@ -14,7 +14,11 @@
 
 <!-- Content -->
 <div layout:fragment="content">
+  <div class="row row-cols-auto m-1">
+    <form th:action="@{/insert/saveSkins}" method="post" th:object="${SkinSaveDto}">
 
+    </form>
+  </div>
 </div>
 
 </html>

@@ -9,6 +9,7 @@ import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,13 @@ public class SkinService {
     }
 
     public List<SkinDto> findByCharacter(String name){
-        return skinRepository.findByCharacters(name).stream().map(SkinDto::new).collect(Collectors.toList());
+
+        List<Skins> skinsList = skinRepository.findByCharacters(name).stream().collect(Collectors.toList());
+        if(skinsList.isEmpty()){
+            return Collections.emptyList();
+        } else {
+            return skinsList.stream().map(SkinDto::new).collect(Collectors.toList());
+        }
     }
 
     public List<String> skinTypes(){

@@ -4,12 +4,14 @@ import com.nueral.calculator.entity.images.Skins;
 import com.nueral.calculator.entity.images.id.SkinsId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface SkinRepository extends JpaRepository<Skins, SkinsId> {
-    Optional<Skins> findByCharacters(String name);
+    @Query(value = "select * from Skins s where s.character_name = :name" ,nativeQuery = true)
+    Optional<Skins> findByCharacters(@Param("name") String name);
 
-    @Query(value = "select distinct s.type from skins s" ,nativeQuery = true)
+    @Query(value = "select distinct s.type from Skins s" ,nativeQuery = true)
     Optional<String> findType();
 }
