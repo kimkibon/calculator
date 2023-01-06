@@ -56,9 +56,13 @@ dependencies {
 	implementation 'org.javassist:javassist:3.29.2-GA'
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
+
 
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
+	systemProperty "jasypt.encryptor.password", project.getProperties().get("jasypt.encryptor.password")
+
 }

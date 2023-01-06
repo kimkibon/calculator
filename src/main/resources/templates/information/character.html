@@ -87,15 +87,15 @@
       <div class="d-flex justify-content-between">
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" type="text" id="name" th:text="${character.characterName}">
+            <span class="form-control text text-light" type="text text-light" id="name" th:text="${character.characterName}">
             </span>
             <label for="name">이름</label>
           </div>
         </div>
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="companyType" th:text="${character.companyType}">
-            </span>
+            <div class="form-control text text-light" id="companyType" th:text="${character.companyType}">
+            </div>
             <label for="companyType">company</label>
           </div>
         </div>
@@ -105,14 +105,18 @@
       <div class="d-flex">
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="defaultStar" th:text="${character.defaultStar}">
+            <span class="form-control" id="defaultStar" th:text="${character.defaultStar}"
+                  th:classappend="${
+                        (character.defaultStar == 1 ? ' text-primary' : '') +
+                        (character.defaultStar == 3 ? ' text-danger' : '') +
+                        (character.defaultStar == 5 ? ' text-warning' : '')}">
             </span>
             <label for="defaultStar">star</label>
           </div>
         </div>
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="roleType" th:text="${character.roleType}">
+            <span class="form-control text text-light" id="roleType" th:text="${character.roleType}">
             </span>
             <label for="roleType">class</label>
           </div>
@@ -123,14 +127,18 @@
       <div class="d-flex">
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="dealType" th:text="${character.dealType}">
+            <span class="form-control" id="dealType" th:text="${character.dealType}"
+                  th:classappend="${
+                        (character.dealType == '연산' ? ' text-primary' : '') +
+                        (character.dealType == '복합' ? ' text-danger' : '') +
+                        (character.dealType == '물리' ? ' text-warning' : '')}">
             </span>
-            <label for="dealType">주 스탯</label>
+            <label for="dealType">deal stat</label>
           </div>
         </div>
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="areaType" th:text="${character.areaType}">
+            <span class="form-control text text-light" id="areaType" th:text="${character.areaType}">
             </span>
             <label for="areaType">area type</label>
           </div>
@@ -151,7 +159,6 @@
       <table class="table table-border">
         <thead>
           <tr>
-            <th class="table-active"><span>type</span></th>
             <th class="table-active"><span>skill name</span></th>
             <th class="table-active"><span>skill effect</span></th>
             <th class="table-active"><span>sub effect</span></th>

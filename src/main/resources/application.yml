@@ -20,9 +20,9 @@ spring:
   #datasource oracle cloud DB 설정
   datasource:
     driverClassName: oracle.jdbc.OracleDriver
-    password: Pol20222022
-    username: polstory
-    url: jdbc:oracle:thin:@BasicKim?TNS_ADMIN=./src/main/resources/wallet
+    username: ENC(YS/rlOOJY/F8V46d1SHXmHup8vU5IvzH)
+    password: ENC(t4TLArAL+p5mEpX/qITj8xpbvnzP005l)
+    url: ENC(D2C0dV8vTBSynXkQu4BGOIvb8pDeg0NuYhBKyTN5J83FSrE2iOwapVmxmZd+y04nW+FXBAVT2Ec=)
 #    url: jdbc:oracle:thin:@BasicKim?TNS_ADMIN=/mnt/hgfs/test/wallet
 
   jpa:
@@ -36,3 +36,8 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+#암호화
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    password : dmadkr48
