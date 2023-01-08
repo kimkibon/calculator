@@ -19,10 +19,10 @@ spring:
 
   #datasource oracle cloud DB 설정
   datasource:
-    driverClassName: oracle.jdbc.OracleDriver
-    username: ENC(YS/rlOOJY/F8V46d1SHXmHup8vU5IvzH)
-    password: ENC(t4TLArAL+p5mEpX/qITj8xpbvnzP005l)
-    url: ENC(D2C0dV8vTBSynXkQu4BGOIvb8pDeg0NuYhBKyTN5J83FSrE2iOwapVmxmZd+y04nW+FXBAVT2Ec=)
+    driverClassName: org.mariadb.jdbc.Driver
+    username: ENC(kxm1s0RVZoRIjClPefABqQ==)
+    password: ENC(cx0Nnz6V1ZmTuihXHaBXpg==)
+    url: ENC(6ahqLbJwjBSfGahAABVP9mRImKTyFUookZpWc9hFatN2Cr7IAMGi2EkaAZeHrzwqkty73LEwos8=)
 #    url: jdbc:oracle:thin:@BasicKim?TNS_ADMIN=/mnt/hgfs/test/wallet
 
   jpa:

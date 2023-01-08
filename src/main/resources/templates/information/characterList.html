@@ -12,152 +12,99 @@
 
     <div layout:fragment="content">
 
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col" style="min-width: 100px;">
-                <div class="card" style="max-width: 100px; min-width: 100px;">
-                    <div class="col">
-                        <img src="/image/basic/profile/수위.png" class="card-img-top p-1 img-fluid">
-                    </div>
-                </div>
-            </div>
+        <div class="row m-1">
+            <h3>수위</h3>
         </div>
-
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col" th:each="characterList : ${characterList}"
-                th:if="${characterList.roleType.equals('수위')}">
-                <div class="col"
-                    th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
-                        <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-                        <div th:text="${characterList.characterName}" class="text text-end" th:classappend="${
+        <div class="d-flex flex-wrap justify-content-left row-cols-auto">
+            <div class="col border" th:each="characterList : ${characterList}" th:if="${characterList.roleType.equals('수위')}"
+                th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+                style="max-width:93px;">
+                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
+                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
                         (characterList.defaultStar == 5 ? ' text-warning' : '')}">
-                            이름
-                    </div>
+                    이름
                 </div>
             </div>
         </div>
         <hr class="border border-danger border-2">
 
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col" style="max-width: 140px; min-width: 140px;">
-                <div class="card" style="max-width: 130px; min-width: 130px;">
-                    <div class="col">
-                        <img src="/image/basic/profile/사수.png" class="card-img-top p-1 img-fluid">
-                        <div class="card-footer text-muted">
-                            사수
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="row m-1">
+            <h3>사수</h3>
         </div>
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col" th:each="characterList : ${characterList}"
-                th:if="${characterList.roleType.equals('사수')}">
-                <div class="col"
-                    th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
-                    <div class="col">
-                        <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-                        <div th:text="${characterList.characterName}" class="text text-end" th:classappend="${
+        <div class="d-flex flex-wrap justify-content-left">
+            <div class="col border" th:each="characterList : ${characterList}" th:if="${characterList.roleType.equals('사수')}"
+                th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+                style="min-width:93px; max-width:93px;">
+                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
+                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
                         (characterList.defaultStar == 5 ? ' text-warning' : '')}">
-                            이름
-                        </div>
-                    </div>
+                    이름
                 </div>
             </div>
         </div>
         <hr class="border border-danger border-2">
 
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col">
-                <div class="card" >
-                    <div class="col">
-                        <img src="/image/basic/profile/전사.png" class="card-img-top p-1 img-fluid">
-                        <div class="card-footer text-muted">
-                            전사
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="row m-1">
+            <h3>전사</h3>
         </div>
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col" th:each="characterList : ${characterList}"
-                th:if="${characterList.roleType.equals('전사')}">
-                <div class="col"
-                    th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
-                    <div class="col">
-                        <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-                        <div th:text="${characterList.characterName}" class="text text-end" th:classappend="${
+        <div class="d-flex flex-wrap justify-content-left">
+            <div class="col border" th:each="characterList : ${characterList}" th:if="${characterList.roleType.equals('전사')}"
+                th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+                style="min-width:93px; max-width:93px;">
+                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
+                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                <div th:text="${characterList.characterName}" class="text text-nowrap text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
                         (characterList.defaultStar == 5 ? ' text-warning' : '')}">
-                            이름
-                        </div>
-                    </div>
+                    이름
                 </div>
             </div>
         </div>
         <hr class="border border-danger border-2">
 
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col">
-                <div class="card">
-                    <div class="col">
-                        <img src="/image/basic/profile/치료사.png" class="card-img-top p-1 img-fluid">
-                        <div class="card-footer text-muted">
-                            치료사
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="row m-1">
+            <h3>치료사</h3>
         </div>
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col"th:each="characterList : ${characterList}"
-                th:if="${characterList.roleType.equals('치료사')}">
-                <div class="col"
-                    th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
-                    <div class="col">
-                        <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-                        <div th:text="${characterList.characterName}" class="text text-end" th:classappend="${
+        <div class="d-flex flex-wrap justify-content-left">
+            <div class="col border" th:each="characterList : ${characterList}" th:if="${characterList.roleType.equals('치료사')}"
+                th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+                style="min-width:93px; max-width:93px;">
+                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
+                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
                         (characterList.defaultStar == 5 ? ' text-warning' : '')}">
-                            이름
-                        </div>
-                    </div>
+                    이름
                 </div>
             </div>
         </div>
         <hr class="border border-danger border-2">
 
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col">
-                <div class="card">
-                    <div class="col">
-                        <img src="/image/basic/profile/해결사.png" class="card-img-top p-1 img-fluid">
-                        <div class="card-footer text-muted">
-                            해결사
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row m-1">
+            <h3>해결사</h3>
         </div>
-        <div class="d-flex flex-wrap row-cols-4">
-            <div class="col"th:each="characterList : ${characterList}"
-                th:if="${characterList.roleType.equals('해결사')}">
-                <div class="col"
-                    th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|">
-                    <div class="col">
-                        <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-                        <div th:text="${characterList.characterName}" class="text text-end" th:classappend="${
+        <div class="d-flex flex-wrap justify-content-left">
+            <div class="col border" th:each="characterList : ${characterList}" th:if="${characterList.roleType.equals('해결사')}"
+                th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+                style="min-width:93px; max-width:93px;">
+                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
+                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
                         (characterList.defaultStar == 5 ? ' text-warning' : '')}">
-                            이름
-                        </div>
-                    </div>
+                    이름
                 </div>
             </div>
         </div>

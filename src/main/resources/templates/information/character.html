@@ -10,11 +10,11 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <script th:inline="javascript">
-    const character = /*[[${character}]]*/;
+    const character = /*[[${character}]]*/
 
-    document.addEventListener("DOMContentLoaded", function () {
-      defaultStarSet()
-    });
+      document.addEventListener("DOMContentLoaded", function () {
+        defaultStarSet()
+      });
     function defaultStarSet() {
       switch (character.defaultStar) {
         case 1: document.getElementById('defaultStar').innerText = '★'
@@ -33,7 +33,7 @@
 <!-- Content -->
 <div layout:fragment="content">
 
-  <div class="row m-1" th:if="${#lists.size(character.skinDtoList)} != 0">
+  <div class="row m-1" th:if="${#lists.size(character.skinDtoList) != 0}">
     <div class="col p-1">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators" th:each="skins , i : ${character.skinDtoList}">
@@ -47,7 +47,8 @@
               <img th:src="${skins.stdName}" class="card-img" alt="..."
                 onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
               <div class="card-img-overlay">
-                <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}" method="get">
+                <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}"
+                  method="get">
                   <input type="hidden" name="name" th:value="${character.characterName}">
                   <button class="btn btn-outline-danger" type="submit">스킨 수정</button>
                 </form>
@@ -69,7 +70,7 @@
     </div>
   </div>
   <div class="row m-1" th:if="${#lists.size(character.skinDtoList)} == 0">
-    <div class="col p-1">
+    <div class="col">
       <div class="card">
         <img class="card-img" th:src="${character.profile}"
           onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
@@ -87,7 +88,8 @@
       <div class="d-flex justify-content-between">
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control text text-light" type="text text-light" id="name" th:text="${character.characterName}">
+            <span class="form-control text text-light" id="name"
+              th:text="${character.characterName}">
             </span>
             <label for="name">이름</label>
           </div>
@@ -105,8 +107,7 @@
       <div class="d-flex">
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="defaultStar" th:text="${character.defaultStar}"
-                  th:classappend="${
+            <span class="form-control" id="defaultStar" th:text="${character.defaultStar}" th:classappend="${
                         (character.defaultStar == 1 ? ' text-primary' : '') +
                         (character.defaultStar == 3 ? ' text-danger' : '') +
                         (character.defaultStar == 5 ? ' text-warning' : '')}">
@@ -127,8 +128,7 @@
       <div class="d-flex">
         <div class="col col-md p-1">
           <div class="form-floating">
-            <span class="form-control" id="dealType" th:text="${character.dealType}"
-                  th:classappend="${
+            <span class="form-control" id="dealType" th:text="${character.dealType}" th:classappend="${
                         (character.dealType == '연산' ? ' text-primary' : '') +
                         (character.dealType == '복합' ? ' text-danger' : '') +
                         (character.dealType == '물리' ? ' text-warning' : '')}">
@@ -154,78 +154,72 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <table class="table table-border">
-        <thead>
-          <tr>
-            <th class="table-active"><span>skill name</span></th>
-            <th class="table-active"><span>skill effect</span></th>
-            <th class="table-active"><span>sub effect</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="skills : ${character.characterSkillsDtoList}">
-            <td class="text-break" style="width: 1rem;" th:id="${skills?.skillType}"><span
-                th:text="${skills?.skillType}"></span></td>
-            <td class="text-break" style="width: 2rem;"><span th:text="${skills?.skillName}"></span></td>
-            <td class="text-break" style="width: 16rem;"><span th:id="${skills.skillName}"
-                th:text="${skills.explain}"></span></td>
-            <td class="text-break" style="width: 6rem;"><span th:text="${skills?.effect}"></span></td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="row text-light border m-1"><span class="m-1">스킬</span></div>
+  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" th:if="${skills.skillType == '패시브'}">
+    <div class="border border-primary">
+      <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
+      <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
+      <div class="row">
+        <hr class="border-primary">
+        <span th:text="${skills?.effect}"></span>
+      </div>
     </div>
+  </div>
+  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" th:if="${skills.skillType == '액티브'}">
+    <div class="border border-danger">
+      <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
+      <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
+      <div class="row">
+        <hr class="border-danger">
+        <span th:text="${skills?.effect}"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" th:if="${skills.skillType == '궁극기'}">
+    <div class="border border-warning">
+      <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
+      <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
+      <div class="row">
+        <hr class="border-warning">
+        <span th:text="${skills?.effect}"></span>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end">
     <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
       <input type="hidden" name="name" th:value="${character.characterName}">
       <button class="btn btn-outline-primary" type="submit">스킬 수정</button>
     </form>
   </div>
-  <div class="row">
-    <div class="col col-xl-6">
-      <table class="table table-border">
-        <thead>
-          <tr>
-            <th class="table-active"><span>아이템</span></th>
-            <th class="table-active"><span>선호도</span></th>
-            <th class="table-active"><span>티어</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="goods : ${character.goodsCharacterDtoList}">
-            <td class="text-break"><span th:text="${goods.goodsName}"></span></td>
-            <td class="text-break"><span th:if="${goods.goodsLike}">좋아함</span>
-              <span th:if="${!goods.goodsLike}">싫어함</span>
-            </td>
-            <td class="text-break"><span th:text="${goods.goodsLevel}"></span></td>
-          </tr>
-        </tbody>
+
+      <div class="row m-1 border">
+        <div class="text-light">호감도 아이템</div>
+          <div class="d-flex justify-content-start">
+            <div class="col" th:each="goods : ${character.goodsCharacterDtoList}" th:classappend="${
+                        (goods.goodsLevel == 1 ? ' text-primary' : '') +
+                        (goods.goodsLevel == 2 ? ' text-danger' : '') +
+                        (goods.goodsLevel == 3 ? ' text-warning' : '')}" th:text="${goods.goodsName}"></div>
+          </div>
         <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
           <input type="hidden" name="name" th:value="${character.characterName}">
           <button class="btn btn-outline-primary" type="submit">호감도 아이템 수정</button>
         </form>
-      </table>
-    </div>
-    <div class="col col-xl-6">
-      <table class="table table-border">
-        <tbody>
-          <tr>
-            <th class="table-active"><span>능력치</span></th>
-            <th class="table-active"><span>스탯</span></th>
-          </tr>
-          <tr th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
-            <td class="text-break"><span th:id="${goodsStatus?.statusName}" th:text="${goodsStatus?.statusName}"></span>
-            </td>
-            <td class="text-break"><span th:text="${goodsStatus?.status}"></span></td>
-          </tr>
-        </tbody>
+      </div>
+
+
+      <div class="row border m-1">
+        <div class="text-light m-1">호감도 스탯</div>
+          <div class="row" th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
+            <div class="col" th:text="${goodsStatus.statusName}"></div>
+            <div class="col-8" th:id="${goodsStatus?.status}" th:text="${goodsStatus?.status}">
+            </div>
+          </div>
         <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
           <input type="hidden" name="name" th:value="${character.characterName}">
           <button class="btn btn-outline-primary" type="submit">호감도 스탯 수정</button>
         </form>
-      </table>
-    </div>
-  </div>
+      </div>
+
   <div class="row">
     <div class="col">
       <table class="table table-border">

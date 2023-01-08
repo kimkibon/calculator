@@ -8,9 +8,9 @@ class JasyptConfigTest {
 
     @Test
     void jasypt(){
-        String url = "jdbc:oracle:thin:@BasicKim?TNS_ADMIN=./wallet";
-        String username = "polstory";
-        String password = "Pol20222022";
+        String url = "jdbc:mariadb://127.0.0.1:3306/neuralcloud";
+        String username = "root";
+        String password = "164978";
 
         String encryptUrl = jasyptEncrypt(url);
         String encryptUsername = jasyptEncrypt(username);

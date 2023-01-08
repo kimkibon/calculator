@@ -20,7 +20,7 @@ public class AllSkills extends DefaultEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CHARACTER_NAME" , referencedColumnName ="CHARACTER_NAME")
+    @JoinColumn(name = "CHARACTER_NAME", nullable = false , referencedColumnName ="CHARACTER_NAME")
     @ToString.Exclude
     private Characters characters;
 
@@ -29,7 +29,7 @@ public class AllSkills extends DefaultEntity {
     @Id
     @Column(name = "skill_name" , nullable = false)
     private String skillName;
-    private String explain;
+    private String skillExplain;
     private String effect;
 
     public void setCharacters(Characters characters) {
@@ -45,7 +45,7 @@ public class AllSkills extends DefaultEntity {
         this.characters = characters;
         this.skillName = skillName;
         this.skillType = skillType;
-        this.explain = explain;
+        this.skillExplain = explain;
         this.effect = effect;
     }
 

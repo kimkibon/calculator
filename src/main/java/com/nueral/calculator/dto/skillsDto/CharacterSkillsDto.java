@@ -3,9 +3,6 @@ package com.nueral.calculator.dto.skillsDto;
 import com.nueral.calculator.entity.skill.AllSkills;
 import lombok.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,7 +16,7 @@ public class CharacterSkillsDto {
     public CharacterSkillsDto(AllSkills allSkills){
         this.skillType = allSkills.getSkillType().getType();
         this.skillName = allSkills.getSkillName();
-        this.explain = allSkills.getExplain();
+        this.explain = allSkills.getSkillExplain();
         this.effect = allSkills.getEffect();
     }
 }

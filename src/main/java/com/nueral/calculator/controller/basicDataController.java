@@ -38,7 +38,7 @@ public class basicDataController {
     SkillSaveService skillService;
 
 
-    @GetMapping(value = "baseCharacter")
+    @GetMapping(value = "/baseCharacter")
     public String createBaseCharacter() {
         characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab, 3);
         characterService.save("이블린", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
@@ -84,11 +84,7 @@ public class basicDataController {
         return "/home";
     }
 
-    @GetMapping(value = "goodsTest")
-    public String goodsTest(){
-       return "/home";
-    }
-    @GetMapping(value = "baseTest")
+    @GetMapping(value = "/baseTest")
     public String createBaseTest(){
         characterService.save("전지", DealType.ad, RoleType.gunner, AreaType.area, CompanyType.cma, 5);
 
@@ -100,16 +96,16 @@ public class basicDataController {
         goodsService.GoodsStatusCharacter("전지","코어가속",2);
         goodsService.GoodsStatusCharacter("전지","진형강화",3);
 
-        skillService.saveAllSkills("전지",SkillType.pas,"금상첨화","'일반공격이 대상에게 '꽃자수'를 부여한다. '꽃자수': 표식이 터질 때 공격력의 40% X 스택 수 의 물리피해를 준다.","");
+        skillService.saveAllSkills("전지",SkillType.pas,"금상첨화","일반공격이 대상에게 '꽃자수'를 부여한다. '꽃자수': 표식이 터질 때 공격력의 40% X 스택 수 의 물리피해를 준다.","");
         skillService.saveAllSkills("전지",SkillType.act,"화룡첨봉","'꽃무리' 상태가 된다. 지속 6초. 이 상태에서 일반공격은 3갈래 관통 공격이 되어, 경로상의 적에게 공격력 120% 물리피해를 준다. 스킬 종료 시 모든 '꽃자수' 표식을 터트린다.","");
-        skillService.saveAllSkills("전지",SkillType.ult,"건곤일침","'지정 방향으로 바늘을 던져, 범위 안에 적에게 총합 공격력 800% 물리피해를 준다. '꽃무리' 상태에서 사용한 경우, '꽃무리' 지속시간이 4초 연장된다.","");
+        skillService.saveAllSkills("전지",SkillType.ult,"건곤일침","지정 방향으로 바늘을 던져, 범위 안에 적에게 총합 공격력 800% 물리피해를 준다. '꽃무리' 상태에서 사용한 경우, '꽃무리' 지속시간이 4초 연장된다.","");
 
         algorithmService.saveAlgorithm("전지",AlgorithmType.atk,"이질 회귀","공격력 퍼센트","피해량 증가","공격력 퍼센트");
         algorithmService.saveAlgorithm("전지",AlgorithmType.def,"코드압축","체력 퍼센트","공격력","치명타 확률");
         algorithmService.saveAlgorithm("전지",AlgorithmType.spc,"무중력 가속","치명타 확률","치명타 확률","치명타 피해");
         return "/home";
     }
-    @GetMapping(value = "baseData")
+    @GetMapping(value = "/baseData")
     public String createBaseExp(){
 
         needStarExpService.saveStarExp(1,0);
