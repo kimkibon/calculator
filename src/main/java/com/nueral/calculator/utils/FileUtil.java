@@ -14,13 +14,22 @@ public class FileUtil {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 
-        String path = System.getProperty("user.dir")+"/webapp/static/image/character/"+type+"/"+formatter.format(date);
-        File Folder = new File(path);
+        String imgPath = System.getProperty("user.dir")+"/webapp/static/image/character/"+type+"/"+formatter.format(date);
+        String folderPath = System.getProperty("user.dir")+"/webapp/static/image/character/"+type;
+        File Folder2 = new File(imgPath);
+        File Folder1 = new File(folderPath);
 
         // 해당 디렉토리가 없을경우 디렉토리를 생성합니다.
-        if (!Folder.exists()) {
+        if (!Folder1.exists()) {
             try{
-                Folder.mkdir(); //폴더 생성합니다.
+                Folder1.mkdir(); //폴더 생성합니다.
+            }
+            catch(Exception e){
+                e.getStackTrace();
+            }
+        }if (!Folder2.exists()) {
+            try{
+                Folder2.mkdir(); //폴더 생성합니다.
             }
             catch(Exception e){
                 e.getStackTrace();
@@ -33,7 +42,7 @@ public class FileUtil {
 
         String fileName = uuid + "_" + name + extension;
 
-        multipartFile.transferTo(new File(path , fileName));
+        multipartFile.transferTo(new File(imgPath , fileName));
 
         return initPath+fileName;
     }

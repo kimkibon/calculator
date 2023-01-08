@@ -37,12 +37,12 @@
     <div class="col p-1">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators" th:each="skins , i : ${character.skinDtoList}">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class=""
-            th:classappend="${i.count == '1'} ? 'active' : ''" aria-current="true"
-            aria-label="Slide +${i.count}"></button>
+          <button class="" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+            th:classappend="${i.count == 1} ? 'active' : ''" aria-current="true"
+            th:aria-label="${'Slide ' +i.count}"></button>
         </div>
-        <div class="carousel-inner" th:each="skins : ${character.skinDtoList}">
-          <div class="carousel-item" th:classappent="${skins.count == '1'} ? 'active' : ''">
+        <div class="carousel-inner" th:each="skins , i : ${character.skinDtoList}">
+          <div class="carousel-item" th:classappend="${i.count == 1} ? 'active' : ''">
             <div class="card">
               <img th:src="${skins.stdName}" class="card-img" alt="..."
                 onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
@@ -251,7 +251,6 @@
     </form>
   </div>
   <div class="row text-align-center" th:each="skin : ${character.skinDtoList}">
-    <span th:text="${skin.type}"></span>
     <img class="image-fluid" th:src="${skin.stdName}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
   </div>
 </div>

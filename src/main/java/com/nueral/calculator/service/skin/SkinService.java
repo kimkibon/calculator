@@ -22,18 +22,17 @@ public class SkinService {
     @Autowired
     private CharacterRepository characterRepository;
 
-    public String saveSkins(List<SkinSaveDto> skinSaveDtoList) {
+    public String saveSkins(SkinSaveDto skinSaveDto) {
         try{
-            for (SkinSaveDto dto : skinSaveDtoList) {
-                if(!dto.getFile().isEmpty() || dto.getType() != null || dto.getCharacterName() != null) {
+                if(!skinSaveDto.getFile().isEmpty()) {
+                    String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName() , skinSaveDto.getType(), skinSaveDto.getFile());
                     Skins skins = Skins.builder()
-                            .stdName(fileUtil.saveProfile(dto.getCharacterName(), dto.getType(), dto.getFile()))
-                            .type(dto.getType())
-                            .characters(characterRepository.findByName(dto.getCharacterName()).orElseThrow())
+                            .stdName(insertFile)
+                            .type(skinSaveDto.getType())
+                            .characters(characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow())
                             .build();
                     skinRepository.save(skins);
                 }
-            }
             return "/home";
         } catch (Exception e){
             return "/saveError";

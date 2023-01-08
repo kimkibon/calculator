@@ -1,6 +1,5 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.character.SkinDto;
 import com.nueral.calculator.dto.character.SkinSaveDto;
 import com.nueral.calculator.dto.save.AlgorithmSaveDto;
 import com.nueral.calculator.dto.save.CharacterSaveDto;
@@ -14,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/insert")
@@ -43,17 +44,15 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveSkins")
-    public String saveSkins(@ModelAttribute List<SkinSaveDto> skinDtoList) {
-        return skinService.saveSkins(skinDtoList);
+    public String saveSkins(@ModelAttribute SkinSaveDto skinSaveDto) {
+        return skinService.saveSkins(skinSaveDto);
     }
 
     @GetMapping(value = "/saveSkins")
     public String saveSkinsPro(@RequestParam("name") @Nullable String name, Model model){
-        List<SkinDto> skinDtoList = new ArrayList<>();
-        if(name != null) {
-           skinDtoList = skinService.findByCharacter(name);
-        }
-        model.addAttribute("skins" , skinDtoList);
+        SkinSaveDto skinSaveDto = new SkinSaveDto();
+        skinSaveDto.setCharacterName(name);
+        model.addAttribute("SkinSaveDto", skinSaveDto);
         model.addAttribute("skinType" , skinService.skinTypes());
         return "insert/saveSkins";
     }
