@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" layout:decorate="~{layout}" xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -38,19 +38,19 @@
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button class="" th:each="skins , i : ${character.skinDtoList}" type="button"
-            data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${i.index}"
-            th:classappend="${i.count == 1} ? 'active' : ''" th:aria-current="${i.count == 1} ? 'true' : ''"
-            th:aria-label="${'Slide ' +i.count}"></button>
+                  data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${i.index}"
+                  th:classappend="${i.count == 1} ? 'active' : ''" th:aria-current="${i.count == 1} ? 'true' : ''"
+                  th:aria-label="${'Slide ' +i.count}"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item" th:each="skins , i : ${character.skinDtoList}"
-            th:classappend="${i.count == 1} ? 'active' : ''">
+               th:classappend="${i.count == 1} ? 'active' : ''">
             <div class="card">
               <img th:src="${skins.stdName}" class="card-img" alt="..."
-                onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                   onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
               <div class="card-img-overlay">
                 <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}"
-                  method="get">
+                      method="get">
                   <input type="hidden" name="name" th:value="${character.characterName}">
                   <button class="btn btn-sm btn-danger" type="submit">스킨 수정</button>
                 </form>
@@ -59,12 +59,12 @@
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev">
+                data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next">
+                data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -75,7 +75,7 @@
     <div class="col">
       <div class="card">
         <img class="card-img" th:src="${character.profile}"
-          onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+             onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
         <div class="card-img-overlay">
           <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
@@ -229,24 +229,24 @@
     <div class="col">
       <table class="table table-border">
         <thead>
-          <tr>
-            <th class="table-active"><span>타입</span></th>
-            <th class="table-active"><span>세트</span></th>
-            <th class="table-active"><span>세트옵션</span></th>
-            <th class="table-active"><span>메인옵션</span></th>
-            <th class="table-active"><span>서브옵션</span></th>
-          </tr>
+        <tr>
+          <th class="table-active"><span>타입</span></th>
+          <th class="table-active"><span>세트</span></th>
+          <th class="table-active"><span>세트옵션</span></th>
+          <th class="table-active"><span>메인옵션</span></th>
+          <th class="table-active"><span>서브옵션</span></th>
+        </tr>
         </thead>
         <tbody>
-          <tr th:each="algorithm : ${character.characterAlgorithmDtoList}">
-            <td class="text-break"><span th:text="${algorithm?.algorithmType}"></span></td>
-            <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></span></td>
-            <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></span><br><span
-                th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></span></td>
-            <td class="text-break"><span th:text="${algorithm?.mainOpt}"></span></td>
-            <td class="text-break"><span th:text="${algorithm?.subOpt1}"></span><br><span
-                th:text="${algorithm?.subOpt2}"></span></td>
-          </tr>
+        <tr th:each="algorithm : ${character.characterAlgorithmDtoList}">
+          <td class="text-break"><span th:text="${algorithm?.algorithmType}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></span><br><span
+                  th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.mainOpt}"></span></td>
+          <td class="text-break"><span th:text="${algorithm?.subOpt1}"></span><br><span
+                  th:text="${algorithm?.subOpt2}"></span></td>
+        </tr>
         </tbody>
       </table>
     </div>
