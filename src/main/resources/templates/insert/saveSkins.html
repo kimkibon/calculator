@@ -9,12 +9,30 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
-</th:block>
+  <script th:inline="javascript">
+    const types = /*[[$type]]*/;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        selectType()
+      });
+    function selectType() {
+    if(document.getElementById('skinType').value == 'input'){
+        document.getElementById('skinType')
+      } else {
+        document.getElementById('inputType').value =
+        document.getElementById('skinType').value;
+      }
+    }
+
+  </script></th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
   <div class="row row-cols-auto m-1">
+    <div class="col">
+      <img class="img-fluid">
+    </div>
+    <div class="col">
     <form th:action="@{/insert/saveSkins}" method="post" th:object="${SkinSaveDto}" enctype="multipart/form-data">
       <div class="form-floating">
         <input class="form-control" id="name" th:field="*{characterName}" readonly>
@@ -23,11 +41,11 @@
       <div class="d-flex">
         <div class="col">
           <div class="form-floating">
-            <select class="form-control" id="skinType">
-              <option th:value="${type}" id="type" th:each="type, i : ${skinType}" th:text="${type}"></option>
-              <option value="input">직접 선택</option>
+            <select class="form-control" onchange="selectType()" id="skinType">
+              <option th:value="${type}" th:each="type, i : ${skinType}" th:text="${type}"></option>
+              <option value="input">직접 입력</option>
             </select>
-            <label for="type">스킨 타입</label>
+            <label for="skinType">스킨 타입</label>
           </div>
         </div>
         <div class="col">
@@ -45,6 +63,7 @@
         <button class="btn btn-primary" type="submit">저장</button>
       </div>
     </form>
+    </div>
   </div>
 </div>
 
