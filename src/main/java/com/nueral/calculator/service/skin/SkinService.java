@@ -1,7 +1,7 @@
 package com.nueral.calculator.service.skin;
 
-import com.nueral.calculator.dto.character.SkinDto;
 import com.nueral.calculator.dto.character.SkinSaveDto;
+import com.nueral.calculator.dto.character.SkinSaveDtoList;
 import com.nueral.calculator.entity.images.Skins;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skin.SkinRepository;
@@ -9,7 +9,6 @@ import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,10 +21,11 @@ public class SkinService {
     @Autowired
     private CharacterRepository characterRepository;
 
-    public String saveSkins(SkinSaveDto skinSaveDto) {
+    public String saveSkins(SkinSaveDtoList skinSaveDtoList) {
         try{
-                if(!skinSaveDto.getFile().isEmpty()) {
-                    String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName() , skinSaveDto.getType(), skinSaveDto.getFile());
+            for(SkinSaveDto skinSaveDto:skinSaveDtoList.getSkinSaveDto()) {
+                if (!skinSaveDto.getFile().isEmpty()) {
+                    String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName(), skinSaveDto.getType(), skinSaveDto.getFile());
                     Skins skins = Skins.builder()
                             .stdName(insertFile)
                             .type(skinSaveDto.getType())
@@ -33,20 +33,24 @@ public class SkinService {
                             .build();
                     skinRepository.save(skins);
                 }
+            }
             return "/home";
         } catch (Exception e){
             return "/saveError";
         }
     }
 
-    public List<SkinDto> findByCharacter(String name){
+    public SkinSaveDtoList findByCharacter(String name){
+        SkinSaveDtoList skinSaveDtoList = new SkinSaveDtoList();
 
-        List<Skins> skinsList = skinRepository.findByCharacters(name).stream().collect(Collectors.toList());
+        List<SkinSaveDto> skinsList = skinRepository.findByCharacters(name).stream().map(SkinSaveDto::new).collect(Collectors.toList());
+
         if(skinsList.isEmpty()){
-            return Collections.emptyList();
+            skinSaveDtoList.addDto(new SkinSaveDto(name));
         } else {
-            return skinsList.stream().map(SkinDto::new).collect(Collectors.toList());
+            skinSaveDtoList = new SkinSaveDtoList(skinsList);
         }
+        return skinSaveDtoList;
     }
 
     public List<String> skinTypes(){

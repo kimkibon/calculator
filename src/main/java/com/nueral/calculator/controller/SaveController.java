@@ -1,6 +1,6 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.character.SkinSaveDto;
+import com.nueral.calculator.dto.character.SkinSaveDtoList;
 import com.nueral.calculator.dto.save.AlgorithmSaveDto;
 import com.nueral.calculator.dto.save.CharacterSaveDto;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
@@ -44,16 +44,15 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveSkins")
-    public String saveSkins(@ModelAttribute SkinSaveDto skinSaveDto) {
-        return skinService.saveSkins(skinSaveDto);
+    public String saveSkins(@ModelAttribute SkinSaveDtoList skinSaveDtoList) {
+        return skinService.saveSkins(skinSaveDtoList);
     }
 
     @GetMapping(value = "/saveSkins")
     public String saveSkinsPro(@RequestParam("name") @Nullable String name, Model model){
-        SkinSaveDto skinSaveDto = new SkinSaveDto();
-        skinSaveDto.setCharacterName(name);
-        model.addAttribute("SkinSaveDto", skinSaveDto);
+        model.addAttribute("skinSaveDtoList", skinService.findByCharacter(name));
         model.addAttribute("skinType" , skinService.skinTypes());
+        model.addAttribute("name" , name);
         return "insert/saveSkins";
     }
 
