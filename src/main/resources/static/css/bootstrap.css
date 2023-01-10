@@ -6086,7 +6086,7 @@ textarea.form-control-lg {
   color: #fff;
   text-decoration: none;
   outline: 0;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .carousel-control-prev {
@@ -6188,10 +6188,10 @@ textarea.form-control-lg {
 
 [data-bs-theme=dark] .carousel .carousel-control-prev-icon,
 [data-bs-theme=dark] .carousel .carousel-control-next-icon {
-  filter: invert(1) grayscale(100);
+  filter: invert(0);
 }
 [data-bs-theme=dark] .carousel .carousel-indicators [data-bs-target] {
-  background-color: #000;
+  background-color: #fff;
 }
 [data-bs-theme=dark] .carousel .carousel-caption {
   color: #000;

@@ -37,7 +37,7 @@
     <div class="col p-1">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-          <button class="" th:each="skins , i : ${character.skinDtoList}" type="button"
+          <button class="light" th:each="skins , i : ${character.skinDtoList}" type="button"
             data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${i.index}"
             th:classappend="${i.count == 1} ? 'active' : ''" th:aria-current="${i.count == 1} ? 'true' : ''"
             th:aria-label="${'Slide ' +i.count}"></button>
@@ -97,7 +97,7 @@
           <div class="form-floating">
             <span class="form-control text text-light" id="name" th:text="${character.characterName}">
             </span>
-            <label for="name">이름</label>
+            <label for="name">name</label>
           </div>
         </div>
         <div class="col col-md p-1">
@@ -162,11 +162,12 @@
   </div>
   <div class="row text-light border m-1"><span class="m-1">스킬</span></div>
   <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}">
-    <div class="border" th:classappend="${
-                        (skills.skillType == '패시브' ? 'border-primary' : '') +
-                        (skills.skillType == '액티브' ? 'border-danger' : '') +
-                        (skills.skillType == '궁극기' ? 'border-warning' : '')}">
-      <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
+    <div class="border">
+      <div class="row"><span class="text-light">[[${skills?.skillName}]] <span class="badge"
+            th:text="${skills.skillType}" th:classappend="${
+                        (skills.skillType == '패시브' ? 'text-primary' : '') +
+                        (skills.skillType == '액티브' ? 'text-danger' : '') +
+                        (skills.skillType == '궁극기' ? 'text-warning' : '')}"></span></span></div>
       <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
       <div class="row">
         <hr class="border" th:classappend="${
@@ -185,14 +186,17 @@
   </div>
 
   <div class="row m-1">
-    <div class="col border m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}" th:classappend="${
-                        (algorithm.algorithmType == '공격성' ? 'border-danger' : '') +
-                        (algorithm.algorithmType == '안정성' ? 'border-primary' : '') +
-                        (algorithm.algorithmType == '특이성' ? 'border-warning' : '')}">
-      <div class="row"><span class="text-nowrap" th:text="${algorithm?.setAlgorithmDto.setAlgorithmName}" th:classappend="${
+    <div class="col border m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+      <div class="row">
+        <span class="badge" th:classappend="${
                         (algorithm.algorithmType == '공격성' ? 'text-danger' : '') +
                         (algorithm.algorithmType == '안정성' ? 'text-primary' : '') +
-                        (algorithm.algorithmType == '특이성' ? 'text-warning' : '')}"></span></div>
+                        (algorithm.algorithmType == '특이성' ? 'text-warning' : '')}"
+          th:text="${algorithm.algorithmType}"></span>
+      </div>
+      <div class="row">
+        <span class="text-nowrap text-light">[[${algorithm?.setAlgorithmDto.setAlgorithmName}]]</span>
+      </div>
       <div class="row"><span class="text-nowrap" th:text="${algorithm?.mainOpt}"></span></div>
       <br>
       <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt1}"></span></div>
@@ -240,6 +244,22 @@
     </form>
   </div>
 
+  <div class="row">
+    <div class="d-flex">
+      <div class="col text-center border m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+        <div class="row">
+          <div class="col">메인 옵션</div>
+        </div>
+        <div class="row">
+          <div class="col">세트 이름</div>
+        </div>
+        <div class="row">
+          <div class="col">서브옵션1</div>
+          <div class="col">서브옵션2</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
