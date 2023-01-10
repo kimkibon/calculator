@@ -1,5 +1,6 @@
 package com.nueral.calculator.config;
 
+import com.nueral.calculator.handler.CustomLoginSuccessHandler;
 import com.nueral.calculator.securityAuthentication.UserDetailsServiceImpl;
 import com.nueral.calculator.types.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -40,20 +42,24 @@ public class SecurityConfig {
                 .csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/users/**" , "/admin/**").hasAnyAuthority(Role.ADMIN.getAuthority())
-                .antMatchers("/insert/**" , "/update/**")
-                .hasAnyAuthority(Role.USER.getAuthority() , Role.ADMIN.getAuthority())
-                .antMatchers("/**","/static/js/**","/static/css/**","/static/img/**").permitAll()
-                .and()
+                    .antMatchers("/users/**" , "/admin/**").hasAnyAuthority(Role.ADMIN.getAuthority())
+                    .antMatchers("/insert/**" , "/update/**")
+                    .hasAnyAuthority(Role.USER.getAuthority() , Role.ADMIN.getAuthority())
+                    .antMatchers("/**","/static/js/**","/static/css/**","/static/img/**").permitAll()
+                    .and()
                 .formLogin()
-                .loginPage("/loginForm")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
-                .successHandler((request, response, authentication) -> response.sendRedirect("/"))
-                .failureHandler((request, response, exception) -> response.sendRedirect("/loginForm"))
-                .permitAll()
+                    .loginPage("/loginForm")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/")
+                    .successHandler(successHandler())
+                    .failureHandler((request, response, exception) -> response.sendRedirect("/loginForm"))
+                    .permitAll()
+                    .and()
+                .logout()
+                    .permitAll()
+                .logoutSuccessUrl("/")
         ;
 
         return http.build();
@@ -66,6 +72,11 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder())
                 .and()
                 .build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomLoginSuccessHandler("/");
     }
 
 }
