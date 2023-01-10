@@ -49,11 +49,16 @@
               <img th:src="${skins.stdName}" class="card-img" alt="..."
                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
               <div class="card-img-overlay">
+                <div class="col">
                 <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}"
                       method="get">
                   <input type="hidden" name="name" th:value="${character.characterName}">
                   <button class="btn btn-sm btn-danger" type="submit">스킨 수정</button>
                 </form>
+                </div>
+                <div class="col">
+                  <div class="btn btn-sm btn-secondary" th:text="${skins.type}"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -156,32 +161,18 @@
     </div>
   </div>
   <div class="row text-light border m-1"><span class="m-1">스킬</span></div>
-  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" th:if="${skills.skillType == '패시브'}">
-    <div class="border border-primary">
+  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" >
+    <div class="border" th:classappend="${
+                        (skills.skillType == '패시브' ? 'border-primary' : '') +
+                        (skills.skillType == '액티브' ? 'border-danger' : '') +
+                        (skills.skillType == '궁극기' ? 'border-warning' : '')}">
       <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
       <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
       <div class="row">
-        <hr class="border-primary">
-        <span th:text="${skills?.effect}"></span>
-      </div>
-    </div>
-  </div>
-  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" th:if="${skills.skillType == '액티브'}">
-    <div class="border border-danger">
-      <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
-      <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
-      <div class="row">
-        <hr class="border-danger">
-        <span th:text="${skills?.effect}"></span>
-      </div>
-    </div>
-  </div>
-  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}" th:if="${skills.skillType == '궁극기'}">
-    <div class="border border-warning">
-      <div class="row"><span class="text-light" th:text="${skills?.skillName}"></span></div>
-      <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
-      <div class="row">
-        <hr class="border-warning">
+        <hr class="border" th:classappend="${
+                        (skills.skillType == '패시브' ? 'border-primary' : '') +
+                        (skills.skillType == '액티브' ? 'border-danger' : '') +
+                        (skills.skillType == '궁극기' ? 'border-warning' : '')}">
         <span th:text="${skills?.effect}"></span>
       </div>
     </div>
@@ -195,11 +186,11 @@
 
   <div class="row m-1 border">
     <div class="text-light">호감도 아이템</div>
-    <div class="d-flex justify-content-start">
-      <div class="col" th:each="goods : ${character.goodsCharacterDtoList}" th:classappend="${
-                        (goods.goodsLevel == 1 ? ' text-primary' : '') +
-                        (goods.goodsLevel == 2 ? ' text-danger' : '') +
-                        (goods.goodsLevel == 3 ? ' text-warning' : '')}" th:text="${goods.goodsName}"></div>
+    <div class="d-flex">
+      <div class="col" th:each="goods , i : ${character.goodsCharacterDtoList}" th:classappend="${
+                        (goods.goodsLevel == 1 ? 'text-primary' : '') +
+                        (goods.goodsLevel == 2 ? 'text-danger' : '') +
+                        (goods.goodsLevel == 3 ? 'text-warning' : '')}" th:text="${goods.goodsName}"></div>
     </div>
   </div>
   <div class="d-flex justify-content-end">
