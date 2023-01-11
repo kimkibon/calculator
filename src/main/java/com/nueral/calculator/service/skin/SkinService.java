@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class SkinService {
     @Autowired
-    SkinRepository skinRepository;
+    private SkinRepository skinRepository;
     @Autowired
     private FileUtil fileUtil;
     @Autowired
@@ -41,16 +41,11 @@ public class SkinService {
     }
 
     public SkinSaveDtoList findByCharacter(String name){
-        SkinSaveDtoList skinSaveDtoList = new SkinSaveDtoList();
-
         List<SkinSaveDto> skinsList = skinRepository.findByCharacters(name).stream().map(SkinSaveDto::new).collect(Collectors.toList());
-
-        if(skinsList.isEmpty()){
-            skinSaveDtoList.addDto(new SkinSaveDto(name));
-        } else {
-            skinSaveDtoList = new SkinSaveDtoList(skinsList);
+        if (skinsList.isEmpty()) {
+            skinsList.add(new SkinSaveDto(name));
         }
-        return skinSaveDtoList;
+        return new SkinSaveDtoList(skinsList);
     }
 
     public List<String> skinTypes(){

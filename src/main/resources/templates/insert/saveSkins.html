@@ -26,18 +26,18 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-  <th:block th:each="skin : ${skinSaveDto}">
+  <th:block th:each="skin : ${skinSaveDtoList.skinSaveDto}">
     <div th:text="${skin.characterName}"></div>
     <div th:text="${skin.type}"></div>
   </th:block>
-  <div class="row row-cols-auto m-1">
+  <div class="row row-cols-auto m-1" th:if="${skinSaveDtoList.skinSaveDto != null}">
     <form th:action="@{/insert/saveSkins}" method="post" th:object="${skinSaveDtoList}" enctype="multipart/form-data">
       <div class="form-floating">
-        <input class="form-control" id="name" th:value="${name}" readonly>
-        <label for="name">이름</label>
+        <input class="form-control" th:id="name" th:value="${name}" readonly>
+        <label th:for="name">이름</label>
       </div>
       <th:block th:each="SkinSaveDto , itemStat : *{SkinSaveDto}">
-        <input type="hidden" class="form-control" th:field="*{SkinSaveDto[__${itemStat.index}__].characterName}">
+        <input type="hidden" class="form-control" th:value="${name}">
         <div class="d-flex">
           <div class="col">
             <div class="form-floating">
@@ -52,8 +52,8 @@
           </div>
           <div class="col">
             <div class="form-floating">
-              <input type="text" th:id="*{SkinSaveDto[__${itemStat.index}__].type + 'input'}" class="form-control"
-                th:field="*{SkinSaveDto[__${itemStat.index}__].type}" readonly>
+              <input type="text" th:id="*{SkinSaveDto[__${itemStat.index}__].type}" class="form-control"
+                th:field="*{SkinSaveDto[__${itemStat.index}__].type}" readonly/>
             </div>
           </div>
         </div>
@@ -69,6 +69,8 @@
       </div>
     </form>
   </div>
-</div>
 
+
+
+</div>
 </html>
