@@ -10,7 +10,7 @@ class JasyptConfigTest {
     void jasypt(){
         String url = "jdbc:mariadb://127.0.0.1:3306/neuralcloud";
         String username = "root";
-        String password = "164978";
+        String password = "dmadkr48!@";
 
         String encryptUrl = jasyptEncrypt(url);
         String encryptUsername = jasyptEncrypt(username);
