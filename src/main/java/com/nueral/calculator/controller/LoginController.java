@@ -14,6 +14,6 @@ public class LoginController {
         if (uri != null && !uri.contains("/login")) {
             request.getSession().setAttribute("prevPage", uri);
         }
-        return "/loginForm";
+        return "loginForm";
     }
 }

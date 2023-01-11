@@ -26,7 +26,9 @@ spring:
   datasource:
     driverClassName: org.mariadb.jdbc.Driver
     username: ENC(kxm1s0RVZoRIjClPefABqQ==)
-    password: ENC(cx0Nnz6V1ZmTuihXHaBXpg==)
+    #password: ENC(cx0Nnz6V1ZmTuihXHaBXpg==)
+    password: ENC(1sgyJp1RXlZbPxj4Bnd0GhdqDp/In8ui)
+
     url: ENC(6ahqLbJwjBSfGahAABVP9mRImKTyFUookZpWc9hFatN2Cr7IAMGi2EkaAZeHrzwqkty73LEwos8=)
 
   jpa:
