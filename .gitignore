@@ -40,3 +40,6 @@ wallet
 *.png
 ### VS Code ###
 .vscode/
+
+### LOGS ###
+*.log
