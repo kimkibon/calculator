@@ -1,4 +1,4 @@
-package com.nueral.calculator.dto.save;
+package com.nueral.calculator.dto.character;
 
 import com.nueral.calculator.entity.Characters;
 import lombok.*;

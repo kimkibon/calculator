@@ -1,6 +1,6 @@
 package com.nueral.calculator.service.skill;
 
-import com.nueral.calculator.dto.save.AllSkillsSaveDto;
+import com.nueral.calculator.dto.skillsDto.AllSkillsSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.repository.CharacterRepository;
@@ -20,7 +20,7 @@ public class SkillSaveService {
             String characterName, SkillType skillType ,
             String skillName , String explain , String effect
     ){
-        Characters characters = characterRepository.findByName(characterName).get();
+        Characters characters = characterRepository.findByName(characterName).orElseThrow();
 
         AllSkills allSkills = AllSkills.builder()
                 .skillType(skillType)

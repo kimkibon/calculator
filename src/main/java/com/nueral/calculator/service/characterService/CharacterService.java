@@ -2,7 +2,7 @@ package com.nueral.calculator.service.characterService;
 
 import com.nueral.calculator.dto.character.AllCharactersDto;
 import com.nueral.calculator.dto.character.CharacterInfoDto;
-import com.nueral.calculator.dto.save.CharacterSaveDto;
+import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.types.AreaType;

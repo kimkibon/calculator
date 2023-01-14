@@ -26,20 +26,28 @@ public class Algorithm extends DefaultEntity {
     @Id
     @Enumerated(EnumType.STRING)
     private AlgorithmType algorithmType;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
     @JoinColumn(name = "SET_ALGORITHM_NAME",referencedColumnName = "SET_ALGORITHM_NAME")
+    @ToString.Exclude
     private SetAlgorithm setAlgorithm;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
     @JoinColumn(name = "MAIN_OPT" , referencedColumnName = "MAIN_OPT")
+    @ToString.Exclude
     private MainAlgorithm mainAlgorithm;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
     @JoinColumn(name = "SUB_OPT" , referencedColumnName = "SUB_OPT")
+    @ToString.Exclude
     private SubAlgorithm subAlgorithm;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
     @JoinColumn(name = "SUB_OPT2" , referencedColumnName = "SUB_OPT")
+    @ToString.Exclude
     private SubAlgorithm subAlgorithm2;
 
     @Builder

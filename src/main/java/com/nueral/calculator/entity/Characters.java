@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity;
 
-import com.nueral.calculator.dto.save.CharacterSaveDto;
+import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.friendship.GoodsCharacter;
 import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;

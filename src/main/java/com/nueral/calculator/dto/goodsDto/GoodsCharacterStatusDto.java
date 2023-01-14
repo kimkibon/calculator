@@ -1,4 +1,4 @@
-package com.nueral.calculator.dto.save;
+package com.nueral.calculator.dto.goodsDto;
 
 import lombok.*;
 

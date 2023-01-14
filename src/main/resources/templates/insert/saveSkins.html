@@ -10,15 +10,25 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <script th:inline="javascript">
-    const skinSaveDtoList = /*[[${skinSaveDtoList}]]*/;
-    const test = skinSaveDtoList.skinSaveDto[0].type;
+    const skinSaveDto = /*[[${skinSaveDto}]]*/;
+    const test = skinSaveDto.type;
+
+    document.addEventListener("DOMContentLoaded", function () {
+    if(skinSaveDto.type != null){
+        document.getElementById('selectType').value = skinSaveDto.type;
+        }
+    else{
+        document.getElementById('selectType').value = 'input';
+        document.getElementById('selectTypeInput').readOnly = false;
+        }
+      });
 
     function selectInput(e) {
       if (e.value == 'input') {
-        document.getElementById(e.id + 'input').readOnly = false;
-        document.getElementById(e.id + 'input').value = '';
+        document.getElementById(e.id + 'Input').readOnly = false;
+        document.getElementById(e.id + 'Input').value = '';
       } else {
-        document.getElementById(e.id + 'input').value = e.value;
+        document.getElementById(e.id + 'Input').value = e.value;
       }
     }
   </script>
@@ -26,44 +36,42 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-  <th:block th:each="skin : ${skinSaveDtoList.skinSaveDto}">
-    <div th:text="${skin.characterName}"></div>
-    <div th:text="${skin.type}"></div>
-  </th:block>
-  <div class="row row-cols-auto m-1" th:if="${skinSaveDtoList.skinSaveDto != null}">
-    <form th:action="@{/insert/saveSkins}" method="post" th:object="${skinSaveDtoList}" enctype="multipart/form-data">
+  <div class="row row-cols-auto m-1">
+    <div class="row m-1">
+      <img class="img-fluid" th:src="${skinSaveDto.stdName}" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+    </div>
+    <form th:action="@{/insert/saveSkins}" method="post" th:object="${skinSaveDto}" enctype="multipart/form-data">
+      <div class="row">
       <div class="form-floating">
-        <input class="form-control" th:id="name" th:value="${name}" readonly>
+        <input class="form-control" th:id="name" th:field="*{characterName}" readonly>
         <label th:for="name">이름</label>
       </div>
-      <th:block th:each="SkinSaveDto , itemStat : *{SkinSaveDto}">
-        <input type="hidden" class="form-control" th:value="${name}">
+      </div>
         <div class="d-flex">
           <div class="col">
             <div class="form-floating">
               <select class="form-control" onchange="selectInput(this)"
-                th:id="*{SkinSaveDto[__${itemStat.index}__].type}"
-                th:field="*{SkinSaveDto[__${itemStat.index}__].type}">
+                id="selectType"
+                th:value="*{type}">
                 <option th:value="${type}" th:each="type, i : ${skinType}" th:text="${type}"></option>
                 <option value="input">직접 선택</option>
               </select>
-              <label th:for="*{SkinSaveDto[__${itemStat.index}__].type}">스킨 타입</label>
+              <label th:for="*{type}">스킨 타입</label>
             </div>
           </div>
           <div class="col">
             <div class="form-floating">
-              <input type="text" th:id="*{SkinSaveDto[__${itemStat.index}__].type}" class="form-control"
-                th:field="*{SkinSaveDto[__${itemStat.index}__].type}" readonly/>
+              <input type="text" id="selectTypeInput" class="form-control"
+                th:field="*{type}" readonly />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="form-floating">
-            <input class="form-control" type="file" th:field="*{SkinSaveDto[__${itemStat.index}__].file}"
+            <input class="form-control" type="file" th:field="*{file}"
               multiple="multiple">
           </div>
         </div>
-      </th:block>
       <div class="d-flex justify-content-end">
         <button class="btn btn-primary" type="submit">저장</button>
       </div>
@@ -73,4 +81,5 @@
 
 
 </div>
+
 </html>

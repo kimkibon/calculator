@@ -56,6 +56,7 @@
         입력 폼 모두 다 th:field 형식으로 변경
         컨트롤러에서 field 값을 받도록 수정 필요. -->
                     <input type="hidden" name="name" th:value="${character.characterName}">
+                    <input type="hidden" name="type" th:value="${skins.type}">
                     <button class="btn btn-sm btn-danger" type="submit">스킨 수정</button>
                   </form>
                 </div>
@@ -87,7 +88,8 @@
         <div class="card-img-overlay">
           <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
-            <button class="btn btn-sm btn-danger" type="submit">스킨 수정</button>
+            <input type="hidden" name="type">
+            <button class="btn btn-sm btn-danger" type="submit">스킨 추가</button>
           </form>
         </div>
       </div>
@@ -204,12 +206,10 @@
       <br>
       <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt1}"></span></div>
       <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt2}"></span></div>
-      <!--          <div class="row"><span th:text="${algorithm?.setAlgorithmDto.twoSetOpt}"></span><span-->
-      <!--                  th:text="${algorithm?.setAlgorithmDto?.threeSetOpt}"></span></div>-->
     </div>
   </div>
   <div class="d-flex justify-content-end">
-    <form sec:authorize="isAuthenticated()" th:action="@{/insert/algorithm}" method="get">
+    <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveAlgorithm}" method="get">
       <input type="hidden" name="name" th:value="${character.characterName}">
       <button class="btn btn-sm btn-danger m-1" type="submit">알고리즘 수정</button>
     </form>

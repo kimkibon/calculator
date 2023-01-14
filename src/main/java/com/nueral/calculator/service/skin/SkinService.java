@@ -1,8 +1,8 @@
 package com.nueral.calculator.service.skin;
 
 import com.nueral.calculator.dto.character.SkinSaveDto;
-import com.nueral.calculator.dto.character.SkinSaveDtoList;
 import com.nueral.calculator.entity.images.Skins;
+import com.nueral.calculator.entity.images.id.SkinsId;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skin.SkinRepository;
 import com.nueral.calculator.utils.FileUtil;
@@ -21,18 +21,16 @@ public class SkinService {
     @Autowired
     private CharacterRepository characterRepository;
 
-    public String saveSkins(SkinSaveDtoList skinSaveDtoList) {
+    public String saveSkins(SkinSaveDto skinSaveDto) {
         try{
-            for(SkinSaveDto skinSaveDto:skinSaveDtoList.getSkinSaveDto()) {
-                if (!skinSaveDto.getFile().isEmpty()) {
-                    String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName(), skinSaveDto.getType(), skinSaveDto.getFile());
-                    Skins skins = Skins.builder()
-                            .stdName(insertFile)
-                            .type(skinSaveDto.getType())
-                            .characters(characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow())
-                            .build();
-                    skinRepository.save(skins);
-                }
+            if (!skinSaveDto.getFile().isEmpty()) {
+                String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName(), skinSaveDto.getType(), skinSaveDto.getFile());
+                Skins skins = Skins.builder()
+                        .stdName(insertFile)
+                        .type(skinSaveDto.getType())
+                        .characters(characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow())
+                        .build();
+                skinRepository.save(skins);
             }
             return "/home";
         } catch (Exception e){
@@ -40,12 +38,15 @@ public class SkinService {
         }
     }
 
-    public SkinSaveDtoList findByCharacter(String name){
-        List<SkinSaveDto> skinsList = skinRepository.findByCharacters(name).stream().map(SkinSaveDto::new).collect(Collectors.toList());
-        if (skinsList.isEmpty()) {
-            skinsList.add(new SkinSaveDto(name));
+    public SkinSaveDto findByCharacterAndType(String name , String type){
+        SkinSaveDto skinSaveDto;
+        if(type.isEmpty()){
+            skinSaveDto = new SkinSaveDto(name);
+        } else {
+            SkinsId skinsId = new SkinsId(name , type);
+           skinSaveDto = new SkinSaveDto(skinRepository.findById(skinsId).orElseThrow());
         }
-        return new SkinSaveDtoList(skinsList);
+        return skinSaveDto;
     }
 
     public List<String> skinTypes(){

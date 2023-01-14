@@ -1,6 +1,6 @@
 package com.nueral.calculator.service.algorithm;
 
-import com.nueral.calculator.dto.save.AlgorithmSaveDto;
+import com.nueral.calculator.dto.AlgorithmDto.*;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.algorithm.MainAlgorithm;
@@ -15,9 +15,7 @@ import com.nueral.calculator.types.AlgorithmType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,30 +56,35 @@ public class AlgorithmService {
 
     }
 
-    public String saveAlgorithmByDto(List<AlgorithmSaveDto> algorithmSaveDto){
+    public String saveAlgorithmByDto(AlgorithmSaveDtoList algorithmSaveDtoList){
         try{
-        for(AlgorithmSaveDto dto :algorithmSaveDto) {
+        for(AlgorithmSaveDto dto :algorithmSaveDtoList.getAlgorithmSaveDto()) {
 
-            SetAlgorithm setAlgorithm = setAlgorithmRepository.getReferenceById(dto.getSetAlgorithm());
-            MainAlgorithm mainAlgorithm = mainAlgorithmRepository.getReferenceById(dto.getMainAlgorithm());
-            SubAlgorithm subAlgorithm = subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm());
-            SubAlgorithm subAlgorithm2 = subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm2());
-            Characters characters = characterRepository.getReferenceById(dto.getCharacterName());
-
+            AlgorithmType algorithmType;
+            switch (dto.getAlgorithmType()){
+                case "공격성" : algorithmType = AlgorithmType.atk;
+                    break;
+                case "안정성" : algorithmType = AlgorithmType.def;
+                    break;
+                case "특이성" : algorithmType = AlgorithmType.spc;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + dto.getAlgorithmType());
+            }
             Algorithm algorithm = Algorithm.builder()
-                    .algorithmType(AlgorithmType.valueOf(dto.getAlgorithmType()))
-                    .setAlgorithm(setAlgorithm)
-                    .subAlgorithm(subAlgorithm)
-                    .characters(characters)
-                    .mainAlgorithm(mainAlgorithm)
-                    .subAlgorithm2(subAlgorithm2)
+                    .algorithmType(algorithmType)
+                    .setAlgorithm(setAlgorithmRepository.getReferenceById(dto.getSetAlgorithm()))
+                    .subAlgorithm(subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm()))
+                    .characters(characterRepository.getReferenceById(dto.getCharacterName()))
+                    .mainAlgorithm(mainAlgorithmRepository.getReferenceById(dto.getMainAlgorithm()))
+                    .subAlgorithm2(subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm2()))
                     .build();
             algorithmRepository.save(algorithm);
         } return "/home";
         } catch (Exception e){
+            System.out.println("오류가 발생했습니다 : "+e.getMessage());
             return "/saveError";
         }
-//To do;
     }
 
     public void saveMainAlgorithm(AlgorithmType algorithmType , String mainOpt){
@@ -119,17 +122,39 @@ public class AlgorithmService {
 
     }
 
-    public List<AlgorithmSaveDto> saveAlgorithmPro(String name){
-            Optional<Algorithm> algorithmList = characterRepository.findAlgorithmByName(name);
-            List<AlgorithmSaveDto> algorithmSaveDtolist = new ArrayList<>();
-            if(algorithmList.isEmpty()){
-                for(int i = 0; i <3; i++){
-                    algorithmSaveDtolist.add(new AlgorithmSaveDto());
+    public AlgorithmSaveDtoList saveAlgorithmPro(String name){
+        List<Algorithm> algorithmList = algorithmRepository.findByCharacterName(name);
+        AlgorithmSaveDtoList algorithmSaveDtolist;
+        if(algorithmList.isEmpty()){
+            List<AlgorithmSaveDto> algorithmSaveDtoList = new ArrayList<>();
+            for(int i = 0; i <3; i++){
+                switch (i) {
+                    case 0 :algorithmSaveDtoList.add(new AlgorithmSaveDto(name, AlgorithmType.atk.getType()));
+                    break;
+                    case 1 : algorithmSaveDtoList.add(new AlgorithmSaveDto(name, AlgorithmType.def.getType()));
+                    break;
+                    case 2 : algorithmSaveDtoList.add(new AlgorithmSaveDto(name, AlgorithmType.spc.getType()));
+                    break;
                 }
-            } else {
-                algorithmSaveDtolist = algorithmList.stream().map(AlgorithmSaveDto::new).collect(Collectors.toList());
             }
+            algorithmSaveDtolist = new AlgorithmSaveDtoList(algorithmSaveDtoList);
+        } else {
+            algorithmSaveDtolist = new AlgorithmSaveDtoList(algorithmList.stream().map(AlgorithmSaveDto::new).collect(Collectors.toList()));
+        }
+
         return algorithmSaveDtolist;
+    }
+
+    public List<MainAlgorithmDto> mainAlgorithmDtoList(){
+        return mainAlgorithmRepository.findAll().stream().map(MainAlgorithmDto::new).collect(Collectors.toList());
+    }
+
+    public List<SetAlgorithmDto> setAlgorithmDtoList(){
+        return setAlgorithmRepository.findAll().stream().map(SetAlgorithmDto::new).collect(Collectors.toList());
+    }
+
+    public List<SubAlgorithmDto> subAlgorithmDtoList(){
+        return subAlgorithmRepository.findAll().stream().map(SubAlgorithmDto::new).collect(Collectors.toList());
     }
 
 }

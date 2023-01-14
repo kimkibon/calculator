@@ -12,10 +12,12 @@ public class SetAlgorithmDto {
     private String setAlgorithmName;
     private String twoSetOpt;
     private String threeSetOpt;
+    private String type;
 
     public SetAlgorithmDto(SetAlgorithm setAlgorithm){
         this.setAlgorithmName = setAlgorithm.getSetAlgorithmName();
         this.twoSetOpt = setAlgorithm.getTwoSetOpt();
-         this.threeSetOpt = setAlgorithm.getThreeSetOpt();
+        this.threeSetOpt = setAlgorithm.getThreeSetOpt();
+        this.type = setAlgorithm.getAlgorithmType().getType();
     }
 }

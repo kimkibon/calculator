@@ -1,8 +1,8 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.character.SkinSaveDtoList;
-import com.nueral.calculator.dto.save.AlgorithmSaveDto;
-import com.nueral.calculator.dto.save.CharacterSaveDto;
+import com.nueral.calculator.dto.AlgorithmDto.AlgorithmSaveDtoList;
+import com.nueral.calculator.dto.character.CharacterSaveDto;
+import com.nueral.calculator.dto.character.SkinSaveDto;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
 import com.nueral.calculator.service.characterService.CharacterService;
 import com.nueral.calculator.service.skin.SkinService;
@@ -12,10 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/insert")
@@ -44,28 +40,30 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveSkins")
-    public String saveSkins(@ModelAttribute SkinSaveDtoList skinSaveDtoList) {
-        return skinService.saveSkins(skinSaveDtoList);
+    public String saveSkins(@ModelAttribute SkinSaveDto skinSaveDto) {
+        return skinService.saveSkins(skinSaveDto);
     }
 
     @GetMapping(value = "/saveSkins")
-    public String saveSkinsPro(@RequestParam("name") @Nullable String name, Model model){
-        model.addAttribute("skinSaveDtoList", skinService.findByCharacter(name));
+    public String saveSkinsPro(@RequestParam("name") @Nullable String name, @RequestParam("type")String type, Model model){
+        model.addAttribute("skinSaveDto", skinService.findByCharacterAndType(name , type));
         model.addAttribute("skinType" , skinService.skinTypes());
         model.addAttribute("name" , name);
         return "insert/saveSkins";
     }
 
     @PostMapping(value = "/saveAlgorithm")
-    public String saveAlgorithm(@ModelAttribute List<AlgorithmSaveDto> algorithmSaveDto){
-        return algorithmService.saveAlgorithmByDto(algorithmSaveDto);
+    public String saveAlgorithm(@ModelAttribute AlgorithmSaveDtoList algorithmSaveDtoList){
+        return algorithmService.saveAlgorithmByDto(algorithmSaveDtoList);
     }
 
     @GetMapping(value = "/saveAlgorithm")
     public String saveAlgorithmPro(@RequestParam("name") @Nullable String name , Model model){
-        List<AlgorithmSaveDto> algorithmSaveDtoList = algorithmService.saveAlgorithmPro(name);
-
-        model.addAttribute("algorithm",algorithmSaveDtoList);
+        model.addAttribute("name" , name);
+        model.addAttribute("characterAlgorithm", algorithmService.saveAlgorithmPro(name));
+        model.addAttribute("setAlgorithmList", algorithmService.setAlgorithmDtoList());
+        model.addAttribute("mainAlgorithmList",algorithmService.mainAlgorithmDtoList());
+        model.addAttribute("subAlgorithmList",algorithmService.subAlgorithmDtoList());
         return "insert/saveAlgorithm";
     }
 }
