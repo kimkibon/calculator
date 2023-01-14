@@ -1,5 +1,6 @@
 package com.nueral.calculator.dto.save;
 
+import com.nueral.calculator.entity.algorithm.Algorithm;
 import lombok.*;
 
 @Getter
@@ -16,4 +17,13 @@ public class AlgorithmSaveDto {
     private String subAlgorithm;
     private String subAlgorithm2;
 
+    public AlgorithmSaveDto(Algorithm algorithm){
+        this.CharacterName = algorithm.getCharacters().getName();
+        this.AlgorithmType = algorithm.getAlgorithmType().getType();
+        this.setAlgorithm = algorithm.getSetAlgorithm().getSetAlgorithmName();
+        this.mainAlgorithm = algorithm.getMainAlgorithm().getMainOpt();
+        this.subAlgorithm = algorithm.getSubAlgorithm().getSubOpt();
+        this.subAlgorithm2 = algorithm.getSubAlgorithm2().getSubOpt();
+
+    }
 }

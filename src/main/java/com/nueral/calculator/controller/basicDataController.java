@@ -38,7 +38,7 @@ public class basicDataController {
     SkillSaveService skillService;
 
 
-    @GetMapping(value = "/baseCharacter")
+    @GetMapping(value = "baseCharacter")
     public String createBaseCharacter() {
         characterService.save("수춘", DealType.ap, RoleType.depender, AreaType.target, CompanyType.lab, 3);
         characterService.save("이블린", DealType.ap, RoleType.depender, AreaType.target, CompanyType.sva, 5);
@@ -81,10 +81,10 @@ public class basicDataController {
         characterService.save("파나케이아", DealType.ap, RoleType.healer, AreaType.target, CompanyType.ucl, 3);
         characterService.save("초코", DealType.ap, RoleType.healer, AreaType.target, CompanyType.uas, 1);
         characterService.save("임호텝", DealType.ap, RoleType.healer, AreaType.target, CompanyType.ucl, 3);
-        return "/home";
+        return "home";
     }
 
-    @GetMapping(value = "/baseTest")
+    @GetMapping(value = "baseTest")
     public String createBaseTest(){
         characterService.save("전지", DealType.ad, RoleType.gunner, AreaType.area, CompanyType.cma, 5);
 
@@ -103,9 +103,9 @@ public class basicDataController {
         algorithmService.saveAlgorithm("전지",AlgorithmType.atk,"이질 회귀","공격력 퍼센트","피해량 증가","공격력 퍼센트");
         algorithmService.saveAlgorithm("전지",AlgorithmType.def,"코드압축","체력 퍼센트","공격력","치명타 확률");
         algorithmService.saveAlgorithm("전지",AlgorithmType.spc,"무중력 가속","치명타 확률","치명타 확률","치명타 피해");
-        return "/home";
+        return "home";
     }
-    @GetMapping(value = "/baseData")
+    @GetMapping(value = "baseData")
     public String createBaseExp(){
 
         needStarExpService.saveStarExp(1,0);
@@ -324,7 +324,7 @@ public class basicDataController {
         goodsService.saveAllGoods("프라모델", 3, 125, 75, 100);
         goodsService.saveAllGoods("소장용 명검", 3, 125, 75, 100);
 
-        return "/home";
+        return "home";
     }
 
 }

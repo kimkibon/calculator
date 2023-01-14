@@ -15,9 +15,10 @@ import com.nueral.calculator.types.AlgorithmType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AlgorithmService {
@@ -118,12 +119,17 @@ public class AlgorithmService {
 
     }
 
-    public Map<String,Object> saveAlgorithmPro(){
-        Map<String,Object> objectMap = new HashMap<>();
-        objectMap.put("set",setAlgorithmRepository.findAll());
-        objectMap.put("main",mainAlgorithmRepository.findAll());
-        objectMap.put("sub",subAlgorithmRepository.findAll());
-        return objectMap;
+    public List<AlgorithmSaveDto> saveAlgorithmPro(String name){
+            Optional<Algorithm> algorithmList = characterRepository.findAlgorithmByName(name);
+            List<AlgorithmSaveDto> algorithmSaveDtolist = new ArrayList<>();
+            if(algorithmList.isEmpty()){
+                for(int i = 0; i <3; i++){
+                    algorithmSaveDtolist.add(new AlgorithmSaveDto());
+                }
+            } else {
+                algorithmSaveDtolist = algorithmList.stream().map(AlgorithmSaveDto::new).collect(Collectors.toList());
+            }
+        return algorithmSaveDtolist;
     }
 
 }

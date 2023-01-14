@@ -63,11 +63,9 @@ public class SaveController {
 
     @GetMapping(value = "/saveAlgorithm")
     public String saveAlgorithmPro(@RequestParam("name") @Nullable String name , Model model){
-        Map<String , Object> map = new HashMap<>();
-        if(name != null) {
-           map = algorithmService.saveAlgorithmPro();
-        }
-        model.addAttribute("algorithm",map);
+        List<AlgorithmSaveDto> algorithmSaveDtoList = algorithmService.saveAlgorithmPro(name);
+
+        model.addAttribute("algorithm",algorithmSaveDtoList);
         return "insert/saveAlgorithm";
     }
 }
