@@ -2,6 +2,7 @@ package com.nueral.calculator.dto.character;
 
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.algorithm.Algorithm;
+import com.nueral.calculator.entity.images.Skins;
 import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.dto.AlgorithmDto.CharacterAlgorithmDto;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterDto;
@@ -44,6 +45,6 @@ public class CharacterInfoDto {
         this.characterAlgorithmDtoList = characters.getAlgorithmsList().stream().sorted(Comparator.comparing(Algorithm::getAlgorithmType)).map(CharacterAlgorithmDto::new).collect(Collectors.toList());
         this.goodsCharacterDtoList = characters.getGoodsCharacterList().stream().sorted((c1 , c2) -> c2.getAllGoods().getGoodsLevel() - c1.getAllGoods().getGoodsLevel()).map(GoodsCharacterDto::new).collect(Collectors.toList());
         this.goodsStatusCharactersDtoList = characters.getGoodsStatusCharactersList().stream().map(GoodsStatusCharacterDto::new).collect(Collectors.toList());
-        this.skinDtoList = characters.getSkinsList().stream().map(SkinDto::new).collect(Collectors.toList());
+        this.skinDtoList = characters.getSkinsList().stream().sorted(Comparator.comparingInt(Skins::getReleaseDate)).map(SkinDto::new).collect(Collectors.toList());
     }
 }

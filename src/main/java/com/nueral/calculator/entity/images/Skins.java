@@ -29,10 +29,13 @@ public class Skins extends DefaultEntity {
     @Id
     private String type;
 
+    private int releaseDate;
+
     @Builder
-    public Skins(Characters characters, String stdName, String type){
+    public Skins(Characters characters, String stdName, String type , int releaseDate){
         this.characters = characters;
         this.stdName = stdName;
         this.type = type;
+        this.releaseDate = releaseDate;
     }
 }

@@ -1,4 +1,12 @@
 spring:
+
+  profiles:
+    active: prod
+
+  output:
+    ansi:
+      enabled: always
+
   h2:
     console:
       enabled: true
@@ -14,7 +22,7 @@ spring:
   thymeleaf:
     characterEncoding: utf-8
     cache: false
-    prefix: classpath:templates/
+    prefix: classpath:/templates/
     suffix: .html
 
   servlet:
@@ -41,7 +49,7 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+    org.hibernate.type: info
 #암호화
 jasypt:
   encryptor:

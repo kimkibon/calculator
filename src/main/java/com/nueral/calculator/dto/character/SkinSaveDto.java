@@ -14,11 +14,13 @@ public class SkinSaveDto {
     String type;
     MultipartFile file;
     String stdName;
+    int releaseDate;
 
     public SkinSaveDto(Skins skins){
         this.characterName = skins.getCharacters().getName();
         this.type = skins.getType();
         this.stdName = skins.getStdName();
+        this.releaseDate = skins.getReleaseDate();
     }
 
     public SkinSaveDto(String characterName){

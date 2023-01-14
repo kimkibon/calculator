@@ -17,10 +17,10 @@
   <form th:action="@{/insert/saveAlgorithm}" method="post" th:object="${characterAlgorithm}">
     <div class="row m-1">
       <div class="col">
-      <div class="form-floating">
-        <input class="form-control" th:id="name" th:value="${name}" readonly>
-        <label class="text-light" th:for="name">이름</label>
-      </div>
+        <div class="form-floating">
+          <input class="form-control" th:id="name" th:value="${name}" readonly>
+          <label class="text-light" th:for="name">이름</label>
+        </div>
       </div>
     </div>
     <div class="row m-1" th:each="algorithmSaveDto , item : *{algorithmSaveDto}">
@@ -38,7 +38,7 @@
         <div class="col">
           <div class="form-floating">
             <select class="form-control" th:id="*{algorithmSaveDto[__${item.index}__].setAlgorithm}"
-              th:field="*{algorithmSaveDto[__${item.index}__].setAlgorithm}" setDisplayCount="5">
+              th:field="*{algorithmSaveDto[__${item.index}__].setAlgorithm}">
               <option th:if="${#strings.equals(setAlgorithm.type,algorithmSaveDto.AlgorithmType)}"
                 th:each="setAlgorithm : ${setAlgorithmList}" th:value="${setAlgorithm.setAlgorithmName}"
                 th:text="${setAlgorithm.setAlgorithmName}"></option>

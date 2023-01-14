@@ -16,7 +16,7 @@
   </th:block>
 
   <!-- Content -->
-  <div th:fragment="goodsExp">
+  <th:block th:fragment="goodsExp">
     <script th:inline="javascript">
       const goodsExp =
         /*[[${goodsExpList}]]*/
@@ -67,7 +67,7 @@
       }
     </script>
 
-    <div class="row m-1">
+    <div class="row">
       <div class="row">
         <h2 class="col col-md-auto m-2">호감도 경험치 계산기</h2>
       </div>
@@ -98,7 +98,7 @@
       </div>
       </div>
     </div>
-    <div class="row m-1">
+    <div class="row">
       <div class="d-flex justify-content-between">
         <div class="col">
           <div class="form-floating">
@@ -132,5 +132,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </th:block>
 </html>

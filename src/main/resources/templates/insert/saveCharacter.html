@@ -34,6 +34,7 @@
                     <img id="preview" th:src="${CharacterSaveDto.profile}"
                         onerror="this.onerror=null; this.src='/image/basic/insert/insert.png';">
                 </div>
+                <input type="hidden" th:field="*{profile}">
                 <div class="row">
                     <div class="form-floating">
                         <input class="form-control" onchange="readUrl(this)" id="file" type="file" name="file"

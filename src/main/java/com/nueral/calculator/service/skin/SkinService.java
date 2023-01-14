@@ -1,5 +1,6 @@
 package com.nueral.calculator.service.skin;
 
+import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skin.SkinRepository;
 import com.nueral.calculator.dto.character.SkinSaveDto;
@@ -23,15 +24,18 @@ public class SkinService {
 
     public String saveSkins(SkinSaveDto skinSaveDto) {
         try{
+            Characters characters = characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow();
             if (!skinSaveDto.getFile().isEmpty()) {
                 String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName(), skinSaveDto.getType(), skinSaveDto.getFile());
-                Skins skins = Skins.builder()
-                        .stdName(insertFile)
-                        .type(skinSaveDto.getType())
-                        .characters(characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow())
-                        .build();
-                skinRepository.save(skins);
+                skinSaveDto.setStdName(insertFile);
             }
+            Skins skins = Skins.builder()
+                    .stdName(skinSaveDto.getStdName())
+                    .type(skinSaveDto.getType())
+                    .characters(characters)
+                    .releaseDate(skinSaveDto.getReleaseDate())
+                    .build();
+            skinRepository.save(skins);
             return "home";
         } catch (Exception e){
             return "saveError";

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.nueral'
-version = '0.0.1-SNAPSHOT'
+version = 'beta'
 sourceCompatibility = '11'
 
 configurations {

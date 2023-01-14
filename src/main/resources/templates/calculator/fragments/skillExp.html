@@ -1,118 +1,94 @@
 <!DOCTYPE html>
-<html
-  lang="ko"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout}"
->
-  <!-- index.html 고유 CSS 추가 -->
-  <th:block layout:fragment="css">
-    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-  </th:block>
-  <!-- index.html 고유 스크립트 추가 -->
-  <th:block layout:fragment="script">
-    <!--    <script th:src="@{/js/page/home.js}"></script>-->
-  </th:block>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
 
-  <!-- Content -->
-  <div th:fragment="skillExp">
-    <script th:inline="javascript">
-      const skillExp =
-        /*[[${skillExpList}]]*/
+<!-- Content -->
+<th:block th:fragment="skillExp">
+  <script th:inline="javascript">
+    const skillExp =
+      /*[[${skillExpList}]]*/
 
-        document.addEventListener("DOMContentLoaded", function () {
-          document.getElementById("maxSkillLevel").value = goodsExp.length;
-          document.getElementById("minSkillLevel").value = 1;
-          changeSkillLevel();
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("maxSkillLevel").value = goodsExp.length;
+        document.getElementById("minSkillLevel").value = 1;
+        changeSkillLevel();
+      });
 
-      function changeSkillLevel() {
-        document.getElementById("minSkillLevel").value = document
-          .getElementById("minSkillLevel")
-          .value.replace(/[^0-9.]/g, "")
-          .replace(/(\..*)\./g, "$1");
-        document.getElementById("maxSkillLevel").value = document
-          .getElementById("maxSkillLevel")
-          .value.replace(/[^0-9.]/g, "")
-          .replace(/(\..*)\./g, "$1");
-        const minSkillLevel = document.getElementById("minSkillLevel").value;
-        const maxSkillLevel = document.getElementById("maxSkillLevel").value;
+    function changeSkillLevel() {
+      document.getElementById("minSkillLevel").value = document
+        .getElementById("minSkillLevel")
+        .value.replace(/[^0-9.]/g, "")
+        .replace(/(\..*)\./g, "$1");
+      document.getElementById("maxSkillLevel").value = document
+        .getElementById("maxSkillLevel")
+        .value.replace(/[^0-9.]/g, "")
+        .replace(/(\..*)\./g, "$1");
+      const minSkillLevel = document.getElementById("minSkillLevel").value;
+      const maxSkillLevel = document.getElementById("maxSkillLevel").value;
 
-        if (minSkillLevel > skillExp.length) {
-          document.getElementById("minSkillLevel").value = skillExp.length;
-        }
-        if (maxSkillLevel > skillExp.length) {
-          document.getElementById("maxSkillLevel").value = skillExp.length;
-        }
-
-        const skillExpList = skillExp.slice(minSkillLevel, maxSkillLevel);
-
-        const resultExp = skillExpList.reduce(function add(sum, currValue) {
-          return parseInt(sum) + parseInt(currValue.exp);
-        }, 0);
-        const resultCore = skillExpList.reduce(function add(sum, currValue) {
-          return parseInt(sum) + parseInt(currValue.core);
-        }, 0);
-
-        document.getElementById("resultSkillExp").innerText = resultExp + "";
-        document.getElementById("resultSkillCore").innerText = resultCore + "";
+      if (minSkillLevel > skillExp.length) {
+        document.getElementById("minSkillLevel").value = skillExp.length;
       }
-    </script>
+      if (maxSkillLevel > skillExp.length) {
+        document.getElementById("maxSkillLevel").value = skillExp.length;
+      }
+
+      const skillExpList = skillExp.slice(minSkillLevel, maxSkillLevel);
+
+      const resultExp = skillExpList.reduce(function add(sum, currValue) {
+        return parseInt(sum) + parseInt(currValue.exp);
+      }, 0);
+      const resultCore = skillExpList.reduce(function add(sum, currValue) {
+        return parseInt(sum) + parseInt(currValue.core);
+      }, 0);
+
+      document.getElementById("resultSkillExp").innerText = resultExp + "";
+      document.getElementById("resultSkillCore").innerText = resultCore + "";
+    }
+  </script>
+  <div class="row">
     <div class="row">
-      <div class="row m-1">
-        <div class="row">
-          <h2 class="col col-md-auto m-2">스킬 경험치 계산기</h2>
-        </div>
-      <div class="d-flex justify-content-around">
-        <div class="col">
-          <div class="form-floating">
-            <input
-              class="form-control"
-              id="minSkillLevel"
-              oninput="changeSkillLevel()"
-              type="text"
-              min="1"
-            />
-            <label for="minSkillLevel"> 현재 레벨 </label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-floating">
-            <input
-              class="form-control"
-              id="maxSkillLevel"
-              oninput="changeSkillLevel()"
-              type="text"
-              min="1"
-            />
-            <label for="maxSkillLevel"> 목표 레벨 </label>
-          </div>
-        </div>
-      </div>
-      </div>
+      <h2 class="col col-md-auto m-2">스킬 경험치 계산기</h2>
     </div>
-    <div class="row">
-      <div class="row m-1">
-        <div class="d-flex justify-content-around">
-        <div class="col">
-          <div class="form-floating">
-            <span class="form-control" id="resultSkillExp">0</span>
-            <label for="resultSkillExp">스킬 경험치</label>
-          </div>
+    <div class="d-flex justify-content-around">
+      <div class="col">
+        <div class="form-floating">
+          <input class="form-control" id="minSkillLevel" oninput="changeSkillLevel()" type="text" min="1" />
+          <label for="minSkillLevel"> 현재 레벨 </label>
         </div>
-        <div class="col">
-          <div class="form-floating">
-            <span
-              class="form-control border-warning text-warning"
-              id="resultSkillCore"
-              >0</span
-            >
-            <label class="text-warning" for="resultSkillCore">스킬 코어</label>
-          </div>
-        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <input class="form-control" id="maxSkillLevel" oninput="changeSkillLevel()" type="text" min="1" />
+          <label for="maxSkillLevel"> 목표 레벨 </label>
         </div>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="d-flex justify-content-around">
+      <div class="col">
+        <div class="form-floating">
+          <span class="form-control" id="resultSkillExp">0</span>
+          <label for="resultSkillExp">스킬 경험치</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating">
+          <span class="form-control border-warning text-warning" id="resultSkillCore">0</span>
+          <label class="text-warning" for="resultSkillCore">스킬 코어</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
 </html>

@@ -32,241 +32,256 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-
-  <div class="row m-1" th:if="${#lists.size(character.skinDtoList) != 0}">
-    <div class="col p-1">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button class="light" th:each="skins , i : ${character.skinDtoList}" type="button"
-            data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${i.index}"
-            th:classappend="${i.count == 1} ? 'active' : ''" th:aria-current="${i.count == 1} ? 'true' : ''"
-            th:aria-label="${'Slide ' +i.count}"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item" th:each="skins , i : ${character.skinDtoList}"
-            th:classappend="${i.count == 1} ? 'active' : ''">
-            <div class="card">
-              <img th:src="${skins.stdName}" class="card-img" alt="..."
-                onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-              <div class="card-img-overlay">
-                <div class="col">
-                  <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}"
-                    method="get">
-        <!-- to do
-        입력 폼 모두 다 th:field 형식으로 변경
-        컨트롤러에서 field 값을 받도록 수정 필요. -->
-                    <input type="hidden" name="name" th:value="${character.characterName}">
-                    <input type="hidden" name="type" th:value="${skins.type}">
-                    <button class="btn btn-sm btn-danger" type="submit">스킨 수정</button>
-                  </form>
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-lg">
+        <div class="row" th:if="${#lists.size(character.skinDtoList) != 0}">
+          <div class="col m-1">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button class="light" th:each="skins , i : ${character.skinDtoList}" type="button"
+                  data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${i.index}"
+                  th:classappend="${i.count == 1} ? 'active' : ''" th:aria-current="${i.count == 1} ? 'true' : ''"
+                  th:aria-label="${'Slide ' +i.count}"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item" th:each="skins , i : ${character.skinDtoList}"
+                  th:classappend="${i.count == 1} ? 'active' : ''">
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col">
+                          <div class="btn btn-sm btn-secondary" th:text="${skins.type}"></div>
+                        </div>
+                        <div class="col">
+                          <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}"
+                            method="get">
+                            <!-- to do
+      입력 폼 모두 다 th:field 형식으로 변경
+      컨트롤러에서 field 값을 받도록 수정 필요. -->
+                            <input type="hidden" name="name" th:value="${character.characterName}">
+                            <input type="hidden" name="type" th:value="${skins.type}">
+                            <button class="btn btn-sm btn-outline-danger" type="submit">스킨 수정</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <img th:src="${skins.stdName}" class="card-img" alt="..."
+                      onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                  </div>
                 </div>
-                <div class="col">
-                  <div class="btn btn-sm btn-secondary" th:text="${skins.type}"></div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row" th:if="${#lists.size(character.skinDtoList)} == 0">
+          <div class="col m-1">
+            <div class="card">
+              <img class="card-img" th:src="${character.profile}"
+                onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}" method="get">
+            <input type="hidden" name="name" th:value="${character.characterName}">
+            <input type="hidden" name="type">
+            <button class="btn btn-sm btn-outline-danger m-1" type="submit">스킨 추가</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg">
+          <div class="row">
+            <div class="d-flex justify-content-between">
+              <div class="col col-md p-1">
+                <div class="form-floating">
+                  <span class="form-control text text-light" id="name" th:text="${character.characterName}">
+                  </span>
+                  <label for="name">name</label>
+                </div>
+              </div>
+              <div class="col col-md p-1">
+                <div class="form-floating">
+                  <div class="form-control text text-light" id="companyType" th:text="${character.companyType}">
+                  </div>
+                  <label for="companyType">company</label>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="row m-1" th:if="${#lists.size(character.skinDtoList)} == 0">
-    <div class="col">
-      <div class="card">
-        <img class="card-img" th:src="${character.profile}"
-          onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-        <div class="card-img-overlay">
-          <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}" method="get">
-            <input type="hidden" name="name" th:value="${character.characterName}">
-            <input type="hidden" name="type">
-            <button class="btn btn-sm btn-danger" type="submit">스킨 추가</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="m-1">
-    <div class="row">
-      <div class="d-flex justify-content-between">
-        <div class="col col-md p-1">
-          <div class="form-floating">
-            <span class="form-control text text-light" id="name" th:text="${character.characterName}">
-            </span>
-            <label for="name">name</label>
-          </div>
-        </div>
-        <div class="col col-md p-1">
-          <div class="form-floating">
-            <div class="form-control text text-light" id="companyType" th:text="${character.companyType}">
-            </div>
-            <label for="companyType">company</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="d-flex">
-        <div class="col col-md p-1">
-          <div class="form-floating">
-            <span class="form-control" id="defaultStar" th:text="${character.defaultStar}" th:classappend="${
+          <div class="row">
+            <div class="d-flex">
+              <div class="col col-md p-1">
+                <div class="form-floating">
+                  <span class="form-control" id="defaultStar" th:text="${character.defaultStar}" th:classappend="${
                         (character.defaultStar == 1 ? ' text-primary' : '') +
                         (character.defaultStar == 3 ? ' text-danger' : '') +
                         (character.defaultStar == 5 ? ' text-warning' : '')}">
-            </span>
-            <label for="defaultStar">star</label>
+                  </span>
+                  <label for="defaultStar">star</label>
+                </div>
+              </div>
+              <div class="col col-md p-1">
+                <div class="form-floating">
+                  <span class="form-control text text-light" id="roleType" th:text="${character.roleType}">
+                  </span>
+                  <label for="roleType">class</label>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col col-md p-1">
-          <div class="form-floating">
-            <span class="form-control text text-light" id="roleType" th:text="${character.roleType}">
-            </span>
-            <label for="roleType">class</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="d-flex">
-        <div class="col col-md p-1">
-          <div class="form-floating">
-            <span class="form-control" id="dealType" th:text="${character.dealType}" th:classappend="${
+          <div class="row">
+            <div class="d-flex">
+              <div class="col col-md p-1">
+                <div class="form-floating">
+                  <span class="form-control" id="dealType" th:text="${character.dealType}" th:classappend="${
                         (character.dealType == '연산' ? ' text-primary' : '') +
                         (character.dealType == '복합' ? ' text-danger' : '') +
                         (character.dealType == '물리' ? ' text-warning' : '')}">
-            </span>
-            <label for="dealType">deal stat</label>
+                  </span>
+                  <label for="dealType">deal stat</label>
+                </div>
+              </div>
+              <div class="col col-md p-1">
+                <div class="form-floating">
+                  <span class="form-control text text-light" id="areaType" th:text="${character.areaType}">
+                  </span>
+                  <label for="areaType">area type</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="d-flex justify-content-end">
+          <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+            <input type="hidden" name="name" th:value="${character.characterName}">
+            <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
+          </form>
+        </div>
+        <div class="text-light border m-1">
+          <div class="d-flex justify-content-between">
+          <span class="m-1">스킬</span>
+            <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+              <input type="hidden" name="name" th:value="${character.characterName}">
+              <button class="btn btn-sm btn-outline-danger m-1" type="submit">스킬 수정</button>
+            </form>
           </div>
         </div>
-        <div class="col col-md p-1">
-          <div class="form-floating">
-            <span class="form-control text text-light" id="areaType" th:text="${character.areaType}">
-            </span>
-            <label for="areaType">area type</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="d-flex justify-content-end">
-        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
-          <input type="hidden" name="name" th:value="${character.characterName}">
-          <button class="btn btn-sm btn-danger m-1" type="submit">기본 정보 수정</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="row text-light border m-1"><span class="m-1">스킬</span></div>
-  <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}">
-    <div class="border">
-      <div class="row"><span class="text-light">[[${skills?.skillName}]] <span class="badge"
-            th:text="${skills.skillType}" th:classappend="${
+        <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}">
+          <div class="border">
+            <div class="row"><span class="text-light">[[${skills?.skillName}]] <span class="badge"
+                  th:text="${skills.skillType}" th:classappend="${
                         (skills.skillType == '패시브' ? 'text-primary' : '') +
                         (skills.skillType == '액티브' ? 'text-danger' : '') +
                         (skills.skillType == '궁극기' ? 'text-warning' : '')}"></span></span></div>
-      <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span></div>
-      <div class="row">
-        <hr class="border" th:classappend="${
+            <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span>
+            </div>
+            <div class="row">
+              <hr class="border" th:classappend="${
                         (skills.skillType == '패시브' ? 'border-primary' : '') +
                         (skills.skillType == '액티브' ? 'border-danger' : '') +
                         (skills.skillType == '궁극기' ? 'border-warning' : '')}">
-        <span th:text="${skills?.effect}"></span>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-end">
-    <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
-      <input type="hidden" name="name" th:value="${character.characterName}">
-      <button class="btn btn-sm btn-danger m-1" type="submit">스킬 수정</button>
-    </form>
-  </div>
+              <span th:text="${skills?.effect}"></span>
+            </div>
+          </div>
+        </div>
 
-  <div class="row m-1">
-    <div class="col border" th:each="algorithm : ${character.characterAlgorithmDtoList}">
-      <div class="row">
-        <span class="badge" th:classappend="${
+        <div class="text-light border m-1">
+          <div class="d-flex justify-content-between">
+            <span class="m-1">알고리즘</span>
+            <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveAlgorithm}" method="get">
+              <input type="hidden" name="name" th:value="${character.characterName}">
+              <button class="btn btn-sm btn-outline-danger m-1" type="submit">알고리즘 수정</button>
+            </form>
+          </div>
+        </div>
+        <div class="row m-1">
+          <div class="col border" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+            <div class="row">
+              <span class="badge" th:classappend="${
                         (algorithm.algorithmType == '공격성' ? 'text-danger' : '') +
                         (algorithm.algorithmType == '안정성' ? 'text-primary' : '') +
                         (algorithm.algorithmType == '특이성' ? 'text-warning' : '')}"
-          th:text="${algorithm.algorithmType}"></span>
-      </div>
-      <div class="row">
-        <span class="text-nowrap text-light">[[${algorithm?.setAlgorithmDto.setAlgorithmName}]]</span>
-      </div>
-      <div class="row"><span class="text-nowrap" th:text="${algorithm?.mainOpt}"></span></div>
-      <br>
-      <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt1}"></span></div>
-      <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt2}"></span></div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-end">
-    <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveAlgorithm}" method="get">
-      <input type="hidden" name="name" th:value="${character.characterName}">
-      <button class="btn btn-sm btn-danger m-1" type="submit">알고리즘 수정</button>
-    </form>
-  </div>
+                th:text="${algorithm.algorithmType}"></span>
+            </div>
+            <div class="row">
+              <span class="text-nowrap text-light">[[${algorithm?.setAlgorithmDto.setAlgorithmName}]]</span>
+            </div>
+            <div class="row"><span class="text-nowrap" th:text="${algorithm?.mainOpt}"></span></div>
+            <br>
+            <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt1}"></span></div>
+            <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt2}"></span></div>
+          </div>
+        </div>
 
-  <div class="row m-1 border">
-    <div class="text-light">호감도 아이템</div>
-    <div class="d-flex">
-      <div class="col m-1" th:each="goods , i : ${character.goodsCharacterDtoList}" >
-        <img class="img img-fluid" th:src="${'/image/basic/goods/'+goods.goodsName+'.png'}" style="min-height:100px;max-height:100px; object-fit:cover;">
-          <div class="row" ><span th:text="${goods.goodsName}" th:classappend="${
+          <div class="text-light border m-1">
+            <div class="d-flex justify-content-between">
+              <span class="m-1">호감도 아이템</span>
+              <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+                <input type="hidden" name="name" th:value="${character.characterName}">
+                <button class="btn btn-sm btn-outline-danger m-1" type="submit">아이템 수정</button>
+              </form>
+            </div>
+          </div>
+        <div class="row m-1 border">
+        <div class="d-flex">
+            <div class="col m-1" th:each="goods , i : ${character.goodsCharacterDtoList}">
+              <img class="img img-fluid" th:src="${'/image/basic/goods/'+goods.goodsName+'.png'}"
+                style="min-height:100px;max-height:100px; object-fit:cover;">
+              <div class="row"><span th:text="${goods.goodsName}" th:classappend="${
                         (goods.goodsLevel == 1 ? 'text-primary' : '') +
                         (goods.goodsLevel == 2 ? 'text-danger' : '') +
                         (goods.goodsLevel == 3 ? 'text-warning' : '')}"></span></div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="text-light border m-1">
+          <div class="d-flex justify-content-between">
+          <span class="m-1">호감도 스탯</span>
+            <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+              <input type="hidden" name="name" th:value="${character.characterName}">
+              <button class="btn btn-sm btn-outline-danger m-1" type="submit">호감도 스탯 수정</button>
+            </form>
+          </div>
+        </div>
+        <div class="row border m-1">
+        <div class="row" th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
+            <div class="col" th:text="${goodsStatus.statusName}"></div>
+            <div class="col-8" th:id="${goodsStatus?.status}" th:text="${goodsStatus?.status}">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="d-flex">
+            <div class="col text-center border m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+              <div class="row">
+                <div class="col">메인 옵션</div>
+              </div>
+              <div class="row">
+                <div class="col">세트 이름</div>
+              </div>
+              <div class="row">
+                <div class="col">서브옵션1</div>
+                <div class="col">서브옵션2</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-end">
-    <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
-      <input type="hidden" name="name" th:value="${character.characterName}">
-      <button class="btn btn-sm btn-danger m-1" type="submit">아이템 수정</button>
-    </form>
-  </div>
-
-
-  <div class="row border m-1">
-    <div class="text-light m-1">호감도 스탯</div>
-    <div class="row" th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
-      <div class="col" th:text="${goodsStatus.statusName}"></div>
-      <div class="col-8" th:id="${goodsStatus?.status}" th:text="${goodsStatus?.status}">
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-end">
-    <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
-      <input type="hidden" name="name" th:value="${character.characterName}">
-      <button class="btn btn-sm btn-danger m-1" type="submit">호감도 스탯 수정</button>
-    </form>
-  </div>
-
-  <div class="row">
-    <div class="d-flex">
-      <div class="col text-center border m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
-        <div class="row">
-          <div class="col">메인 옵션</div>
-        </div>
-        <div class="row">
-          <div class="col">세트 이름</div>
-        </div>
-        <div class="row">
-          <div class="col">서브옵션1</div>
-          <div class="col">서브옵션2</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
 
 </html>

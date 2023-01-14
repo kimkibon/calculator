@@ -546,7 +546,7 @@
 //        goodsService.saveGoodsStatus("출력강화", "공격력 55 상승");
 //        goodsService.saveGoodsStatus("코어가속", "충전속도 8% 상승");
 //        goodsService.saveGoodsStatus("진형강화", "모든 피해량 5% 상승");
-//        goodsService.saveGoodsStatus("멘탈활성", "연상력 55 상승");
+//        goodsService.saveGoodsStatus("멘탈활성", "연산력 55 상승");
 //        goodsService.saveGoodsStatus("코드안정", "체력 1320 상승");
 //        goodsService.saveGoodsStatus("협력강타", "치명률 8% 상승");
 //        goodsService.saveGoodsStatus("필승격려", "치명타 피해 12% 상승");

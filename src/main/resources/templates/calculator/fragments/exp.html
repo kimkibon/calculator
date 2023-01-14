@@ -11,7 +11,7 @@
   <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 <!-- Content -->
-<div th:fragment="exp">
+<th:block th:fragment="exp">
   <script th:inline="javascript">
     const exp = /*[[${expList}]]*/
       document.addEventListener("DOMContentLoaded", function () {
@@ -67,7 +67,6 @@
     }
   </script>
   <div class="row">
-    <div class="row m-1">
       <div class="row">
         <h2 class="col col-md-auto m-2">캐릭터 경험치 계산기</h2>
       </div>
@@ -87,18 +86,14 @@
         </div>
       </div>
       </div>
-    </div>
   </div>
   <div class="row">
-    <div class="row m-1">
-      <div class="col">
+    <div class="col">
       <div class="form-floating">
         <div class="form-control" id="resultExp">213630</div>
         <label for="resultExp">경험치</label>
       </div>
-      </div>
     </div>
-    <div class="row m-1">
     <div class="d-flex justify-content-between">
       <div class="col">
         <div class="form-floating">
@@ -137,8 +132,7 @@
         </div>
       </div>
     </div>
-    </div>
   </div>
-</div>
+</th:block>
 
 </html>
