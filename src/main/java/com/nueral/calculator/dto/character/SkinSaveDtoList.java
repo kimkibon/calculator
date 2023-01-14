@@ -14,7 +14,4 @@ import java.util.List;
 public class SkinSaveDtoList {
     private List<SkinSaveDto> skinSaveDto;
 
-    public void addDto(SkinSaveDto skinSaveDto){
-        this.skinSaveDto.add(skinSaveDto);
-    }
 }

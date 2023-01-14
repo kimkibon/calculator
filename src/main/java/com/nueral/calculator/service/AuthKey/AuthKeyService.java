@@ -1,7 +1,7 @@
 package com.nueral.calculator.service.AuthKey;
 
-import com.nueral.calculator.entity.authKey.AuthKey;
 import com.nueral.calculator.repository.authKey.AuthKeyRepository;
+import com.nueral.calculator.entity.authKey.AuthKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

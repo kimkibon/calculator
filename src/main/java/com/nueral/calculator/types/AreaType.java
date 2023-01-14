@@ -3,9 +3,6 @@ package com.nueral.calculator.types;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @AllArgsConstructor
 @Getter
 public enum AreaType {

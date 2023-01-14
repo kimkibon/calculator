@@ -18,7 +18,7 @@ public class UserController {
     @PostMapping(value = "/join")
     public String join(@ModelAttribute UserSaveDto userSaveDto){
         userService.savaUser(userSaveDto);
-        return "/home";
+        return "home";
     }
 
 }

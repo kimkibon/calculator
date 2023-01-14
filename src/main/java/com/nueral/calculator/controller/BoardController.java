@@ -16,6 +16,6 @@ public class BoardController {
     @PostMapping(value = "/insert")
     public String saveBoard(@ModelAttribute BoardDto boardDto){
         boardService.saveBoard(boardDto);
-        return "/home";
+        return "home";
     }
 }

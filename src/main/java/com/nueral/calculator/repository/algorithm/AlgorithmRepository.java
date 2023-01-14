@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface AlgorithmRepository extends JpaRepository<Algorithm , AlgorithmId> {
 
-    @Query(value = "select * from Algorithm s where s.character_name = :name" ,nativeQuery = true)
+    @Query(value = "select * from algorithm s where s.character_name = :name" ,nativeQuery = true)
     List<Algorithm> findByCharacterName(@Param("name")String name);
 }

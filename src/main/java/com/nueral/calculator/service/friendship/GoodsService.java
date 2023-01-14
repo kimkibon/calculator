@@ -1,9 +1,15 @@
 package com.nueral.calculator.service.friendship;
 
 import com.nueral.calculator.entity.Characters;
-import com.nueral.calculator.entity.friendship.*;
+import com.nueral.calculator.entity.friendship.AllGoods;
+import com.nueral.calculator.entity.friendship.GoodsCharacter;
+import com.nueral.calculator.entity.friendship.GoodsStatus;
+import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;
 import com.nueral.calculator.repository.CharacterRepository;
-import com.nueral.calculator.repository.friendship.*;
+import com.nueral.calculator.repository.friendship.AllGoodsRepository;
+import com.nueral.calculator.repository.friendship.GoodsCharacterRepository;
+import com.nueral.calculator.repository.friendship.GoodsStatusCharacterRepository;
+import com.nueral.calculator.repository.friendship.GoodsStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

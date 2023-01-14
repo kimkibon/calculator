@@ -1,12 +1,12 @@
 package com.nueral.calculator.dto.character;
 
+import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.algorithm.Algorithm;
+import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.dto.AlgorithmDto.CharacterAlgorithmDto;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterDto;
 import com.nueral.calculator.dto.goodsDto.GoodsStatusCharacterDto;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDto;
-import com.nueral.calculator.entity.Characters;
-import com.nueral.calculator.entity.algorithm.Algorithm;
-import com.nueral.calculator.entity.skill.AllSkills;
 import lombok.*;
 
 import java.util.Comparator;

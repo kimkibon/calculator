@@ -1,10 +1,10 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.service.characterService.CharacterService;
 import com.nueral.calculator.dto.AlgorithmDto.AlgorithmSaveDtoList;
 import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.dto.character.SkinSaveDto;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
-import com.nueral.calculator.service.characterService.CharacterService;
 import com.nueral.calculator.service.skin.SkinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;

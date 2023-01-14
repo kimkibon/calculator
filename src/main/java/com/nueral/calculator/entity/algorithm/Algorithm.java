@@ -1,8 +1,8 @@
 package com.nueral.calculator.entity.algorithm;
 
 import com.nueral.calculator.entity.Characters;
-import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.algorithm.id.AlgorithmId;
+import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.types.AlgorithmType;
 import lombok.Builder;
 import lombok.Getter;

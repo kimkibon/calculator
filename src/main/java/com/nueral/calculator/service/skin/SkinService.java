@@ -1,10 +1,10 @@
 package com.nueral.calculator.service.skin;
 
+import com.nueral.calculator.repository.CharacterRepository;
+import com.nueral.calculator.repository.skin.SkinRepository;
 import com.nueral.calculator.dto.character.SkinSaveDto;
 import com.nueral.calculator.entity.images.Skins;
 import com.nueral.calculator.entity.images.id.SkinsId;
-import com.nueral.calculator.repository.CharacterRepository;
-import com.nueral.calculator.repository.skin.SkinRepository;
 import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +32,9 @@ public class SkinService {
                         .build();
                 skinRepository.save(skins);
             }
-            return "/home";
+            return "home";
         } catch (Exception e){
-            return "/saveError";
+            return "saveError";
         }
     }
 

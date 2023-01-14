@@ -72,9 +72,9 @@ public class CharacterService {
             Characters characters = new Characters(characterSaveDto);
         try {
             characterRepository.save(characters);
-            return "/home";
+            return "home";
         } catch (Exception e){
-            return "/saveError";
+            return "saveError";
         }
     }
 

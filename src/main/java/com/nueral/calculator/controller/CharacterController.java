@@ -1,7 +1,7 @@
 package com.nueral.calculator.controller;
 
-import com.nueral.calculator.dto.character.CharacterInfoDto;
 import com.nueral.calculator.service.characterService.CharacterService;
+import com.nueral.calculator.dto.character.CharacterInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +30,7 @@ public class CharacterController {
             model.addAttribute("character", characterInfoDto);
             return "information/character";
         } else {
-            return "/home";
+            return "home";
         }
     }
 

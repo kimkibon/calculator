@@ -14,7 +14,4 @@ import java.util.List;
 public class AlgorithmSaveDtoList {
     List<AlgorithmSaveDto> algorithmSaveDto;
 
-    public void addDto(AlgorithmSaveDto algorithmSaveDto){
-        this.algorithmSaveDto.add(algorithmSaveDto);
-    }
 }

@@ -15,7 +15,8 @@ import com.nueral.calculator.types.AlgorithmType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,10 +81,10 @@ public class AlgorithmService {
                     .subAlgorithm2(subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm2()))
                     .build();
             algorithmRepository.save(algorithm);
-        } return "/home";
+        } return "home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "/saveError";
+            return "saveError";
         }
     }
 
