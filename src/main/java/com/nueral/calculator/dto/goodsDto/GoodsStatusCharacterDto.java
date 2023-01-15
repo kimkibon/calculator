@@ -2,7 +2,6 @@ package com.nueral.calculator.dto.goodsDto;
 
 import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;
 import lombok.*;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,7 +11,6 @@ public class GoodsStatusCharacterDto {
     private String statusName;
     private String status;
     private int statusLevel;
-
 
     public GoodsStatusCharacterDto(GoodsStatusCharacter goodsStatusCharacter){
         this.statusName = goodsStatusCharacter.getGoodsStatus().getName();
