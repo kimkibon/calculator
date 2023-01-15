@@ -1,11 +1,7 @@
 package com.nueral.calculator.service.algorithm;
 
 import com.nueral.calculator.dto.AlgorithmDto.*;
-import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.entity.algorithm.Algorithm;
-import com.nueral.calculator.entity.algorithm.MainAlgorithm;
-import com.nueral.calculator.entity.algorithm.SetAlgorithm;
-import com.nueral.calculator.entity.algorithm.SubAlgorithm;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.algorithm.AlgorithmRepository;
 import com.nueral.calculator.repository.algorithm.MainAlgorithmRepository;
@@ -33,8 +29,9 @@ public class AlgorithmService {
     private CharacterRepository characterRepository;
 
 
+/**
     public void saveAlgorithm(
-            String charactersName, AlgorithmType algorithmType,
+            String charactersName, AlgorithmType,
             String setAlgorithmName , String mainOpt,
             String subOpt , String subOpt2){
 
@@ -56,6 +53,42 @@ public class AlgorithmService {
         algorithmRepository.save(algorithm);
 
     }
+
+    public void saveMainAlgorithm(AlgorithmType algorithmType , String mainOpt){
+        MainAlgorithm mainAlgorithm = MainAlgorithm.builder()
+                .algorithmType(algorithmType)
+                .mainOpt(mainOpt)
+                .build();
+
+        mainAlgorithmRepository.save(mainAlgorithm);
+
+    }
+
+    public void saveSubAlgorithm(AlgorithmType algorithmType , String subOpt){
+
+        SubAlgorithm subAlgorithm = SubAlgorithm.builder()
+                .algorithmType(algorithmType)
+                .subOpt(subOpt)
+                .build();
+
+        subAlgorithmRepository.save(subAlgorithm);
+    }
+
+    public void saveSetAlgorithm(String setAlgorithmName,
+                                 AlgorithmType , String twoSetOpt,
+                                 String threeSetOpt){
+
+        SetAlgorithm setAlgorithm = SetAlgorithm.builder()
+                .algorithmType(algorithmType)
+                .setAlgorithmName(setAlgorithmName)
+                .threeSetOpt(threeSetOpt)
+                .twoSetOpt(twoSetOpt)
+                .build();
+
+        setAlgorithmRepository.save(setAlgorithm);
+
+    }
+*/
 
     public String saveAlgorithmByDto(AlgorithmSaveDtoList algorithmSaveDtoList){
         try{
@@ -86,41 +119,6 @@ public class AlgorithmService {
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
             return "saveError";
         }
-    }
-
-    public void saveMainAlgorithm(AlgorithmType algorithmType , String mainOpt){
-        MainAlgorithm mainAlgorithm = MainAlgorithm.builder()
-                .algorithmType(algorithmType)
-                .mainOpt(mainOpt)
-                .build();
-
-       mainAlgorithmRepository.save(mainAlgorithm);
-
-    }
-
-    public void saveSubAlgorithm(AlgorithmType algorithmType , String subOpt){
-
-        SubAlgorithm subAlgorithm = SubAlgorithm.builder()
-                .algorithmType(algorithmType)
-                .subOpt(subOpt)
-                .build();
-
-        subAlgorithmRepository.save(subAlgorithm);
-    }
-
-    public void saveSetAlgorithm(String setAlgorithmName,
-                                 AlgorithmType algorithmType , String twoSetOpt,
-                                 String threeSetOpt){
-
-        SetAlgorithm setAlgorithm = SetAlgorithm.builder()
-                .algorithmType(algorithmType)
-                .setAlgorithmName(setAlgorithmName)
-                .threeSetOpt(threeSetOpt)
-                .twoSetOpt(twoSetOpt)
-                .build();
-
-        setAlgorithmRepository.save(setAlgorithm);
-
     }
 
     public AlgorithmSaveDtoList saveAlgorithmPro(String name){

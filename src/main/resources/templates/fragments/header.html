@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-            <a class="nav-link" href="/calculator/allExp">계산기 모음</a>
+          <a class="nav-link" href="/calculator/allExp">계산기 모음</a>
         </li>
         <li class="nav-item">
           <a href="/information/characterList" class="nav-link">
@@ -27,7 +27,7 @@
           <a class="nav-link active" aria-current="page" href="/insert/saveCharacter">캐릭터 추가</a>
         </li>
         <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/user/joinForm">회원추가</a>
+          <a class="nav-link active" aria-current="page" href="/users/join">회원추가</a>
         </li>
         <li class="nav-item">
           <form class="col-md-12" role="search" id="searchForm" action="/information/character" method="GET">
@@ -41,9 +41,9 @@
       </ul>
       <div class="nav-item">
         <button sec:authorize="!isAuthenticated()" type="button" class="btn btn-outline-primary nav-item"
-                onClick="location.href='/loginForm'">로그인</button>
+          onClick="location.href='/loginForm'">로그인</button>
         <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-danger nav-item"
-                onClick="location.href='/logout'">로그아웃</button>
+          onClick="location.href='/logout'">로그아웃</button>
       </div>
     </div>
   </div>

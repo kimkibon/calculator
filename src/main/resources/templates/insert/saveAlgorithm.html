@@ -29,7 +29,10 @@
         <div class="col">
           <div class="form-floating">
             <input class="form-control" th:id="*{algorithmSaveDto[__${item.index}__].AlgorithmType}"
-              th:field="*{algorithmSaveDto[__${item.index}__].AlgorithmType}" readonly>
+              th:field="*{algorithmSaveDto[__${item.index}__].AlgorithmType}" readonly th:classappend="${
+                        (algorithmSaveDto.AlgorithmType == '안정성' ? ' text-primary' : '') +
+                        (algorithmSaveDto.AlgorithmType == '특이성' ? ' text-danger' : '') +
+                        (algorithmSaveDto.AlgorithmType == '공격성' ? ' text-warning' : '')}">
             <label class="text-light" th:for="*{algorithmSaveDto[__${item.index}__].AlgorithmType}">타입</label>
           </div>
         </div>
@@ -81,9 +84,12 @@
                 th:each="subAlgorithm : ${subAlgorithmList}" th:text="${subAlgorithm.subOpt}"
                 th:value="${subAlgorithm.subOpt}"></option>
             </select>
-            <label th:for="*{algorithmSaveDto[__${item.index}__].subAlgorithm2}">서브 옵션 1</label>
+            <label th:for="*{algorithmSaveDto[__${item.index}__].subAlgorithm2}">서브 옵션 2</label>
           </div>
         </div>
+      </div>
+      <div class="row">
+        <br>
       </div>
     </div>
     <div class="row m-1">

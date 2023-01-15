@@ -45,18 +45,19 @@
       <input type="hidden" th:field="*{stdName}">
       <div class="row">
         <div class="col">
-        <div class="form-floating">
-          <input class="form-control" th:id="name" th:field="*{characterName}" readonly>
-          <label th:for="name">이름</label>
+          <div class="form-floating">
+            <input class="form-control" th:id="name" th:field="*{characterName}" readonly>
+            <label th:for="name">이름</label>
+          </div>
         </div>
-        </div>
-      </div><div class="row">
-      <span class="text">ex) 기본투영 = 1 , 확장투영 = 2, 완전투영 = 3, 이외 = YYMMDD</span>
-      <div class="form-floating">
-        <input class="form-control" type="number" th:id="releaseDate" th:field="*{releaseDate}">
-        <label th:for="releaseDate">출시일</label>
       </div>
-    </div>
+      <div class="row">
+        <span class="text">ex) 기본투영 = 1 , 확장투영 = 2, 완전투영 = 3, 이외 = YYMMDD</span>
+        <div class="form-floating">
+          <input class="form-control" type="number" th:id="releaseDate" th:field="*{releaseDate}">
+          <label th:for="releaseDate">출시일</label>
+        </div>
+      </div>
       <div class="d-flex">
         <div class="col">
           <div class="form-floating">

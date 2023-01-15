@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-</body>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <form th:action="@{/insert/saveSkills}" method="post" th:object="${characterSkillsDtoList}">
+        <div class="row m-1">
+            <div class="col">
+                <br>
+                <div class="form-floating">
+                    <input class="form-control" th:id="name" th:value="${name}" readonly>
+                    <label class="text-light" th:for="name">이름</label>
+                </div>
+            </div>
+        </div>
+        <div class="row"><br></div>
+        <div class="row m-1" th:id="mainClass+${item.index}"
+            th:each="characterSkillsDto , item : *{characterSkillsDto}">
+            <input type="hidden" th:value="${name}" th:field="*{characterSkillsDto[__${item.index}__].characterName}">
+            <div class="d-flex">
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" onchange="select(this)"
+                            th:field="*{characterSkillsDto[__${item.index}__].skillType}" readonly th:classappend="${
+                        (characterSkillsDto.skillType == '패시브' ? 'text-primary' : '') +
+                        (characterSkillsDto.skillType == '액티브' ? 'text-danger' : '') +
+                        (characterSkillsDto.skillType == '궁극기' ? 'text-warning' : '')}">
+                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].skillType">스킬 타입</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" onchange="select(this)"
+                            th:field="*{characterSkillsDto[__${item.index}__].skillName}">
+                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].skillName">스킬 이름</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" onchange="select(this)"
+                            th:field="*{characterSkillsDto[__${item.index}__].explain}">
+                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].explain">스킬 설명</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input class="form-control" onchange="select(this)"
+                            th:field="*{characterSkillsDto[__${item.index}__].effect}">
+                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].effect">부가 효과</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row"><br></div>
+        </div>
+        <div class="row m-1">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary" type="submit">입력</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 </html>

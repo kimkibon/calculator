@@ -13,12 +13,25 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-  <h1>회원 정보 만들기</h1>
-  <form action="/users/join" method="POST">
-    <input type="text" name="username" placeholder="Username"><br />
-    <input type="password" name="password" placeholder="Password"><br />
-    <button>join</button>
-  </form>
+
+  <!--  html 전체 영역을 지정하는 container -->
+  <div id="container">
+    <!--  login 폼 영역을 : loginBox -->
+    <div id="loginBox">
+      <!-- 아이디, 비번, 버튼 박스 -->
+      <div id="inputBox">
+        <form action="/users/join" method="POST">
+          <input type="hidden" name="role" value="USER">
+          <div class="input-form-box"><span>아이디 </span><input type="text" name="username" class="form-control"></div>
+          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" class="form-control">
+          </div>
+          <div class="button-login-box">
+            <button type="submit" class="btn btn-primary btn-xs" style="width:100%">생성</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 </html>
