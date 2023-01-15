@@ -13,6 +13,7 @@ public class GoodsStatusCharacterDto {
     private String status;
     private int statusLevel;
 
+
     public GoodsStatusCharacterDto(GoodsStatusCharacter goodsStatusCharacter){
         this.statusName = goodsStatusCharacter.getGoodsStatus().getName();
         this.status = goodsStatusCharacter.getGoodsStatus().getStatus();
