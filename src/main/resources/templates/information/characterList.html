@@ -11,15 +11,13 @@
 <main role="main" class="container-fluid">
 
     <div layout:fragment="content">
-        <div class="row m-1">
-            <h3>수위</h3>
-        </div>
+        <h2>수위</h2>
         <div class="d-flex flex-wrap justify-content-left row-cols-auto">
-            <div class="col border" th:each="characterList : ${characterList}"
+            <div class="col card border" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('수위')}"
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="max-width:93px;">
-                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
+                <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="card-img img-fluid"
                     onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                 <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
@@ -30,13 +28,9 @@
             </div>
         </div>
         <hr class="border border-danger border-2">
-
-
-        <div class="row m-1">
-            <h3>사수</h3>
-        </div>
+        <h2>사수</h2>
         <div class="d-flex flex-wrap justify-content-left">
-            <div class="col border" th:each="characterList : ${characterList}"
+            <div class="col card border" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('사수')}"
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="min-width:93px; max-width:93px;">
@@ -51,13 +45,9 @@
             </div>
         </div>
         <hr class="border border-danger border-2">
-
-
-        <div class="row m-1">
-            <h3>전사</h3>
-        </div>
+        <h2>전사</h2>
         <div class="d-flex flex-wrap justify-content-left">
-            <div class="col border" th:each="characterList : ${characterList}"
+            <div class="col card border" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('전사')}"
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="min-width:93px; max-width:93px;">
@@ -72,13 +62,9 @@
             </div>
         </div>
         <hr class="border border-danger border-2">
-
-
-        <div class="row m-1">
-            <h3>치료사</h3>
-        </div>
+        <h2>치료사</h2>
         <div class="d-flex flex-wrap justify-content-left">
-            <div class="col border" th:each="characterList : ${characterList}"
+            <div class="col card border" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('치료사')}"
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="min-width:93px; max-width:93px;">
@@ -93,12 +79,9 @@
             </div>
         </div>
         <hr class="border border-danger border-2">
-
-        <div class="row m-1">
-            <h3>해결사</h3>
-        </div>
+        <h2>해결사</h2>
         <div class="d-flex flex-wrap justify-content-left">
-            <div class="col border" th:each="characterList : ${characterList}"
+            <div class="col card border" th:each="characterList : ${characterList}"
                 th:if="${characterList.roleType.equals('해결사')}"
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="min-width:93px; max-width:93px;">

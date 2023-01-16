@@ -48,12 +48,12 @@
                 th:classappend="${i.count == 1} ? 'active' : ''">
                 <div class="card">
                   <div class="card-header">
-                    <div class="row">
-                      <div class="col">
+                    <div class="d-flex">
+                      <div class="col-xs">
                         <div class="btn btn-sm btn-secondary" th:text="${skins.type}"></div>
                       </div>
-                      <div class="col">
-                        <form sec:authorize="isAuthenticated()" class="card-title" th:action="@{/insert/saveSkins}"
+                      <div class="col-xl">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveSkins}"
                           method="get">
                           <!-- to do
       입력 폼 모두 다 th:field 형식으로 변경
@@ -100,6 +100,18 @@
       </div>
     </div>
     <div class="col-lg">
+      <br/>
+      <div class="text-light border rounded m-1">
+        <div class="d-flex justify-content-between">
+          <div class="col col-md p-1">
+            <span class="m-1">기본 정보</span>
+            <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+              <input type="hidden" name="name" th:value="${character.characterName}">
+              <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
+            </form>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="d-flex justify-content-between">
           <div class="col col-md p-1">
@@ -160,13 +172,8 @@
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-end">
-        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
-          <input type="hidden" name="name" th:value="${character.characterName}">
-          <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
-        </form>
-      </div>
-      <div class="text-light border m-1">
+      <br/>
+      <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">스킬</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveSkills}" method="get">
@@ -176,7 +183,7 @@
         </div>
       </div>
       <div class="row m-1" th:each="skills : ${character.characterSkillsDtoList}">
-        <div class="border">
+        <div class="border rounded">
           <div class="row"><span class="text-light">[[${skills?.skillName}]] <span class="badge"
                 th:text="${skills.skillType}" th:classappend="${
                         (skills.skillType == '패시브' ? 'text-primary' : '') +
@@ -185,7 +192,7 @@
           <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:text="${skills.explain}"></span>
           </div>
           <div class="row">
-            <hr class="border" th:classappend="${
+            <hr class="border rounded" th:classappend="${
                         (skills.skillType == '패시브' ? 'border-primary' : '') +
                         (skills.skillType == '액티브' ? 'border-danger' : '') +
                         (skills.skillType == '궁극기' ? 'border-warning' : '')}">
@@ -193,8 +200,8 @@
           </div>
         </div>
       </div>
-
-      <div class="text-light border m-1">
+      <br/>
+      <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">알고리즘</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveAlgorithm}" method="get">
@@ -204,7 +211,7 @@
         </div>
       </div>
       <div class="row m-1">
-        <div class="col border" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+        <div class="col border rounded" th:each="algorithm : ${character.characterAlgorithmDtoList}">
           <div class="row">
             <span class="badge" th:classappend="${
                         (algorithm.algorithmType == '공격성' ? 'text-danger' : '') +
@@ -221,8 +228,8 @@
           <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt2}"></span></div>
         </div>
       </div>
-
-      <div class="text-light border m-1">
+      <br/>
+      <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">호감도 아이템</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveGoodsCharacter}" method="get">
@@ -231,7 +238,7 @@
           </form>
         </div>
       </div>
-      <div class="row m-1 border">
+      <div class="row m-1 border rounded">
         <div class="d-flex">
           <div class="col m-1" th:each="goods , i : ${character.goodsCharacterDtoList}">
             <img class="img img-fluid" th:src="${'/image/basic/goods/'+goods.goodsName+'.png'}"
@@ -243,9 +250,8 @@
           </div>
         </div>
       </div>
-
-
-      <div class="text-light border m-1">
+      <br/>
+      <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">호감도 스탯</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveGoodsStatusCharacter}" method="get">
@@ -254,17 +260,17 @@
           </form>
         </div>
       </div>
-      <div class="row border m-1">
+      <div class="row border rounded m-1">
         <div class="row" th:each="goodsStatus : ${character.goodsStatusCharactersDtoList}">
           <div class="col" th:text="${goodsStatus.statusName}"></div>
           <div class="col-8" th:id="${goodsStatus?.status}" th:text="${goodsStatus?.status}">
           </div>
         </div>
       </div>
-
+      <br/>
       <div class="row">
         <div class="d-flex">
-          <div class="col text-center border m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
+          <div class="col text-center border rounded m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
             <div class="row">
               <div class="col">메인 옵션</div>
             </div>

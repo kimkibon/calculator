@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class CharacterService {
     public List<AllCharactersDto> findAllCharacterInfo(){
         List<Characters> charactersList = characterRepository.findAll(Sort.by(Sort.Direction.DESC, "defaultStar"));
 
-        return charactersList.stream().map(AllCharactersDto::new).collect(Collectors.toList());
+        return charactersList.stream().sorted(Comparator.comparing(Characters::getRoleType)).map(AllCharactersDto::new).collect(Collectors.toList());
     }
 
     public Characters save(

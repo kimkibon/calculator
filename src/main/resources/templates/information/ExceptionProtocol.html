@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <div class="d-inline-flex flex-wrap justify-content-between row-cols-auto">
+        <div class="col card border" th:each="characterList : ${characterList}"
+             th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+             style="max-width:93px;">
+            <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="card-img img-fluid"
+                 onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+            <div class="card-img-overlay p-1">
+                <img th:src="'/image/basic/profile/'+${characterList.roleType}+'.png'"
+                     class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0"
+                     style="max-width:25px;"
+                     th:classappend="${
+                        (characterList.roleType == '수위' ? 'bg-primary' : '') +
+                        (characterList.roleType == '치료사' ? 'bg-success' : '') +
+                        (characterList.roleType == '사수' ? 'bg-info' : '')+
+                        (characterList.roleType == '전사' ? 'bg-warning' : '')+
+                        (characterList.roleType == '해결사' ? 'bg-danger' : '')}">
+            </div>
+            <div th:text="${characterList.characterName}" class="badge text-nowrap text-center" th:classappend="${
+                        (characterList.defaultStar == 1 ? ' text-primary' : '') +
+                        (characterList.defaultStar == 3 ? ' text-danger' : '') +
+                        (characterList.defaultStar == 5 ? ' text-warning' : '')}">
+                이름
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+
+</html>

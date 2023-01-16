@@ -6,6 +6,7 @@ import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skill.AllSkillsRepository;
 import com.nueral.calculator.types.SkillType;
+import com.nueral.calculator.utils.FindTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class SkillSaveService {
     private AllSkillsRepository allSkillsRepository;
     @Autowired
     private CharacterRepository characterRepository;
+    @Autowired
+    private FindTypes findTypes;
 
 /**
     public void saveAllSkills(
@@ -74,20 +77,9 @@ public class SkillSaveService {
     public String saveSkillsByDto(CharacterSkillsDtoList characterSkillsDtoList){
         try{
             for(CharacterSkillsDto dto : characterSkillsDtoList.getCharacterSkillsDto()){
-                SkillType skillType;
-                switch (dto.getSkillType()){
-                    case "패시브" : skillType = SkillType.pas;
-                        break;
-                    case "액티브" : skillType = SkillType.act;
-                        break;
-                    case "궁극기" : skillType = SkillType.ult;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + dto.getSkillType());
-                }
 
                 AllSkills allSkills = AllSkills.builder()
-                        .skillType(skillType)
+                        .skillType(findTypes.findSkillTypeByName(dto.getSkillType()))
                         .skillName(dto.getSkillName())
                         .explain(dto.getExplain())
                         .effect(dto.getEffect())
