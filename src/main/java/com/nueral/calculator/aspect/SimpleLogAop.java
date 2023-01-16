@@ -27,14 +27,15 @@ public class SimpleLogAop {
         Method method = getMethod(joinPoint);
         log.info("======= method name = {} =======", method.getName());
 
-
-    // 파라미터 받아오기
+ /**
+ 파라미터 받아오기
         Object[] args = joinPoint.getArgs();
         if (args.length == 0) log.info("no parameter");
         for (Object arg : args) {
             log.info("parameter type = {}", arg.getClass().getSimpleName());
             log.info("parameter value = {}", arg);
         }
+*/
 
     }
 
@@ -45,8 +46,10 @@ public class SimpleLogAop {
         Method method = getMethod(joinPoint);
         log.info("======= method name = {} =======", method.getName());
 
+/**
         log.info("return type = {}", returnObj.getClass().getSimpleName());
         log.info("return value = {}", returnObj);
+*/
     }
 
     // JoinPoint로 메서드 정보 가져오기

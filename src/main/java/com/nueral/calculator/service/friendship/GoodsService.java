@@ -83,6 +83,22 @@ public class GoodsService {
         return goodsStatusCharacterDtoList;
     }
 
+    public String saveGoodsStatusCharacter(GoodsStatusCharacterSaveDtoList goodsStatusCharacterSaveDtoList){
+        try{
+            for(GoodsStatusCharacterSaveDto dto : goodsStatusCharacterSaveDtoList.getGoodsStatusCharacterDto()){
+                GoodsStatusCharacter goodsStatusCharacter = GoodsStatusCharacter.builder()
+                        .goodsStatus(goodsStatusRepository.getReferenceById(dto.getStatusName()))
+                        .characters(characterRepository.getReferenceById(dto.getCharacterName()))
+                        .statusLevel(dto.getStatusLevel())
+                        .build();
+                goodsStatusCharacterRepository.save(goodsStatusCharacter);
+            } return "home";
+        } catch (Exception e){
+            System.out.println("오류가 발생했습니다 : "+e.getMessage());
+            return "saveError";
+        }
+    }
+
     public List<AllGoodsDto> allGoodsList(){
         return allGoodsRepository
                 .findAll().stream()

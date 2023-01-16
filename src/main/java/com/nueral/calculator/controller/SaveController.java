@@ -1,6 +1,7 @@
 package com.nueral.calculator.controller;
 
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterSaveDtoList;
+import com.nueral.calculator.dto.goodsDto.GoodsStatusCharacterSaveDtoList;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDtoList;
 import com.nueral.calculator.service.characterService.CharacterService;
 import com.nueral.calculator.dto.AlgorithmDto.AlgorithmSaveDtoList;
@@ -11,6 +12,7 @@ import com.nueral.calculator.service.friendship.GoodsService;
 import com.nueral.calculator.service.skill.SkillSaveService;
 import com.nueral.calculator.service.skin.SkinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +61,7 @@ public class SaveController {
     }
 
     @GetMapping(value = "/saveSkins")
-    public String saveSkinsPro(@RequestParam("name") @Nullable String name, @RequestParam("type")String type, Model model,HttpServletRequest request){
+    public String saveSkinsPro(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, Model model, HttpServletRequest request){
         if (request.getHeader("REFERER") == null){
             return "home";
         }
@@ -116,6 +118,11 @@ public class SaveController {
         model.addAttribute("name" , name);
         model.addAttribute("characterSkillsDtoList" ,skillSaveService.saveSkillsPro(name));
         return "insert/saveSkills";
+    }
+
+    @PostMapping(value = "/saveGoodsStatusCharacter")
+    public String saveGoodsStatusCharacter(@ModelAttribute GoodsStatusCharacterSaveDtoList goodsStatusCharacterSaveDtoList){
+        return goodsService.saveGoodsStatusCharacter(goodsStatusCharacterSaveDtoList);
     }
 
     @GetMapping(value = "/saveGoodsStatusCharacter")
