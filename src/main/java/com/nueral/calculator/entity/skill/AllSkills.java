@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +33,9 @@ public class AllSkills extends DefaultEntity {
     private String skillExplain;
     private String effect;
 
+    @OneToMany(mappedBy = "allSkills", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<SkillEffectsMap> skillEffectsMapList;
 
     @Builder
     public AllSkills(

@@ -200,14 +200,14 @@
                         (skills.skillType == '패시브' ? 'text-primary' : '') +
                         (skills.skillType == '액티브' ? 'text-danger' : '') +
                         (skills.skillType == '궁극기' ? 'text-warning' : '')}"></span></span></div>
-          <div class="row"><span style="white-space:pre-wrap;" class="text-wrap" th:id="${skills.skillName}" th:utext="${skills.explain}"></span>
+          <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:utext="${#strings.replace(#strings.escapeXml(skills.explain),'&#13;&#10;','&lt;br&gt;')}"></span>
           </div>
           <div class="row">
             <hr class="border rounded" th:classappend="${
                         (skills.skillType == '패시브' ? 'border-primary' : '') +
                         (skills.skillType == '액티브' ? 'border-danger' : '') +
                         (skills.skillType == '궁극기' ? 'border-warning' : '')}">
-            <span style="white-space:pre-wrap;" th:utext="${skills?.effect}"></span>
+            <span th:utext="${#strings.replace(#strings.escapeXml(skills?.effect),'&#13;&#10;','&lt;br&gt;')}"></span>
           </div>
         </div>
       </div>
@@ -250,7 +250,7 @@
         </div>
       </div>
       <div class="row m-1 border rounded">
-        <div class="d-flex">
+        <div class="d-flex flex-wrap">
           <div class="col m-1" th:each="goods , i : ${character.goodsCharacterDtoList}">
             <img class="img img-fluid" th:src="${'/image/basic/goods/'+goods.goodsName+'.png'}"
               style="min-height:100px;max-height:100px; object-fit:cover;">
