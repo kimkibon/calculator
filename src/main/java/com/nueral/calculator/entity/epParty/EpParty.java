@@ -21,16 +21,24 @@ import javax.persistence.*;
 @IdClass(EpPartyId.class)
 public class EpParty extends DefaultEntity {
     @Id
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ep_index", nullable = false)
+    @ToString.Exclude
     private EpPool epPool;
     @Id
     private int epPartyIndex;
     private int recommended;
     private int support;
-    @ManyToOne
-    @JoinColumn(name = "character_name")
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CHARACTER_NAME", nullable = false , referencedColumnName ="CHARACTER_NAME")
+    @ToString.Exclude
     private Characters characters;
+
+    public void setEpPool(EpPool epPool) {
+        this.epPool = epPool;
+    }
 
     @Builder
     public EpParty(EpPool epPool, int epPartyIndex ,
