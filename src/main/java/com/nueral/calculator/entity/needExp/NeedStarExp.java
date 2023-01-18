@@ -18,11 +18,13 @@ public class NeedStarExp extends DefaultEntity {
 
     @Id
     private int starLevel;
+    private String showLevel;
     private int exp;
 
     @Builder
-    public NeedStarExp(int starLevel , int exp){
+    public NeedStarExp(int starLevel , int exp , String showLevel){
         this.starLevel = starLevel;
+        this.showLevel = showLevel;
         this.exp = exp;
     }
 }
