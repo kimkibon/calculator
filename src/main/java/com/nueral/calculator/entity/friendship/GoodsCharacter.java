@@ -32,10 +32,6 @@ public class GoodsCharacter extends DefaultEntity {
     private AllGoods allGoods;
     private boolean goodsLike;
 
-    public void setCharacters(Characters characters) {
-        this.characters = characters;
-    }
-
     @Builder
     public GoodsCharacter(Characters characters, AllGoods allGoods , boolean goodsLike){
         this.characters = characters;

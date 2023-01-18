@@ -32,10 +32,6 @@ public class GoodsStatusCharacter extends DefaultEntity {
     private GoodsStatus goodsStatus;
     private int statusLevel;
 
-    public void setCharacters(Characters characters) {
-        this.characters = characters;
-    }
-
     @Builder
     public GoodsStatusCharacter(Characters characters, GoodsStatus goodsStatus , int statusLevel){
         this.characters = characters;

@@ -32,10 +32,6 @@ public class AllSkills extends DefaultEntity {
     private String skillExplain;
     private String effect;
 
-    public void setCharacters(Characters characters) {
-        this.characters = characters;
-    }
-
 
     @Builder
     public AllSkills(
