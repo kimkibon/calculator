@@ -60,12 +60,19 @@ public class SaveController {
         return skinService.saveSkins(skinSaveDto);
     }
 
+    @DeleteMapping(value = "/saveSkins")
+    public String deleteSkins(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, HttpServletRequest request){
+        if (request.getHeader("REFERER") == null){
+            return "home";
+        }
+        skinService.deleteSkins(name , type);
+        return "home";
+    }
     @GetMapping(value = "/saveSkins")
     public String saveSkinsPro(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, Model model, HttpServletRequest request){
         if (request.getHeader("REFERER") == null) {
             return "home";
         }
-
         model.addAttribute("skinSaveDto", skinService.findByCharacterAndType(name , type));
         model.addAttribute("skinType" , skinService.skinTypes());
         model.addAttribute("name" , name);

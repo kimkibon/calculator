@@ -5,10 +5,6 @@ import com.nueral.calculator.dto.character.CharacterInfoDto;
 import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.entity.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
-import com.nueral.calculator.types.AreaType;
-import com.nueral.calculator.types.CompanyType;
-import com.nueral.calculator.types.DealType;
-import com.nueral.calculator.types.RoleType;
 import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -27,36 +23,15 @@ public class CharacterService {
     private FileUtil fileUtil;
 
     public CharacterInfoDto findCharacterInfo(String name){
-        CharacterInfoDto characterInfoDto = new CharacterInfoDto();
-        Characters characters = characterRepository.findByName(name).orElse(new Characters());
-        if(characters.getName() != null){
-            characterInfoDto = new CharacterInfoDto(characters);
-        }
-        return characterInfoDto;
+
+        return new CharacterInfoDto(characterRepository.findByName(name).orElse(new Characters()));
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){
-        List<Characters> charactersList = characterRepository.findAll(Sort.by(Sort.Direction.DESC, "defaultStar"));
 
-        return charactersList.stream().sorted(Comparator.comparing(Characters::getRoleType)).map(AllCharactersDto::new).collect(Collectors.toList());
-    }
-
-    public Characters save(
-            String name, DealType dealType , RoleType roleType,
-            AreaType areaType ,CompanyType companyType , int defaultStar){
-
-        Characters characters = Characters.builder()
-                .name(name)
-                .dealType(dealType)
-                .roleType(roleType)
-                .companyType(companyType)
-                .areaType(areaType)
-                .defaultStar(defaultStar)
-                .profile("/image/character/profile/"+name+".png")
-                .build();
-
-        characterRepository.saveAndFlush(characters);
-        return characters;
+        return characterRepository.findAll(Sort.by(Sort.Direction.DESC, "defaultStar"))
+                .stream().sorted(Comparator.comparing(Characters::getRoleType)).map(AllCharactersDto::new)
+                .collect(Collectors.toList());
     }
 
     public CharacterSaveDto beforeSave(String name){
@@ -78,8 +53,27 @@ public class CharacterService {
             return "saveError";
         }
     }
-
     public void deleteCharacter(String name){
         characterRepository.deleteById(name);
     }
+
+/**
+    public Characters save(
+            String name, DealType dealType , RoleType roleType,
+            AreaType areaType ,CompanyType companyType , int defaultStar){
+
+        Characters characters = Characters.builder()
+                .name(name)
+                .dealType(dealType)
+                .roleType(roleType)
+                .companyType(companyType)
+                .areaType(areaType)
+                .defaultStar(defaultStar)
+                .profile("/image/character/profile/"+name+".png")
+                .build();
+
+        characterRepository.saveAndFlush(characters);
+        return characters;
+    }
+*/
 }
