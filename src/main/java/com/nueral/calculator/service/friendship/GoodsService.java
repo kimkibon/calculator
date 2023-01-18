@@ -11,6 +11,7 @@ import com.nueral.calculator.repository.friendship.GoodsStatusCharacterRepositor
 import com.nueral.calculator.repository.friendship.GoodsStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -49,17 +50,21 @@ public class GoodsService {
         }
         return goodsCharacterSaveDtoList;
     }
-
-    public String saveGoodsCharacter(GoodsCharacterSaveDtoList goodsCharacterSaveDtoList){
+    @Transactional
+    public String saveGoodsCharacter(GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , String name){
         try{
+            goodsCharacterRepository.deleteByCharacterName(name);
+            goodsCharacterRepository.flush();
+            List<GoodsCharacter> goodsCharacterList = new ArrayList<>();
             for(GoodsCharacterSaveDto dto : goodsCharacterSaveDtoList.getGoodsCharacterSaveDto()){
                 GoodsCharacter goodsCharacter = GoodsCharacter.builder()
                         .characters(characterRepository.getReferenceById(dto.getCharacterName()))
                         .allGoods(allGoodsRepository.getReferenceById(dto.getGoodsName()))
-                        .goodsLike(dto.isGoodsLike())
                         .build();
-                goodsCharacterRepository.save(goodsCharacter);
-            } return "home";
+                goodsCharacterList.add(goodsCharacterRepository.save(goodsCharacter));
+            }
+            goodsCharacterRepository.saveAll(goodsCharacterList);
+            return "home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
             return "saveError";

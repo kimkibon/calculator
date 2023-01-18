@@ -11,7 +11,6 @@ import lombok.*;
 public class GoodsCharacterSaveDto {
     private String characterName;
     private String goodsName;
-    private boolean goodsLike;
 
     public GoodsCharacterSaveDto(String name){
         this.characterName = name;
@@ -20,6 +19,5 @@ public class GoodsCharacterSaveDto {
     public GoodsCharacterSaveDto(GoodsCharacter goodsCharacter){
         this.characterName = goodsCharacter.getCharacters().getName();
         this.goodsName = goodsCharacter.getAllGoods().getName();
-        this.goodsLike = goodsCharacter.isGoodsLike();
     }
 }

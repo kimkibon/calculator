@@ -30,13 +30,11 @@ public class GoodsCharacter extends DefaultEntity {
     @JoinColumn(name = "GOODS_NAME", nullable = false , referencedColumnName ="GOODS_NAME")
     @ToString.Exclude
     private AllGoods allGoods;
-    private boolean goodsLike;
 
     @Builder
-    public GoodsCharacter(Characters characters, AllGoods allGoods , boolean goodsLike){
+    public GoodsCharacter(Characters characters, AllGoods allGoods){
         this.characters = characters;
         this.allGoods = allGoods;
-        this.goodsLike = goodsLike;
     }
 
 
