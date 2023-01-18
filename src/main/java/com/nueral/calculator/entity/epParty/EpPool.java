@@ -22,7 +22,6 @@ public class EpPool extends DefaultEntity {
     private String sndStage;
     private String thdStage;
     private String bossName;
-
     @OneToMany(mappedBy = "epPool" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<EpParty> epParty;
@@ -38,5 +37,9 @@ public class EpPool extends DefaultEntity {
         this.sndStage = sndStage;
         this.thdStage = thdStage;
         this.bossName = bossName;
+    }
+
+    public EpPool(int epIndex) {
+        this.epIndex = epIndex;
     }
 }

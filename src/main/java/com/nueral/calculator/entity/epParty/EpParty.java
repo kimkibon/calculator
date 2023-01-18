@@ -36,10 +36,6 @@ public class EpParty extends DefaultEntity {
     @ToString.Exclude
     private Characters characters;
 
-    public void setEpPool(EpPool epPool) {
-        this.epPool = epPool;
-    }
-
     @Builder
     public EpParty(EpPool epPool, int epPartyIndex ,
                    int recommended , int support , Characters characters){
