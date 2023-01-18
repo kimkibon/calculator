@@ -42,6 +42,17 @@ public class SkinService {
         }
     }
 
+    public String deleteSkins(String name , String type){
+        try{
+            SkinsId skinsId = new SkinsId(name , type);
+            skinRepository.deleteById(skinsId);
+            return "home";
+        }catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+            return "saveError";
+        }
+    }
+
     public SkinSaveDto findByCharacterAndType(String name , String type){
         SkinSaveDto skinSaveDto;
         if(type.isEmpty()){

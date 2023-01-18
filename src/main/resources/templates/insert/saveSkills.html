@@ -50,8 +50,8 @@
             <div>
                 <div class="col">
                     <div class="form-floating">
-                        <input class="form-control" onchange="select(this)"
-                            th:field="*{characterSkillsDto[__${item.index}__].explain}">
+                        <textarea class="form-control" onchange="select(this)"
+                                  th:field="*{characterSkillsDto[__${item.index}__].explain}"></textarea>
                         <label class="text-light" th:for="characterSkillsDto[__${item.index}__].explain">스킬 설명</label>
                     </div>
                 </div>
@@ -59,8 +59,8 @@
             <div>
                 <div class="col">
                     <div class="form-floating">
-                        <input class="form-control" onchange="select(this)"
-                            th:field="*{characterSkillsDto[__${item.index}__].effect}">
+                        <textarea class="form-control" onchange="select(this)"
+                                  th:field="*{characterSkillsDto[__${item.index}__].effect}"></textarea>
                         <label class="text-light" th:for="characterSkillsDto[__${item.index}__].effect">부가 효과</label>
                     </div>
                 </div>

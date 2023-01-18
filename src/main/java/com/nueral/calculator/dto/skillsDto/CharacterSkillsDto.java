@@ -18,7 +18,7 @@ public class CharacterSkillsDto {
         this.characterName = allSkills.getCharacters().getName();
         this.skillType = allSkills.getSkillType().getType();
         this.skillName = allSkills.getSkillName();
-        this.explain = allSkills.getSkillExplain();
-        this.effect = allSkills.getEffect();
+        this.explain = allSkills.getSkillExplain().replace("<br>","\r\n" );
+        this.effect = allSkills.getEffect().replace("<br>","\r\n");
     }
 }

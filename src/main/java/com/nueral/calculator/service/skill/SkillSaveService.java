@@ -81,8 +81,8 @@ public class SkillSaveService {
                 AllSkills allSkills = AllSkills.builder()
                         .skillType(findTypes.findSkillTypeByName(dto.getSkillType()))
                         .skillName(dto.getSkillName())
-                        .explain(dto.getExplain())
-                        .effect(dto.getEffect())
+                        .explain(dto.getExplain().replace("\r\n" , "<br>"))
+                        .effect(dto.getEffect().replace("\r\n" , "<br>"))
                         .characters(characterRepository.getReferenceById(dto.getCharacterName()))
                         .build();
                 allSkillsRepository.save(allSkills);
