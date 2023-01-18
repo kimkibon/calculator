@@ -62,7 +62,7 @@ public class SaveController {
 
     @GetMapping(value = "/saveSkins")
     public String saveSkinsPro(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, Model model, HttpServletRequest request){
-        if (request.getHeader("REFERER") == null){
+        if (request.getHeader("REFERER") == null) {
             return "home";
         }
 
@@ -70,6 +70,14 @@ public class SaveController {
         model.addAttribute("skinType" , skinService.skinTypes());
         model.addAttribute("name" , name);
         return "insert/saveSkins";
+    }
+
+    @PostMapping(value = "/deleteSkins")
+    public String deleteSkins(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, HttpServletRequest request){
+        if (request.getHeader("REFERER") == null) {
+            return "home";
+        }
+        return skinService.deleteSkins(name , type);
     }
 
     @PostMapping(value = "/saveAlgorithm")
@@ -92,8 +100,8 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveGoodsCharacter")
-    public String saveGoodsCharacter(@ModelAttribute GoodsCharacterSaveDtoList goodsCharacterSaveDtoList){
-        return goodsService.saveGoodsCharacter(goodsCharacterSaveDtoList);
+    public String saveGoodsCharacter(@ModelAttribute GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , @RequestParam("name") String name){
+        return goodsService.saveGoodsCharacter(goodsCharacterSaveDtoList , name);
     }
 
     @GetMapping(value = "/saveGoodsCharacter")
