@@ -60,7 +60,7 @@ public class SaveController {
         return skinService.saveSkins(skinSaveDto);
     }
 
-    @DeleteMapping(value = "/saveSkins")
+    @PostMapping(value = "/deleteSkins")
     public String deleteSkins(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, HttpServletRequest request){
         if (request.getHeader("REFERER") == null){
             return "home";
