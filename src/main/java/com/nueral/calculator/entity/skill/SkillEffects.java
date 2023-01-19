@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class SkillEffects {
     @Id
-
     @Column(name = "effects_name" , nullable = false)
     private String effectsName;
     private String effectsExplain;
