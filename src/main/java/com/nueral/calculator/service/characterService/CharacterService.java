@@ -4,6 +4,7 @@ import com.nueral.calculator.dto.character.AllCharactersDto;
 import com.nueral.calculator.dto.character.CharacterInfoDto;
 import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.mapping.CharacterName;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class CharacterService {
     public CharacterInfoDto findCharacterInfo(String name){
 
         return new CharacterInfoDto(characterRepository.findByName(name).orElse(new Characters()));
+    }
+
+    public List<String> findAllCharacterName(){
+        return characterRepository.findAllBy().stream().map(CharacterName::getName).collect(Collectors.toList());
     }
 
     public List<AllCharactersDto> findAllCharacterInfo(){

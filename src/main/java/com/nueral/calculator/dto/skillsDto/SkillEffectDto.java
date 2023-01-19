@@ -14,6 +14,6 @@ public class SkillEffectDto {
 
     public SkillEffectDto(SkillEffects skillEffects){
         this.effectsName = skillEffects.getEffectsName();
-        this.effects = skillEffects.getEffects();
+        this.effects = skillEffects.getEffectsExplain();
     }
 }

@@ -41,11 +41,6 @@ public class SkinService {
             return "saveError";
         }
     }
-    public String deleteSkins(String name , String type){
-        SkinsId skinsId = new SkinsId(name,type);
-        skinRepository.deleteById(skinsId);
-        return "home";
-    }
 
     public String deleteSkins(String name , String type){
         try{

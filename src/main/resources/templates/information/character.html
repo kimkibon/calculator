@@ -114,13 +114,11 @@
       <br/>
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
-          <div class="col col-md p-1">
             <span class="m-1">기본 정보</span>
             <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
               <input type="hidden" name="name" th:value="${character.characterName}">
               <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
             </form>
-          </div>
         </div>
       </div>
       <div class="row">
