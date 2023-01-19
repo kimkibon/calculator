@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -20,7 +21,7 @@ import java.util.List;
 public class AllSkills extends DefaultEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST)
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "CHARACTER_NAME", nullable = false , referencedColumnName ="CHARACTER_NAME")
     @ToString.Exclude
     private Characters characters;
@@ -35,9 +36,9 @@ public class AllSkills extends DefaultEntity {
     private String skillExplain;
     private String effect;
 
-    @OneToMany(mappedBy = "allSkills", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "allSkills", fetch = FetchType.LAZY , orphanRemoval = true)
     @ToString.Exclude
-    private List<SkillEffectsMap> skillEffectsMapList;
+    private Collection<SkillEffectsMap> skillEffectsMapList = new ArrayList<>();
 
     @Builder
     public AllSkills(

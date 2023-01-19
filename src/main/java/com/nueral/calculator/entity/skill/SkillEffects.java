@@ -1,5 +1,6 @@
 package com.nueral.calculator.entity.skill;
 
+import com.nueral.calculator.dto.skillsDto.SkillEffectDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class SkillEffects {
     @Id
     @Column(name = "effects_name" , nullable = false)
     private String effectsName;
+    @Column(nullable = false)
     private String effectsExplain;
 
     @OneToMany(mappedBy = "skillEffects", fetch = FetchType.LAZY)
@@ -26,5 +28,10 @@ public class SkillEffects {
     public SkillEffects(String effectsName , String effectsExplain){
         this.effectsName = effectsName;
         this.effectsExplain = effectsExplain;
+    }
+
+    public SkillEffects(SkillEffectDto skillEffectDto){
+        this.effectsName = skillEffectDto.getEffectsName();
+        this.effectsExplain = skillEffectDto.getEffects().replace("\r\n" , "<br>");
     }
 }

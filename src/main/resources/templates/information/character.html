@@ -205,7 +205,7 @@
                         (skills.skillType == '패시브' ? 'border-primary' : '') +
                         (skills.skillType == '액티브' ? 'border-danger' : '') +
                         (skills.skillType == '궁극기' ? 'border-warning' : '')}">
-            <span th:utext="${#strings.replace(#strings.escapeXml(skills?.effect),'&#13;&#10;','&lt;br&gt;')}"></span>
+            <span th:each="effect : ${skills.skillEffectDtoList}" th:utext="${#strings.replace(#strings.escapeXml(effect.effects),'&#13;&#10;','&lt;br&gt;')}"></span>
           </div>
         </div>
       </div>

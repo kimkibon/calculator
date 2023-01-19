@@ -26,6 +26,11 @@
         <li sec:authorize="hasAnyAuthority('USER','ADMIN')" class="nav-item">
           <a class="nav-link active" aria-current="page" href="/insert/saveCharacter">캐릭터 추가</a>
         </li>
+        <li sec:authorize="hasAnyAuthority('USER','ADMIN')" class="nav-item">
+          <a href="/update/updateHome" class="nav-link">
+            기초데이터 업데이트
+          </a>
+        </li>
         <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
           <a class="nav-link active" aria-current="page" href="/users/join">회원추가</a>
         </li>
