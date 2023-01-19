@@ -2,9 +2,12 @@ package com.nueral.calculator.service.skill;
 
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDto;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDtoList;
+import com.nueral.calculator.dto.skillsDto.SkillEffectDto;
+import com.nueral.calculator.dto.skillsDto.SkillEffectDtoList;
 import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skill.AllSkillsRepository;
+import com.nueral.calculator.repository.skill.SkillEffectsRepository;
 import com.nueral.calculator.types.SkillType;
 import com.nueral.calculator.utils.FindTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +26,10 @@ public class SkillSaveService {
     private CharacterRepository characterRepository;
     @Autowired
     private FindTypes findTypes;
+    @Autowired
+    private SkillEffectsRepository skillEffectsRepository;
 
-/**
+    /**
     public void saveAllSkills(
             String characterName, SkillType ,
             String skillName , String explain , String effect
@@ -64,14 +69,19 @@ public class SkillSaveService {
         CharacterSkillsDtoList characterSkillsDtoList;
         if(characterSkillsList.isEmpty()){
             List<CharacterSkillsDto> dto = new ArrayList<>();
-            dto.add(new CharacterSkillsDto(name , SkillType.pas.getType(),"", "" ,""));
-            dto.add(new CharacterSkillsDto(name , SkillType.act.getType(),"", "",""));
-            dto.add(new CharacterSkillsDto(name , SkillType.ult.getType(),"", "",""));
+            List<SkillEffectDto> skillEffectDtoList= new ArrayList<>();
+            dto.add(new CharacterSkillsDto(name , SkillType.pas.getType(),"","","",skillEffectDtoList));
+            dto.add(new CharacterSkillsDto(name , SkillType.act.getType(),"","","",skillEffectDtoList));
+            dto.add(new CharacterSkillsDto(name , SkillType.ult.getType(),"","","",skillEffectDtoList));
             characterSkillsDtoList = new CharacterSkillsDtoList(dto);
         } else {
             characterSkillsDtoList = new CharacterSkillsDtoList(characterSkillsList.stream().map(CharacterSkillsDto::new).collect(Collectors.toList()));
         }
         return characterSkillsDtoList;
+    }
+
+    public SkillEffectDtoList skillEffects(){
+        return new SkillEffectDtoList(skillEffectsRepository.findAll().stream().map(SkillEffectDto::new).collect(Collectors.toList()));
     }
 
     public String saveSkillsByDto(CharacterSkillsDtoList characterSkillsDtoList){

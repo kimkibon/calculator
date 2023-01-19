@@ -28,6 +28,7 @@
         <div class="row m-1" th:id="mainClass+${item.index}"
             th:each="characterSkillsDto , item : *{characterSkillsDto}">
             <input type="hidden" th:value="${name}" th:field="*{characterSkillsDto[__${item.index}__].characterName}">
+            <input type="hidden" th:field="*{characterSkillsDto[__${item.index}__].effect}">
             <div class="d-flex">
                 <div class="col">
                     <div class="form-floating">
@@ -59,9 +60,12 @@
             <div>
                 <div class="col">
                     <div class="form-floating">
-                        <textarea class="form-control" onchange="select(this)"
-                                  th:field="*{characterSkillsDto[__${item.index}__].effect}"></textarea>
-                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].effect">부가 효과</label>
+                        <select class="form-control" th:field="*{characterSkillsDto[__${item.index}__].skillEffectDtoList[0].effectsName}">
+                            <option value="">없음</option>
+                            <option th:each="skillEffects , index : ${skillEffects.skillEffectDto}" th:text="${skillEffects.effectsName}" th:value="${skillEffects.effectsName}"></option>
+                            <option value="">직접 입력</option>
+                        </select>
+                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].skillEffectDtoList[0].effectsName">부가 효과</label>
                     </div>
                 </div>
             </div>

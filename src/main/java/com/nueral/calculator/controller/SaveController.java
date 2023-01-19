@@ -124,6 +124,7 @@ public class SaveController {
     public String saveSkillsPro(@RequestParam("name")String name , Model model){
         model.addAttribute("name" , name);
         model.addAttribute("characterSkillsDtoList" ,skillSaveService.saveSkillsPro(name));
+        model.addAttribute("skillEffects" , skillSaveService.skillEffects());
         return "insert/saveSkills";
     }
 
