@@ -25,9 +25,11 @@ public class AllSkills extends DefaultEntity {
     @ToString.Exclude
     private Characters characters;
 
-    @Enumerated(EnumType.STRING)
-    private SkillType skillType;
     @Id
+    @Enumerated(EnumType.STRING)
+    @Column(name= "skill_type" , nullable = false)
+    private SkillType skillType;
+
     @Column(name = "skill_name" , nullable = false)
     private String skillName;
     private String skillExplain;

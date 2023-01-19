@@ -248,7 +248,7 @@
         </div>
       </div>
       <div class="row m-1 border rounded">
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap row-cols-auto">
           <div class="col m-1" th:each="goods , i : ${character.goodsCharacterDtoList}">
             <img class="img img-fluid" th:src="${'/image/basic/goods/'+goods.goodsName+'.png'}"
               style="min-height:100px;max-height:100px; object-fit:cover;">

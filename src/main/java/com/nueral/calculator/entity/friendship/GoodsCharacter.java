@@ -25,7 +25,7 @@ public class GoodsCharacter extends DefaultEntity {
     private Characters characters;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
     @JoinColumn(name = "GOODS_NAME", nullable = false , referencedColumnName ="GOODS_NAME")
     @ToString.Exclude

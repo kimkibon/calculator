@@ -19,7 +19,7 @@ public class SkillEffectsMap {
             cascade = CascadeType.PERSIST)
     @JoinColumns({
             @JoinColumn(name = "CHARACTER_NAME", referencedColumnName = "CHARACTER_NAME", nullable = false),
-            @JoinColumn(name = "skill_name", referencedColumnName = "skill_name", nullable = false)
+            @JoinColumn(name = "skill_type", referencedColumnName = "skill_type", nullable = false)
     })
     @ToString.Exclude
     private AllSkills allSkills;

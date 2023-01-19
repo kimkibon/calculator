@@ -1,4 +1,4 @@
-package com.nueral.calculator.controller;
+package com.nueral.calculator.controller.userController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

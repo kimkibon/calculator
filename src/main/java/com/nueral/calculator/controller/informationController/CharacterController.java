@@ -1,4 +1,4 @@
-package com.nueral.calculator.controller;
+package com.nueral.calculator.controller.informationController;
 
 import com.nueral.calculator.service.characterService.CharacterService;
 import com.nueral.calculator.dto.character.CharacterInfoDto;
