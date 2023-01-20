@@ -21,23 +21,30 @@
       const newNode = oldNode.cloneNode(true);
       newNode.id = 'mainClass' + idNum;
 
-      newNode.childNodes[1].childNodes[1].id = 'skillEffectDto' + idNum + '.effectsName';
-      newNode.childNodes[1].childNodes[1].name = 'skillEffectDto[' + idNum + '].effectsName';
-      newNode.childNodes[1].childNodes[1].value = '';
+      newNode.childNodes[0].id = 'skillEffectDto'+idNum+'effectIndex';
+      newNode.childNodes[0].name = 'skillEffectDto[' + idNum + '].effectIndex';
+      newNode.childNodes[0].value = null;
 
-      newNode.childNodes[3].childNodes[1].id = 'skillEffectDto' + idNum + '.effects';
-      newNode.childNodes[3].childNodes[1].name = 'skillEffectDto[' + idNum + '].effects';
+
+      newNode.childNodes[3].childNodes[1].id = 'skillEffectDto' + idNum + '.effectsName';
+      newNode.childNodes[3].childNodes[1].name = 'skillEffectDto[' + idNum + '].effectsName';
       newNode.childNodes[3].childNodes[1].value = '';
+
+      newNode.childNodes[5].childNodes[1].id = 'skillEffectDto' + idNum + '.effects';
+      newNode.childNodes[5].childNodes[1].name = 'skillEffectDto[' + idNum + '].effects';
+      newNode.childNodes[5].childNodes[1].value = '';
       oldNode.after(newNode);
     }
 
-    function deleteItemInput() {
-      if (idNum < 1) {
-        alert('아이템이 너무 적습니다.')
-      } else {
-        const lastNode = document.getElementById('mainClass' + idNum);
-        lastNode.remove()
-        idNum = idNum - 1;
+    function deleteItemInput(e) {
+      if(confirm('정말 삭제하시겠습니까?') == true){
+        if(idNum < 1){
+          alert('아이템이 너무 적습니다.')
+        }else{
+          const lastNode = e.parentNode.parentNode;
+          lastNode.remove()
+          idNum = idNum - 1;
+        }
       }
     }
 
@@ -46,27 +53,29 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-  <h1>test</h1>
-  <h1>test</h1>
-  <form th:object="${skillEffects}" method="post">
-
+  <h1>스킬 이펙트 추가</h1>
+  <h1>스킬 이펙트 추가 테스트 화면</h1>
+  <div th:object="${skillEffects}">
     <div class="row m-1" th:each="skillEffects , index : ${skillEffects.skillEffectDto}" th:id="mainClass__${index.index}__">
+      <input type="hidden" th:field="*{skillEffectDto[__${index.index}__].effectIndex}">
       <div class="row">
         <input class="form-control" th:field="*{skillEffectDto[__${index.index}__].effectsName}">
-      </div>
+        </div>
       <div class="row">
         <textarea class="form-control" th:field="*{skillEffectDto[__${index.index}__].effects}"></textarea>
+      </div>
+      <div class="row justify-content-end">
+        <button class="btn btn-danger" type="button" onclick="deleteItemInput(this)">아이템 삭제</button>
       </div>
       <div><br/></div>
     </div>
     <div class="row m-1">
       <div class="d-flex justify-content-end">
-        <button class="btn btn-danger" type="button" onclick="deleteItemInput()">아이템 삭제</button>
         <button class="btn btn-warning" type="button" onclick="addItemInput()">아이템 추가</button>
-        <button class="btn btn-primary" type="submit">입력</button>
+        <!--수정 필요함. 모달 창으로 추가 화면 만들기 수정/추가 같은 화면 사용하면 될듯-->
       </div>
     </div>
-  </form>
+  </div>
 </div>
 
 </html>

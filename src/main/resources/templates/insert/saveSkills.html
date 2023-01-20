@@ -61,7 +61,7 @@
                 <div class="col">
                     <div class="form-floating">
                         <select class="form-control" th:field="*{characterSkillsDto[__${item.index}__].skillEffectDtoList[0].effectsName}">
-                            <option th:value="${null}">없음</option>
+                            <option th:value="noEffect">없음</option>
                             <option th:each="skillEffects , index : ${skillEffects.skillEffectDto}" th:text="${skillEffects.effectsName}" th:value="${skillEffects.effectsName}"></option>
                         </select>
                         <label class="text-light" th:for="characterSkillsDto[__${item.index}__].skillEffectDtoList[0].effectsName">부가 효과</label>

@@ -15,6 +15,7 @@ import com.nueral.calculator.types.SkillType;
 import com.nueral.calculator.utils.FindTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -68,6 +69,16 @@ public class SkillSaveService {
     }
 */
 
+    public boolean deleteSkillEffect(int index){
+        try {
+            skillEffectsRepository.deleteByEffectIndex(index);
+            return true;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
     public CharacterSkillsDtoList saveSkillsPro(String name){
         List<AllSkills> characterSkillsList
                 = allSkillsRepository.findByCharacterName(name).stream().sorted(Comparator.comparing(AllSkills::getSkillType)).collect(Collectors.toList());
@@ -102,6 +113,7 @@ public class SkillSaveService {
         }
     }
 
+    @Transactional
     public String saveSkillsByDto(CharacterSkillsDtoList characterSkillsDtoList){
         try{
             for(CharacterSkillsDto dto : characterSkillsDtoList.getCharacterSkillsDto()){
@@ -115,10 +127,13 @@ public class SkillSaveService {
                 skillEffectsMapRepository.deleteByAllSkills(allSkills);
                 skillEffectsMapRepository.flush();
                 allSkills.getSkillEffectsMapList().clear();
-                if(!dto.getSkillEffectDtoList().isEmpty() || !dto.getSkillEffectDtoList().get(0).getEffectsName().equals(null) || !dto.getSkillEffectDtoList().get(0).getEffectsName().equals("")) {
                     for (SkillEffectDto skillEffectDto : dto.getSkillEffectDtoList()) {
-                        skillEffectsMapRepository.save(new SkillEffectsMap(allSkills, SkillEffects.builder().effectsExplain(skillEffectDto.getEffects()).effectsName(skillEffectDto.getEffectsName()).build()));
-                    }
+                        if(!skillEffectDto.getEffectsName().equals("noEffect")){
+                            SkillEffects skillEffects = skillEffectsRepository.findById(skillEffectDto.getEffectsName()).get();
+                            SkillEffectsMap skillEffectsMap = new SkillEffectsMap(allSkills , skillEffects);
+                            skillEffectsMapRepository.save(skillEffectsMap);
+
+                        }
                 }
                 allSkillsRepository.save(allSkills);
             } return "home";

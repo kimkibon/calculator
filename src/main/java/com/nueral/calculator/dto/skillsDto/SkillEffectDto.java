@@ -11,9 +11,11 @@ import lombok.*;
 public class SkillEffectDto {
     private String effectsName;
     private String effects;
+    private int effectIndex;
 
     public SkillEffectDto(SkillEffects skillEffects){
         this.effectsName = skillEffects.getEffectsName();
         this.effects = skillEffects.getEffectsExplain().replace("<br>","\r\n");
+        this.effectIndex = getEffectIndex();
     }
 }

@@ -20,14 +20,18 @@ public class SkillEffects {
     @Column(nullable = false)
     private String effectsExplain;
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int effectIndex;
+
     @OneToMany(mappedBy = "skillEffects", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<SkillEffectsMap> skillEffectsMapList;
 
     @Builder
-    public SkillEffects(String effectsName , String effectsExplain){
+    public SkillEffects(String effectsName , String effectsExplain , int effectIndex){
         this.effectsName = effectsName;
         this.effectsExplain = effectsExplain;
+        this.effectIndex = effectIndex;
     }
 
     public SkillEffects(SkillEffectDto skillEffectDto){
