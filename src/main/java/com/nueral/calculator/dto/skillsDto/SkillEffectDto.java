@@ -16,6 +16,6 @@ public class SkillEffectDto {
     public SkillEffectDto(SkillEffects skillEffects){
         this.effectsName = skillEffects.getEffectsName();
         this.effects = skillEffects.getEffectsExplain().replace("<br>","\r\n");
-        this.effectIndex = getEffectIndex();
+        this.effectIndex = skillEffects.getEffectIndex();
     }
 }

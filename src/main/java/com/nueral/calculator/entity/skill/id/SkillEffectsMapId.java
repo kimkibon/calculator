@@ -11,5 +11,5 @@ import java.io.Serializable;
 @Setter
 public class SkillEffectsMapId implements Serializable {
     private AllSkillId allSkills;
-    private String skillEffects;
+    private int skillEffects;
 }

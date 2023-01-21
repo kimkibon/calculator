@@ -3,7 +3,6 @@ package com.nueral.calculator.service.skill;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDto;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDtoList;
 import com.nueral.calculator.dto.skillsDto.SkillEffectDto;
-import com.nueral.calculator.dto.skillsDto.SkillEffectDtoList;
 import com.nueral.calculator.entity.skill.AllSkills;
 import com.nueral.calculator.entity.skill.SkillEffects;
 import com.nueral.calculator.entity.skill.SkillEffectsMap;
@@ -69,13 +68,14 @@ public class SkillSaveService {
     }
 */
 
-    public boolean deleteSkillEffect(int index){
+    @Transactional
+    public String deleteSkillEffect(int index){
         try {
             skillEffectsRepository.deleteByEffectIndex(index);
-            return true;
+            return "home";
         } catch (Exception e){
-            System.out.println(e.getMessage());
-            return false;
+            System.out.println("오류가 발생했습니다 : "+e.getMessage());
+            return "saveError";
         }
     }
 
@@ -96,16 +96,18 @@ public class SkillSaveService {
         return characterSkillsDtoList;
     }
 
-    public SkillEffectDtoList skillEffects(){
-        return new SkillEffectDtoList(skillEffectsRepository.findAll().stream().map(SkillEffectDto::new).collect(Collectors.toList()));
+    public List<SkillEffectDto> skillEffects(){
+        return skillEffectsRepository.findAll().stream().map(SkillEffectDto::new).collect(Collectors.toList());
     }
 
-    public String updateSkillEffects(SkillEffectDtoList skillEffectDtoList){
-        try{
-            List<SkillEffects> skillEffects = skillEffectDtoList.getSkillEffectDto().stream().map(SkillEffects::new).collect(Collectors.toList());
-            skillEffectsRepository.deleteAll();
-            skillEffectsRepository.flush();
-            skillEffectsRepository.saveAll(skillEffects);
+    public String updateSkillEffects(SkillEffectDto skillEffectDto){
+        try {
+            SkillEffects skillEffects = SkillEffects.builder()
+                    .effectsName(skillEffectDto.getEffectsName())
+                    .effectsExplain(skillEffectDto.getEffectsName())
+                    .effectIndex(skillEffectDto.getEffectIndex())
+                    .build();
+            skillEffectsRepository.save(skillEffects);
             return "home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
@@ -124,18 +126,18 @@ public class SkillSaveService {
                         .effect(dto.getEffect().replace("\r\n" , "<br>"))
                         .characters(characterRepository.findById(dto.getCharacterName()).get())
                         .build();
+                allSkillsRepository.save(allSkills);
                 skillEffectsMapRepository.deleteByAllSkills(allSkills);
                 skillEffectsMapRepository.flush();
                 allSkills.getSkillEffectsMapList().clear();
                     for (SkillEffectDto skillEffectDto : dto.getSkillEffectDtoList()) {
-                        if(!skillEffectDto.getEffectsName().equals("noEffect")){
-                            SkillEffects skillEffects = skillEffectsRepository.findById(skillEffectDto.getEffectsName()).get();
+                        System.out.println(skillEffectDto.getEffectIndex());
+                        if(skillEffectDto.getEffectIndex() != 0){
+                            SkillEffects skillEffects = skillEffectsRepository.findById(skillEffectDto.getEffectIndex()).get();
                             SkillEffectsMap skillEffectsMap = new SkillEffectsMap(allSkills , skillEffects);
                             skillEffectsMapRepository.save(skillEffectsMap);
-
                         }
                 }
-                allSkillsRepository.save(allSkills);
             } return "home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());

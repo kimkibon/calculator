@@ -14,13 +14,14 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 public class SkillEffects {
-    @Id
+
     @Column(name = "effects_name" , nullable = false)
     private String effectsName;
-    @Column(nullable = false)
+    @Column
     private String effectsExplain;
-
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "effect_index")
     private int effectIndex;
 
     @OneToMany(mappedBy = "skillEffects", fetch = FetchType.LAZY)

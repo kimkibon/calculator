@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class SkillEffectsMap {
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.PERSIST)
     @JoinColumns({
             @JoinColumn(name = "CHARACTER_NAME", referencedColumnName = "CHARACTER_NAME", nullable = false),
             @JoinColumn(name = "skill_type", referencedColumnName = "skill_type", nullable = false)
@@ -25,8 +25,8 @@ public class SkillEffectsMap {
     private AllSkills allSkills;
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    @JoinColumn(name = "effects_name", nullable = false, referencedColumnName = "effects_name")
+            cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "effect_index", nullable = false, referencedColumnName = "effect_index")
     @ToString.Exclude
     private SkillEffects skillEffects;
 
