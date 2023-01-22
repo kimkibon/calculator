@@ -75,7 +75,7 @@
       <input type="hidden" th:value="${name}" th:field="*{goodsCharacterSaveDto[__${item.index}__].characterName}">
       <div class="col-md">
         <div class="form-floating">
-          <select class="form-control text-light" onchange="select(this)"
+          <select class="form-select text-light" onchange="select(this)"
             th:field="*{goodsCharacterSaveDto[__${item.index}__].goodsName}">
             <option class="" th:each="goods : ${goodsList}" th:text="${goods.goodsName}" th:value="${goods.goodsName}"
               th:classappend="${

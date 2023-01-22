@@ -40,7 +40,7 @@
       <div class="d-flex">
         <div class="col">
           <div class="form-floating">
-            <select class="form-control" th:id="*{algorithmSaveDto[__${item.index}__].setAlgorithm}"
+            <select class="form-select" th:id="*{algorithmSaveDto[__${item.index}__].setAlgorithm}"
               th:field="*{algorithmSaveDto[__${item.index}__].setAlgorithm}">
               <option th:if="${#strings.equals(setAlgorithm.type,algorithmSaveDto.AlgorithmType)}"
                 th:each="setAlgorithm : ${setAlgorithmList}" th:value="${setAlgorithm.setAlgorithmName}"
@@ -51,7 +51,7 @@
         </div>
         <div class="col">
           <div class="form-floating">
-            <select class="form-control" th:id="*{algorithmSaveDto[__${item.index}__].mainAlgorithm}"
+            <select class="form-select" th:id="*{algorithmSaveDto[__${item.index}__].mainAlgorithm}"
               th:field="*{algorithmSaveDto[__${item.index}__].mainAlgorithm}">
               <option
                 th:if="${#strings.equals(mainAlgorithm.type,algorithmSaveDto.AlgorithmType) || #strings.equals(mainAlgorithm.type , '올타입')}"
@@ -65,7 +65,7 @@
       <div class="d-flex">
         <div class="col">
           <div class="form-floating">
-            <select class="form-control" th:id="*{algorithmSaveDto[__${item.index}__].subAlgorithm}"
+            <select class="form-select" th:id="*{algorithmSaveDto[__${item.index}__].subAlgorithm}"
               th:field="*{algorithmSaveDto[__${item.index}__].subAlgorithm}">
               <option
                 th:if="${#strings.equals(subAlgorithm.type,algorithmSaveDto.AlgorithmType) || #strings.equals(subAlgorithm.type , '올타입')}"
@@ -77,7 +77,7 @@
         </div>
         <div class="col">
           <div class="form-floating">
-            <select class="form-control" th:id="*{algorithmSaveDto[__${item.index}__].subAlgorithm2}"
+            <select class="form-select" th:id="*{algorithmSaveDto[__${item.index}__].subAlgorithm2}"
               th:field="*{algorithmSaveDto[__${item.index}__].subAlgorithm2}">
               <option
                 th:if="${#strings.equals(subAlgorithm.type,algorithmSaveDto.AlgorithmType) || #strings.equals(subAlgorithm.type , '올타입')}"

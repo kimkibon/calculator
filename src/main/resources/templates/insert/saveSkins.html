@@ -60,7 +60,7 @@
       <div class="d-flex">
         <div class="col">
           <div class="form-floating">
-            <select class="form-control" onchange="selectInput(this)" id="selectType" th:value="*{type}">
+            <select class="form-select" onchange="selectInput(this)" id="selectType" th:value="*{type}">
               <option th:value="${type}" th:each="type, i : ${skinType}" th:text="${type}"></option>
               <option value="input">직접 선택</option>
             </select>
