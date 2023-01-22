@@ -23,23 +23,8 @@
       });
 
     function changeGoodsLevel() {
-      document.getElementById("minGoodsLevel").value = document
-        .getElementById("minGoodsLevel")
-        .value.replace(/[^0-9.]/g, "")
-        .replace(/(\..*)\./g, "$1");
-      document.getElementById("maxGoodsLevel").value = document
-        .getElementById("maxGoodsLevel")
-        .value.replace(/[^0-9.]/g, "")
-        .replace(/(\..*)\./g, "$1");
       const minGoodsLevel = document.getElementById("minGoodsLevel").value;
       const maxGoodsLevel = document.getElementById("maxGoodsLevel").value;
-
-      if (minGoodsLevel > goodsExp.length) {
-        document.getElementById("minGoodsLevel").value = goodsExp.length;
-      }
-      if (maxGoodsLevel > goodsExp.length) {
-        document.getElementById("maxGoodsLevel").value = goodsExp.length;
-      }
 
       const goodsExpList = goodsExp.slice(minGoodsLevel, maxGoodsLevel);
 
@@ -69,13 +54,19 @@
     <div class="d-flex justify-content-around">
       <div class="col">
         <div class="form-floating">
-          <input class="form-control" id="minGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1" />
+          <select class="form-select text-light" id="minGoodsLevel" onchange="changeGoodsLevel()">
+            <option th:each="level : ${goodsExpList}" th:text="${level.friendlyLevel}"
+              th:value="${level.friendlyLevel}"></option>
+          </select>
           <label for="minGoodsLevel"> 현재 레벨 </label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <input class="form-control" id="maxGoodsLevel" oninput="changeGoodsLevel()" type="text" min="1" />
+          <select class="form-select text-light" id="maxGoodsLevel" onchange="changeGoodsLevel()">
+            <option th:each="level : ${goodsExpList}" th:text="${level.friendlyLevel}"
+              th:value="${level.friendlyLevel}"></option>
+          </select>
           <label for="maxGoodsLevel"> 목표 레벨 </label>
         </div>
       </div>
@@ -85,7 +76,7 @@
     <div class="d-flex justify-content-between">
       <div class="col">
         <div class="form-floating">
-          <span class="form-control" id="resultGoodsExp">0</span>
+          <span class="form-control text-light" id="resultGoodsExp">0</span>
           <label for="resultGoodsExp">호감도</label>
         </div>
       </div>
