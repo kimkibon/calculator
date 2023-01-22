@@ -11,14 +11,14 @@
 <th:block layout:fragment="script">
   <script th:inline="javascript">
     const skillEffects = /*[[${skillEffects}]]*/;
-    let idNum = skillEffects.length - 1;
+    let idNum = skillEffects[skillEffects.length - 1].effectIndex+1;
 
     function deleteItemInput(e) {
       if (confirm('정말 삭제하시겠습니까?') == true) {
         if (idNum < 1) {
           alert('아이템이 너무 적습니다.')
         } else {
-        
+
           const request = new XMLHttpRequest();
 
           request.onreadystatechange = function (e) {
@@ -32,18 +32,18 @@
 
           // !!! POST 전송시, 데이터 전달을 위한 설정
           request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-          request.send("index="+e.parentNode.childNodes[3].value);
-          
+          request.send("index=" + e.parentNode.childNodes[3].value);
+
           request.onload = function () {
             if (request.status == 200) {
-          const lastNode = e.parentNode.parentNode;
-          lastNode.remove()
-          idNum = idNum - 1;
-          alert('삭제가 완료되었습니다');
+              const lastNode = e.parentNode.parentNode;
+              lastNode.remove()
+              idNum = idNum - 1;
+              alert('삭제가 완료되었습니다');
             } else {
               alert('오류 발생')
             }
-        }
+          }
         }
       }
     }
@@ -65,7 +65,7 @@
 
         index.value = event.parentNode.childNodes[3].value;
         name.value = event.parentNode.childNodes[1].value;
-        explain.value = event.parentNode.parentNode.childNodes[1].childNodes[1].value;
+        explain.value = event.parentNode.parentNode.childNodes[3].childNodes[1].value;
       }
       // Extract info from data-bs-* attributes
       // If necessary, you could initiate an AJAX request here
@@ -73,7 +73,7 @@
       //
       // Update the modal's content.
 
-  };
+    };
 
   </script>
 </th:block>
@@ -107,30 +107,32 @@
     </div>
   </div>
   <h1>스킬 이펙트 추가</h1>
-  <h1>스킬 이펙트 추가 테스트 화면</h1>
-    <div class="row m-1" th:each="skillEffects , index : ${skillEffects}"
-      th:id="mainClass__${index.index}__">
-      <div class="row">
-        <div class="input-group">
-          <input class="form-control" th:id="effectsName" th:value="${skillEffects.effectsName}" readonly>
-          <input type="hidden" th:id="effectIndex" th:value="${skillEffects.effectIndex}" readonly>
-          <button type="button" class="btn input-group-bth btn-primary" onclick="modal(this)" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" data-bs-whatever="@fat">수정</button>
-          <button class="btn btn-danger" type="button" onclick="deleteItemInput(this)">삭제</button>
-        </div>
-        <div class="input-group">
-          <textarea class="form-control" th:id="effects" th:value="${skillEffects.effects}" th:text="${skillEffects.effects}" readonly></textarea>
-        </div>
-        <div><br /></div>
-      </div>
+  <div class="row m-1">
+    <div class="row">
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-warning" onclick="location.href='/home'">메인 화면</button>
+      <input type="hidden" value="-1">
+      <button type="button" class="btn btn-primary" onclick="modal(this)" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" data-bs-whatever="@fat">아이템 추가</button>
     </div>
-      <div class="row">
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-primary" onclick="modal(this)" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" data-bs-whatever="@fat">아이템 추가</button>
-          <input type="hidden" value="-1">
-        </div>
+    </div>
+  </div>
+  <div class="row m-1" th:each="skillEffects , index : ${skillEffects}" th:id="mainClass__${index.index}__">
+    <div class="row">
+      <div class="input-group">
+        <input class="form-control" th:id="effectsName" th:value="${skillEffects.effectsName}" readonly>
+        <input type="hidden" th:id="effectIndex" th:value="${skillEffects.effectIndex}" readonly>
+        <button type="button" class="btn input-group-bth btn-primary" onclick="modal(this)" data-bs-toggle="modal"
+          data-bs-target="#exampleModal" data-bs-whatever="@fat">수정</button>
+        <button class="btn btn-danger" type="button" onclick="deleteItemInput(this)">삭제</button>
       </div>
+      <div class="input-group">
+        <textarea class="form-control" th:id="effects" th:value="${skillEffects.effects}"
+          th:text="${skillEffects.effects}" readonly></textarea>
+      </div>
+      <div><br /></div>
+    </div>
+  </div>
 </div>
 
 </html>

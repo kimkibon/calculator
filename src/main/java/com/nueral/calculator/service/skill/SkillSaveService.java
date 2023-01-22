@@ -104,7 +104,7 @@ public class SkillSaveService {
         try {
             SkillEffects skillEffects = SkillEffects.builder()
                     .effectsName(skillEffectDto.getEffectsName())
-                    .effectsExplain(skillEffectDto.getEffectsName())
+                    .effectsExplain(skillEffectDto.getEffects().replace("\r\n" , "<br>"))
                     .effectIndex(skillEffectDto.getEffectIndex())
                     .build();
             skillEffectsRepository.save(skillEffects);

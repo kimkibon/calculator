@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@SequenceGenerator(name = "EFFECT_IDX_GENERATOR" , sequenceName = "EFFECT_SEQ", allocationSize = 1) // 시퀀스 생성
 public class SkillEffects {
 
     @Column(name = "effects_name" , nullable = false)
@@ -20,7 +21,10 @@ public class SkillEffects {
     @Column
     private String effectsExplain;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE ,
+            generator = "EFFECT_IDX_GENERATOR"
+    )
     @Column(name = "effect_index")
     private int effectIndex;
 
