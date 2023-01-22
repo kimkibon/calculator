@@ -13,8 +13,12 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@SequenceGenerator(name = "EP_IDX_GENERATOR" , sequenceName = "EP_SEQ", allocationSize = 1) // 시퀀스 생성
 public class EpPool extends DefaultEntity {
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "EP_IDX_GENERATOR")
     private int epIndex;
     private int startDate;
     private int endDate;

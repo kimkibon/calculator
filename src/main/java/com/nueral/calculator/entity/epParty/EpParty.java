@@ -19,6 +19,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 @IdClass(EpPartyId.class)
+@SequenceGenerator(name = "EPPARTY_IDX_GENERATOR" , sequenceName = "EPPARTY_SEQ", allocationSize = 1) // 시퀀스 생성
 public class EpParty extends DefaultEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
@@ -26,7 +27,11 @@ public class EpParty extends DefaultEntity {
     @JoinColumn(name = "ep_index", nullable = false)
     @ToString.Exclude
     private EpPool epPool;
-    @Id
+    @Id //PRIMARY_KEY
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "EPPARTY_IDX_GENERATOR"
+    ) // 위에서 정의한 SEQ 를 사용하겠다.
     private int epPartyIndex;
     private int recommended;
     private int support;
