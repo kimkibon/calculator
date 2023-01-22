@@ -53,8 +53,7 @@
                         <div class="btn btn-sm btn-secondary" th:text="${skins.type}"></div>
                       </div>
                       <div class="col-xl">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveSkins}"
-                          method="get">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveSkins}" method="get">
                           <!-- to do
       입력 폼 모두 다 th:field 형식으로 변경
       컨트롤러에서 field 값을 받도록 수정 필요. -->
@@ -64,8 +63,7 @@
                         </form>
                       </div>
                       <div class="col-xl">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/deleteSkins}"
-                              method="get">
+                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/deleteSkins}" method="get">
                           <!-- to do
       입력 폼 모두 다 th:field 형식으로 변경
       컨트롤러에서 field 값을 받도록 수정 필요. -->
@@ -109,16 +107,43 @@
           <button class="btn btn-sm btn-outline-danger m-1" type="submit">스킨 추가</button>
         </form>
       </div>
+      <div sec:authorize="isAuthenticated()" class="row">
+        <div class="col m-1">
+          <div class="text-light border rounded m-1">
+            <span>추천 파티 추가 테스트</span>
+          </div>
+          <div class="col m-1">
+            <div class="d-flex flex-wrap row-cols-4">
+              <div class="card">
+                <img class="card-img" th:src="${character.profile}"
+                     onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                <div class="card-img-overlay p-1">
+                  <img th:src="'/image/basic/profile/'+${character.roleType}+'.png'"
+                       class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
+                       th:classappend="${
+                        (character.roleType == '수위' ? 'bg-primary' : '') +
+                        (character.roleType == '치료사' ? 'bg-success' : '') +
+                        (character.roleType == '사수' ? 'bg-info' : '')+
+                        (character.roleType == '전사' ? 'bg-warning' : '')+
+                        (character.roleType == '해결사' ? 'bg-danger' : '')}">
+                </div>
+                  <span class="text-light text-center text-nowrap"
+                          th:text="${character.characterName}"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-lg">
-      <br/>
+      <br />
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
-            <span class="m-1">기본 정보</span>
-            <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
-              <input type="hidden" name="name" th:value="${character.characterName}">
-              <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
-            </form>
+          <span class="m-1">기본 정보</span>
+          <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
+            <input type="hidden" name="name" th:value="${character.characterName}">
+            <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
+          </form>
         </div>
       </div>
       <div class="row">
@@ -181,7 +206,7 @@
           </div>
         </div>
       </div>
-      <br/>
+      <br />
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">스킬</span>
@@ -198,18 +223,20 @@
                         (skills.skillType == '패시브' ? 'text-primary' : '') +
                         (skills.skillType == '액티브' ? 'text-danger' : '') +
                         (skills.skillType == '궁극기' ? 'text-warning' : '')}"></span></span></div>
-          <div class="row"><span class="text-wrap" th:id="${skills.skillName}" th:utext="${#strings.replace(#strings.escapeXml(skills.explain),'&#13;&#10;','&lt;br&gt;')}"></span>
+          <div class="row"><span class="text-wrap" th:id="${skills.skillName}"
+              th:utext="${#strings.replace(#strings.escapeXml(skills.explain),'&#13;&#10;','&lt;br&gt;')}"></span>
           </div>
           <div class="row">
             <hr class="border rounded" th:classappend="${
                         (skills.skillType == '패시브' ? 'border-primary' : '') +
                         (skills.skillType == '액티브' ? 'border-danger' : '') +
                         (skills.skillType == '궁극기' ? 'border-warning' : '')}">
-            <span th:each="effect : ${skills.skillEffectDtoList}" th:utext="${effect.effectsName + ' - ' +#strings.replace(#strings.escapeXml(effect.effects),'&#13;&#10;','&lt;br&gt;')}"></span>
+            <span th:each="effect : ${skills.skillEffectDtoList}"
+              th:utext="${effect.effectsName + ' - ' +#strings.replace(#strings.escapeXml(effect.effects),'&#13;&#10;','&lt;br&gt;')}"></span>
           </div>
         </div>
       </div>
-      <br/>
+      <br />
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">알고리즘</span>
@@ -237,7 +264,7 @@
           <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt2}"></span></div>
         </div>
       </div>
-      <br/>
+      <br />
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">호감도 아이템</span>
@@ -259,7 +286,7 @@
           </div>
         </div>
       </div>
-      <br/>
+      <br />
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
           <span class="m-1">호감도 스탯</span>
@@ -276,15 +303,15 @@
           </div>
         </div>
       </div>
-      <br/>
-      <div class="row">
+      <br />
+      <div sec:authorize="isAuthenticated()" class="row" >
         <div class="d-flex">
           <div class="col text-center border rounded m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
             <div class="row">
               <div class="col">메인 옵션</div>
             </div>
             <div class="row">
-              <div class="col">세트 이름</div>
+              <div class="col"><img class="img ima-fluid" th:src="${'/image/basic/algorithm/'+algorithm.setAlgorithmDto.setAlgorithmName+'.png'}"></div>
             </div>
             <div class="row">
               <div class="col">서브옵션1</div>
