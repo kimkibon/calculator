@@ -1,6 +1,5 @@
 package com.nueral.calculator.dto.ExpListDto;
 
-import com.nueral.calculator.entity.needExp.NeedStarExp;
 import lombok.*;
 
 import java.util.List;
@@ -9,6 +8,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class starExpListDto {
-    private List<NeedStarExp> needStarExpList;
+public class StarExpListDto {
+    private List<StarExpDto> needStarExpList;
 }
