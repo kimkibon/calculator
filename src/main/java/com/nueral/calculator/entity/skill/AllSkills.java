@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity.skill;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.skill.id.AllSkillId;
 import com.nueral.calculator.types.SkillType;

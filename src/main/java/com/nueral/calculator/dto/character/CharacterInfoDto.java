@@ -1,6 +1,6 @@
 package com.nueral.calculator.dto.character;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.images.Skins;
 import com.nueral.calculator.entity.skill.AllSkills;

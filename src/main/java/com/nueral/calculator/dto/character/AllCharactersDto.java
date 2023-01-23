@@ -1,6 +1,6 @@
 package com.nueral.calculator.dto.character;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import lombok.*;
 
 @Getter

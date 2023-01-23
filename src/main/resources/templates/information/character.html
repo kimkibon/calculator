@@ -54,19 +54,13 @@
                       </div>
                       <div class="col-xl">
                         <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveSkins}" method="get">
-                          <!-- to do
-      입력 폼 모두 다 th:field 형식으로 변경
-      컨트롤러에서 field 값을 받도록 수정 필요. -->
                           <input type="hidden" name="name" th:value="${character.characterName}">
                           <input type="hidden" name="type" th:value="${skins.type}">
                           <button class="btn btn-sm btn-outline-danger" type="submit">스킨 수정</button>
                         </form>
                       </div>
                       <div class="col-xl">
-                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/deleteSkins}" method="get">
-                          <!-- to do
-      입력 폼 모두 다 th:field 형식으로 변경
-      컨트롤러에서 field 값을 받도록 수정 필요. -->
+                        <form sec:authorize="isAuthenticated()" th:action="@{/insert/deleteSkins}" method="post">
                           <input type="hidden" name="name" th:value="${character.characterName}">
                           <input type="hidden" name="type" th:value="${skins.type}">
                           <button class="btn btn-sm btn-outline-danger" type="submit">스킨 삭제</button>
@@ -110,25 +104,34 @@
       <div sec:authorize="isAuthenticated()" class="row">
         <div class="col m-1">
           <div class="text-light border rounded m-1">
-            <span>추천 파티 추가 테스트</span>
+            <div class="d-flex justify-content-between">
+            <span class="m-1">추천 파티 추가 테스트</span>
+              <form sec:authorize="isAuthenticated()">
+                <input type="hidden" name="name" th:value="${character.characterName}">
+                <button class="btn btn-sm btn-outline-danger" type="submit">추천 파티 수정</button>
+              </form>
+            </div>
           </div>
           <div class="col m-1">
             <div class="d-flex flex-wrap row-cols-4">
-              <div class="card">
-                <img class="card-img" th:src="${character.profile}"
+              <div class="card" th:each="recommend : ${character.recommendPartyDto.recommendDto}">
+                <img class="card-img" th:src="${recommend.profile}"
                      onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                 <div class="card-img-overlay p-1">
-                  <img th:src="'/image/basic/profile/'+${character.roleType}+'.png'"
+                  <img th:src="'/image/basic/profile/'+${recommend.roleType}+'.png'"
                        class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
                        th:classappend="${
-                        (character.roleType == '수위' ? 'bg-primary' : '') +
-                        (character.roleType == '치료사' ? 'bg-success' : '') +
-                        (character.roleType == '사수' ? 'bg-info' : '')+
-                        (character.roleType == '전사' ? 'bg-warning' : '')+
-                        (character.roleType == '해결사' ? 'bg-danger' : '')}">
+                        (recommend.roleType == '수위' ? 'bg-primary' : '') +
+                        (recommend.roleType == '치료사' ? 'bg-success' : '') +
+                        (recommend.roleType == '사수' ? 'bg-info' : '')+
+                        (recommend.roleType == '전사' ? 'bg-warning' : '')+
+                        (recommend.roleType == '해결사' ? 'bg-danger' : '')}">
                 </div>
-                  <span class="text-light text-center text-nowrap"
-                          th:text="${character.characterName}"></span>
+                  <span class="text-center text-nowrap"
+                          th:text="${recommend.characterName}" th:classappend="${
+                        (recommend.defaultStar == 1 ? ' text-primary' : '') +
+                        (recommend.defaultStar == 3 ? ' text-danger' : '') +
+                        (recommend.defaultStar == 5 ? ' text-warning' : '')}"></span>
               </div>
             </div>
           </div>
@@ -142,7 +145,7 @@
           <span class="m-1">기본 정보</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveCharacter}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
-            <button class="btn btn-sm btn-outline-danger m-1" type="submit">기본 정보 수정</button>
+            <button class="btn btn-sm btn-outline-danger" type="submit">기본 정보 수정</button>
           </form>
         </div>
       </div>
@@ -212,7 +215,7 @@
           <span class="m-1">스킬</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveSkills}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
-            <button class="btn btn-sm btn-outline-danger m-1" type="submit">스킬 수정</button>
+            <button class="btn btn-sm btn-outline-danger" type="submit">스킬 수정</button>
           </form>
         </div>
       </div>
@@ -242,7 +245,7 @@
           <span class="m-1">알고리즘</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveAlgorithm}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
-            <button class="btn btn-sm btn-outline-danger m-1" type="submit">알고리즘 수정</button>
+            <button class="btn btn-sm btn-outline-danger" type="submit">알고리즘 수정</button>
           </form>
         </div>
       </div>
@@ -270,7 +273,7 @@
           <span class="m-1">호감도 아이템</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveGoodsCharacter}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
-            <button class="btn btn-sm btn-outline-danger m-1" type="submit">아이템 수정</button>
+            <button class="btn btn-sm btn-outline-danger" type="submit">아이템 수정</button>
           </form>
         </div>
       </div>
@@ -292,7 +295,7 @@
           <span class="m-1">호감도 스탯</span>
           <form sec:authorize="isAuthenticated()" th:action="@{/insert/saveGoodsStatusCharacter}" method="get">
             <input type="hidden" name="name" th:value="${character.characterName}">
-            <button class="btn btn-sm btn-outline-danger m-1" type="submit">호감도 스탯 수정</button>
+            <button class="btn btn-sm btn-outline-danger" type="submit">호감도 스탯 수정</button>
           </form>
         </div>
       </div>

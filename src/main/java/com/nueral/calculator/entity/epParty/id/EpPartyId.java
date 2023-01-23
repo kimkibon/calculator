@@ -12,5 +12,4 @@ import java.io.Serializable;
 public class EpPartyId implements Serializable {
     private int epPool;
     private int epPartyIndex;
-    private String characters;
 }

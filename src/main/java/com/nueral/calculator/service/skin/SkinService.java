@@ -1,6 +1,6 @@
 package com.nueral.calculator.service.skin;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skin.SkinRepository;
 import com.nueral.calculator.dto.character.SkinSaveDto;

@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity.friendship;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.friendship.id.GoodsCharacterId;
 import lombok.Builder;
