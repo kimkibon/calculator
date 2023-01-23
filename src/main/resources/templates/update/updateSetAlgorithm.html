@@ -1,10 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-</body>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+    const starExp = /*[[${setAlgorithm.setAlgorithmList}]]*/
+    let itemNum = starExp.length-1;
+
+    function addNode(e){
+      oldNode = document.getElementById('main'+itemNum);
+      newNode = oldNode.cloneNode(true);
+
+      itemNum = itemNum +1;
+      newNode.querySelector('.col-3 .form-floating .form-select').value = '월';
+      newNode.querySelector('.col-5 .form-floating .form-control').value = null;
+      newNode.querySelector('.col-4 .form-floating .form-select').value = '공격성';
+      newNode.querySelector('.border-rounded .form-floating .form-control').value = null;
+      newNode.querySelector('.col-12 .form-floating .form-control').value = null;
+
+      newNode.querySelector('.col-3 .form-floating .form-select').id =
+        'setAlgorithmList' + itemNum +'.pickUpDay';
+      newNode.querySelector('.col-3 .form-floating .form-select').name =
+        'setAlgorithmList[' + itemNum +'].pickUpDay';
+      newNode.querySelector('.col-5 .form-floating .form-control').id =
+        'setAlgorithmList' + itemNum +'.setAlgorithmName';
+      newNode.querySelector('.col-5 .form-floating .form-control').name =
+        'setAlgorithmList[' + itemNum +'].setAlgorithmName';
+      newNode.querySelector('.col-4 .form-floating .form-select').id =
+        'setAlgorithmList' + itemNum +'.type';
+      newNode.querySelector('.col-4 .form-floating .form-select').name =
+        'setAlgorithmList[' + itemNum +'].type';
+      newNode.querySelector('.col-12 .form-floating .form-control').name =
+        'setAlgorithmList[' + itemNum +'].twoSetOpt';
+      newNode.querySelector('.col-12 .form-floating .form-control').name =
+        'setAlgorithmList[' + itemNum +'].twoSetOpt';
+      newNode.querySelector('.border-rounded .form-floating .form-control').name =
+        'setAlgorithmList[' + itemNum +'].threeSetOpt';
+      newNode.querySelector('.border-rounded .form-floating .form-control').name =
+        'setAlgorithmList[' + itemNum +'].threeSetOpt';
+
+      newNode.id = 'main'+itemNum
+      oldNode.after(newNode);
+    }
+
+    function deleteNode(){
+      document.getElementById('main'+itemNum).remove();
+      itemNum = itemNum - 1;
+    }
+
+  </script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <h1>test</h1>
+
+    <div class="row m-1">
+        <h1>세트 알고리즘 옵션</h1>
+    </div>
+    <form th:object="${setAlgorithm}" method="post" th:action="@{/update/updateSetAlgorithm}">
+        <div class="d-flex flex-wrap m-1" th:id="${'main'+item.index}" th:each="setAlgorithmList , item : *{setAlgorithmList}">
+            <div class="col-5">
+                <div class="form-floating">
+                    <input type="text" class="form-control text-light" th:field="*{setAlgorithmList[__${item.index}__].setAlgorithmName}">
+                    <label th:for="*{setAlgorithmList[__${item.index}__].setAlgorithmName}">이름</label>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-floating">
+                    <select type="text" class="form-select text-light" th:field="*{setAlgorithmList[__${item.index}__].type}">
+                        <option value="공격성">공격성</option>
+                        <option value="안정성">안정성</option>
+                        <option value="특이성">특이성</option>
+                    </select>
+                    <label th:for="*{setAlgorithmList[__${item.index}__].type}">타입</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-floating">
+                    <select type="text" class="form-select text-light" th:field="*{setAlgorithmList[__${item.index}__].pickUpDay}">
+                        <option value="월">월</option>
+                        <option value="화">화</option>
+                        <option value="수">수</option>
+                        <option value="목">목</option>
+                        <option value="금">금</option>
+                        <option value="토">토</option>
+                        <option value="일">일</option>
+                    </select>
+                    <label th:for="*{setAlgorithmList[__${item.index}__].pickUpDay}">요일</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating">
+                    <textarea type="text" class="form-control text-light" th:field="*{setAlgorithmList[__${item.index}__].twoSetOpt}">
+                    </textarea>
+                    <label th:for="*{setAlgorithmList[__${item.index}__].twoSetOpt}">2세트 옵션</label>
+                </div>
+            </div>
+            <div class="border-rounded col-12">
+                <div class="form-floating">
+                    <textarea type="text" class="form-control text-light" th:field="*{setAlgorithmList[__${item.index}__].threeSetOpt}">
+                    </textarea>
+                    <label th:for="*{setAlgorithmList[__${item.index}__].threeSetOpt}">3세트 옵션</label>
+                </div>
+            </div>
+        </div>
+        <div class="row m-1">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-warning" onclick="addNode(this)">추가</button>
+                <button type="submit" class="btn btn-primary">입력</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
 </html>
