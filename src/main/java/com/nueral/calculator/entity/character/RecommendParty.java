@@ -1,5 +1,6 @@
 package com.nueral.calculator.entity.character;
 
+import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.character.id.RecommendPartyId;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.util.List;
 @DynamicUpdate
 @DynamicInsert
 @IdClass(RecommendPartyId.class)
-public class RecommendParty {
+public class RecommendParty extends DefaultEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
@@ -39,6 +40,5 @@ public class RecommendParty {
         this.partyIndex = partyIndex;
         this.partyExplain = partyExplain;
     }
-
 
 }
