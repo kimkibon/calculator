@@ -19,7 +19,7 @@ public class RecommendPartyDto {
 
     public RecommendPartyDto(RecommendParty recommendParty){
         this.partyIndex = recommendParty.getPartyIndex();
-        this.partyExplain = recommendParty.getPartyExplain();
+        this.partyExplain = recommendParty.getPartyExplain().replace("<br>" , "\r\n");
         this.characterName = recommendParty.getCharacters().getName();
         this.memberDtoList =
                 recommendParty.getRecommendPartyMemberList()

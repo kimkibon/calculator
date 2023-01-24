@@ -87,7 +87,7 @@ public class CharacterService {
             for(RecommendPartyDto partyDto : recommendPartyDtoList.getRecommendPartyDtoList()){
                 RecommendParty recommendParty = RecommendParty.builder()
                         .characters(characterRepository.findByName(partyDto.getCharacterName()).get())
-                        .partyExplain(partyDto.getPartyExplain())
+                        .partyExplain(partyDto.getPartyExplain().replace("\r\n" , "<br>"))
                         .partyIndex(partyDto.getPartyIndex())
                         .build();
                 recommendPartyRepository.saveAndFlush(recommendParty);
