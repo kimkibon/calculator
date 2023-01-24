@@ -102,8 +102,8 @@
         </form>
       </div>
       <div class="row">
-        <div class="col m-1">
-          <div class="text-light border rounded m-1">
+        <div class="col">
+          <div class="text-light border rounded">
             <div class="d-flex justify-content-between">
             <span class="m-1">추천 파티</span>
               <form sec:authorize="isAuthenticated()" method="get" th:action="@{/insert/saveRecommendParty}">
@@ -112,7 +112,7 @@
               </form>
             </div>
           </div>
-          <div class="col m-1">
+          <div class="col">
             <div class="d-flex flex-wrap row-cols-4" th:each="party : ${character.partyDtoList}">
               <div class="card" th:each="member : ${party.memberDtoList}" th:onclick="|location.href='@{/information/character(name=${member.characterName})}'|">
                 <img class="card-img" th:src="${member.profile}"
