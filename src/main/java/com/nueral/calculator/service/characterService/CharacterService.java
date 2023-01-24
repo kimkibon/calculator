@@ -1,9 +1,11 @@
 package com.nueral.calculator.service.characterService;
 
-import com.nueral.calculator.dto.character.AllCharactersDto;
-import com.nueral.calculator.dto.character.CharacterInfoDto;
-import com.nueral.calculator.dto.character.CharacterSaveDto;
+import com.nueral.calculator.dto.character.*;
 import com.nueral.calculator.entity.character.Characters;
+import com.nueral.calculator.entity.character.RecommendParty;
+import com.nueral.calculator.entity.character.RecommendPartyMember;
+import com.nueral.calculator.repository.character.RecommendPartyMemberRepository;
+import com.nueral.calculator.repository.character.RecommendPartyRepository;
 import com.nueral.calculator.mapping.CharacterName;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.utils.FileUtil;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +25,11 @@ public class CharacterService {
     private CharacterRepository characterRepository;
     @Autowired
     private FileUtil fileUtil;
+    @Autowired
+    private RecommendPartyRepository recommendPartyRepository;
+    @Autowired
+    private RecommendPartyMemberRepository recommendPartyMemberRepository;
+
 
     public CharacterInfoDto findCharacterInfo(String name){
 
@@ -58,6 +66,50 @@ public class CharacterService {
             return "saveError";
         }
     }
+    public RecommendPartyDtoList saveRecommendPartyPro(String name){
+        List<RecommendParty> parties = recommendPartyRepository.findByCharacters_Name(name);
+        RecommendPartyDtoList recommendPartyDtoList;
+        if(parties.isEmpty()){
+            RecommendPartyDto partyDto = new RecommendPartyDto();
+            partyDto.setCharacterName(name);
+            partyDto.setMemberDtoList(new ArrayList<>());
+            List<RecommendPartyDto> partyDtoList = new ArrayList<>();
+            partyDtoList.add(partyDto);
+            recommendPartyDtoList = new RecommendPartyDtoList(partyDtoList);
+        } else {
+            recommendPartyDtoList = new RecommendPartyDtoList(parties.stream().map(RecommendPartyDto::new).collect(Collectors.toList()));
+        }
+        return recommendPartyDtoList;
+    }
+
+    public String saveRecommendParty(RecommendPartyDtoList recommendPartyDtoList){
+        try{
+            for(RecommendPartyDto partyDto : recommendPartyDtoList.getRecommendPartyDtoList()){
+                RecommendParty recommendParty = RecommendParty.builder()
+                        .characters(characterRepository.findByName(partyDto.getCharacterName()).get())
+                        .partyExplain(partyDto.getPartyExplain())
+                        .partyIndex(partyDto.getPartyIndex())
+                        .build();
+                recommendPartyRepository.saveAndFlush(recommendParty);
+                for(RecommendPartyMemberDto member : partyDto.getMemberDtoList()){
+                    if(!member.getCharacterName().equals("")){
+                        RecommendPartyMember recommendPartyMember = RecommendPartyMember.builder()
+                                .recommendParty(recommendParty)
+                                .memberIndex(member.getMemberIndex())
+                                .partyMember(characterRepository.getReferenceById(member.getCharacterName()))
+                                .build();
+                        recommendPartyMemberRepository.save(recommendPartyMember);
+                    }
+
+                }
+            }
+            return "home";
+        } catch (Exception e){
+            System.out.println("오류가 발생했습니다 : "+e.getMessage());
+            return "saveError";
+        }
+    }
+
     public void deleteCharacter(String name){
         characterRepository.deleteById(name);
     }

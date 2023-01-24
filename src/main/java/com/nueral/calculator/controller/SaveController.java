@@ -1,5 +1,6 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.dto.character.RecommendPartyDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterSaveDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsStatusCharacterSaveDtoList;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDtoList;
@@ -139,5 +140,19 @@ public class SaveController {
         model.addAttribute("goodsStatusCharacterSaveDtoList" , goodsService.saveGoodsStatusCharacterPro(name));
         model.addAttribute("statusList" , goodsService.allGoodsStatusDtoList());
         return "insert/saveGoodsStatusCharacter";
+    }
+
+    @GetMapping(value = "/saveRecommendParty")
+    public String saveRecommendPartyPro(@RequestParam("name") String name , Model model){
+        model.addAttribute("name", name);
+        model.addAttribute("recommendParty" ,characterService.saveRecommendPartyPro(name));
+        model.addAttribute("allCharacters", characterService.findAllCharacterInfo());
+        return "insert/saveRecommendParty";
+    }
+
+    @PostMapping(value = "/saveRecommendParty")
+    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList){
+
+        return characterService.saveRecommendParty(recommendPartyDtoList);
     }
 }

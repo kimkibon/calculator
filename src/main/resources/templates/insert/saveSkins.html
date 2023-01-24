@@ -51,7 +51,7 @@
   <div class="row row-cols-auto m-1">
     <div class="col-lg m-1">
       <img class="img-fluid" id="preview" th:src="${skinSaveDto.stdName}"
-        onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+        onerror="this.onerror=null; this.src='/image/basic/upload.png';">
     </div>
     <form th:action="@{/insert/saveSkins}" method="post" th:object="${skinSaveDto}" enctype="multipart/form-data">
       <input type="hidden" th:field="*{stdName}">

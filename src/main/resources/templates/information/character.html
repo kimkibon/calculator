@@ -106,32 +106,32 @@
           <div class="text-light border rounded m-1">
             <div class="d-flex justify-content-between">
             <span class="m-1">추천 파티 추가 테스트</span>
-              <form sec:authorize="isAuthenticated()">
+              <form method="get" th:action="@{/insert/saveRecommendParty}">
                 <input type="hidden" name="name" th:value="${character.characterName}">
                 <button class="btn btn-sm btn-outline-danger" type="submit">추천 파티 수정</button>
               </form>
             </div>
           </div>
           <div class="col m-1">
-            <div class="d-flex flex-wrap row-cols-4">
-              <div class="card" th:each="recommend : ${character.recommendPartyDto.recommendDto}">
-                <img class="card-img" th:src="${recommend.profile}"
+            <div class="d-flex flex-wrap row-cols-4" th:each="party : ${character.partyDtoList}">
+              <div class="card" th:each="member : ${party.memberDtoList}">
+                <img class="card-img" th:src="${member.profile}"
                      onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                 <div class="card-img-overlay p-1">
-                  <img th:src="'/image/basic/profile/'+${recommend.roleType}+'.png'"
+                  <img th:src="'/image/basic/profile/'+${member.roleType}+'.png'"
                        class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
                        th:classappend="${
-                        (recommend.roleType == '수위' ? 'bg-primary' : '') +
-                        (recommend.roleType == '치료사' ? 'bg-success' : '') +
-                        (recommend.roleType == '사수' ? 'bg-info' : '')+
-                        (recommend.roleType == '전사' ? 'bg-warning' : '')+
-                        (recommend.roleType == '해결사' ? 'bg-danger' : '')}">
+                        (member.roleType == '수위' ? 'bg-primary' : '') +
+                        (member.roleType == '치료사' ? 'bg-success' : '') +
+                        (member.roleType == '사수' ? 'bg-info' : '')+
+                        (member.roleType == '전사' ? 'bg-warning' : '')+
+                        (member.roleType == '해결사' ? 'bg-danger' : '')}">
                 </div>
                   <span class="text-center text-nowrap"
-                          th:text="${recommend.characterName}" th:classappend="${
-                        (recommend.defaultStar == 1 ? ' text-primary' : '') +
-                        (recommend.defaultStar == 3 ? ' text-danger' : '') +
-                        (recommend.defaultStar == 5 ? ' text-warning' : '')}"></span>
+                          th:text="${member.characterName}" th:classappend="${
+                        (member.defaultStar == 1 ? ' text-primary' : '') +
+                        (member.defaultStar == 3 ? ' text-danger' : '') +
+                        (member.defaultStar == 5 ? ' text-warning' : '')}"></span>
               </div>
             </div>
           </div>
