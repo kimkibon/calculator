@@ -1,15 +1,13 @@
 package com.nueral.calculator.entity.functionCard;
 
-import com.nueral.calculator.types.DealType;
-import com.nueral.calculator.types.RoleType;
+import com.nueral.calculator.entity.DefaultEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,11 +15,23 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-public class FunctionCard {
+@SequenceGenerator(name = "FUNCTION_CARD_IDX_GENERATOR" , sequenceName = "FUNCTION_CARD_SEQ", allocationSize = 1) // 시퀀스 생성
+public class FunctionCard extends DefaultEntity {
     @Id
-    private String FunctionName;
-    private RoleType roleType;
-    private DealType dealType;
-    private String FunctionEffect;
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "FUNCTION_CARD_IDX_GENERATOR")
+    private int functionIndex;
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "FUNCTION_SET_INDEX", nullable = false , referencedColumnName ="FUNCTION_SET_INDEX")
+    @ToString.Exclude
+    private FunctionSet functionSet;
+    private String functionName;
+    private String functionEffect;
+
+    public void setFunctionSet(FunctionSet functionSet) {
+        this.functionSet = functionSet;
+    }
 
 }

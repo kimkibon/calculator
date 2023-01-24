@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity.friendship;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.friendship.id.GoodsStatusCharacterId;
 import com.nueral.calculator.entity.DefaultEntity;
 import lombok.Builder;
@@ -31,10 +31,6 @@ public class GoodsStatusCharacter extends DefaultEntity {
     @ToString.Exclude
     private GoodsStatus goodsStatus;
     private int statusLevel;
-
-    public void setCharacters(Characters characters) {
-        this.characters = characters;
-    }
 
     @Builder
     public GoodsStatusCharacter(Characters characters, GoodsStatus goodsStatus , int statusLevel){

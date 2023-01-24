@@ -32,7 +32,7 @@
             <div class="col m-1">
                 <div class="row m-1">
                     <img id="preview" th:src="${CharacterSaveDto.profile}"
-                        onerror="this.onerror=null; this.src='/image/basic/insert/insert.png';">
+                        onerror="this.onerror=null; this.src='/image/basic/upload.png';">
                 </div>
                 <input type="hidden" th:field="*{profile}">
                 <div class="row">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col col-md">
                         <div class="form-floating">
-                            <select class="form-control" id="companyType" th:field="*{companyType}">
+                            <select class="form-select" id="companyType" th:field="*{companyType}">
                                 <option th:value="'cma'" selected="selected">CYBER MEDIA</option>
                                 <option th:value="'sva'">SVAROG</option>
                                 <option th:value="'lab'">42LAB</option>
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col col-md">
                         <div class="form-floating">
-                            <select class="form-control" id="defaultStar" th:field="*{defaultStar}">
+                            <select class="form-select" id="defaultStar" th:field="*{defaultStar}">
                                 <option th:value="1" selected="selected">★</option>
                                 <option th:value="3">★★</option>
                                 <option th:value="5">★★★</option>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="col col-md">
                         <div class="form-floating">
-                            <select class="form-control" id="roleType" th:field="*{roleType}">
+                            <select class="form-select" id="roleType" th:field="*{roleType}">
                                 <option th:value="'depender'" selected="selected">수위</option>
                                 <option th:value="'gunner'">사수</option>
                                 <option th:value="'soldier'">전사</option>
@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="col col-md">
                         <div class="form-floating">
-                            <select class="form-control" id="dealType" th:field="*{dealType}">
+                            <select class="form-select" id="dealType" th:field="*{dealType}">
                                 <option th:value="'ad'" selected="selected">물리</option>
                                 <option th:value="'ap'">연산</option>
                                 <option th:value="'al'">복합</option>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col col-md">
                         <div class="form-floating">
-                            <select class="form-control" id="areaType" th:field="*{areaType}">
+                            <select class="form-select" id="areaType" th:field="*{areaType}">
                                 <option th:value="'target'" selected="selected">단일</option>
                                 <option th:value="'area'">범위</option>
                             </select>

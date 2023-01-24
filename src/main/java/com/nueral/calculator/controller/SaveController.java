@@ -1,5 +1,6 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.dto.character.RecommendPartyDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterSaveDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsStatusCharacterSaveDtoList;
 import com.nueral.calculator.dto.skillsDto.CharacterSkillsDtoList;
@@ -62,14 +63,21 @@ public class SaveController {
 
     @GetMapping(value = "/saveSkins")
     public String saveSkinsPro(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, Model model, HttpServletRequest request){
-        if (request.getHeader("REFERER") == null){
+        if (request.getHeader("REFERER") == null) {
             return "home";
         }
-
         model.addAttribute("skinSaveDto", skinService.findByCharacterAndType(name , type));
         model.addAttribute("skinType" , skinService.skinTypes());
         model.addAttribute("name" , name);
         return "insert/saveSkins";
+    }
+
+    @PostMapping(value = "/deleteSkins")
+    public String deleteSkins(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, HttpServletRequest request){
+        if (request.getHeader("REFERER") == null) {
+            return "home";
+        }
+        return skinService.deleteSkins(name , type);
     }
 
     @PostMapping(value = "/saveAlgorithm")
@@ -92,8 +100,8 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveGoodsCharacter")
-    public String saveGoodsCharacter(@ModelAttribute GoodsCharacterSaveDtoList goodsCharacterSaveDtoList){
-        return goodsService.saveGoodsCharacter(goodsCharacterSaveDtoList);
+    public String saveGoodsCharacter(@ModelAttribute GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , @RequestParam("name") String name){
+        return goodsService.saveGoodsCharacter(goodsCharacterSaveDtoList , name);
     }
 
     @GetMapping(value = "/saveGoodsCharacter")
@@ -117,6 +125,7 @@ public class SaveController {
     public String saveSkillsPro(@RequestParam("name")String name , Model model){
         model.addAttribute("name" , name);
         model.addAttribute("characterSkillsDtoList" ,skillSaveService.saveSkillsPro(name));
+        model.addAttribute("skillEffects" , skillSaveService.skillEffects());
         return "insert/saveSkills";
     }
 
@@ -131,5 +140,19 @@ public class SaveController {
         model.addAttribute("goodsStatusCharacterSaveDtoList" , goodsService.saveGoodsStatusCharacterPro(name));
         model.addAttribute("statusList" , goodsService.allGoodsStatusDtoList());
         return "insert/saveGoodsStatusCharacter";
+    }
+
+    @GetMapping(value = "/saveRecommendParty")
+    public String saveRecommendPartyPro(@RequestParam("name") String name , Model model){
+        model.addAttribute("name", name);
+        model.addAttribute("recommendParty" ,characterService.saveRecommendPartyPro(name));
+        model.addAttribute("allCharacters", characterService.findAllCharacterInfo());
+        return "insert/saveRecommendParty";
+    }
+
+    @PostMapping(value = "/saveRecommendParty")
+    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList){
+
+        return characterService.saveRecommendParty(recommendPartyDtoList);
     }
 }

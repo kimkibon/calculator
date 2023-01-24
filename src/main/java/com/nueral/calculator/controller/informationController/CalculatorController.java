@@ -1,4 +1,4 @@
-package com.nueral.calculator.controller.calculator;
+package com.nueral.calculator.controller.informationController;
 
 import com.nueral.calculator.service.needExp.CalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;

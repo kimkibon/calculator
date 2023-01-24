@@ -1,7 +1,6 @@
-package com.nueral.calculator.controller;
+package com.nueral.calculator.controller.informationController;
 
 import com.nueral.calculator.service.characterService.CharacterService;
-import com.nueral.calculator.dto.character.CharacterInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +22,13 @@ public class CharacterController {
         if (request.getHeader("REFERER") == null){
             return "home";
         }
-        model.addAttribute("characterList" , characterService.findAllCharacterInfo());
-        return "information/characterList";
+        try {
+            model.addAttribute("characterList" , characterService.findAllCharacterInfo());
+            return "information/characterList";
+        } catch (Exception e){
+            System.out.println("오류가 발생 했습니다. : " + e.getMessage());
+            return request.getHeader("REFERER");
+        }
     }
 
     @GetMapping(value = "/character")
@@ -32,13 +36,12 @@ public class CharacterController {
         if (request.getHeader("REFERER") == null){
             return "home";
         }
-        CharacterInfoDto characterInfoDto =
-                characterService.findCharacterInfo(name);
-        if(characterInfoDto.getCharacterName() != null) {
-            model.addAttribute("character", characterInfoDto);
+        try {
+            model.addAttribute("character", characterService.findCharacterInfo(name));
             return "information/character";
-        } else {
-            return "home";
+        } catch (Exception e){
+            System.out.println("오류가 발생 했습니다 : " + e.getMessage());
+            return "redirect:/home";
         }
     }
 

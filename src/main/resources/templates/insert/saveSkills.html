@@ -9,7 +9,44 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    <script th:inline="javascript">
+        const dtoList = /*[[${characterSkillsDtoList.characterSkillsDto}]]*/;
+        let item0 = dtoList[0].skillEffectDtoList.length;
+        let item1 = dtoList[1].skillEffectDtoList.length;
+        let item2 = dtoList[2].skillEffectDtoList.length;
+
+        function addNode(e) {
+            console.log(dtoList[e.parentNode.parentNode.childNodes[1].id])
+            const oldNode = e.parentNode.parentNode.childNodes[1];
+            const newNode = oldNode.cloneNode(true);
+            effectId = newNode.querySelector('div').querySelector('select').id;
+            effectName = newNode.querySelector('div').querySelector('select').name;
+            switch (oldNode.id) {
+                case '0':
+                    item0 = item0 + 1;
+                    newNode.querySelector('div').querySelector('select').id =
+                        effectId.replace('List[0]', 'List[' + item0 + ']');
+                    newNode.querySelector('div').querySelector('select').name =
+                        effectName.replace('List[0]', 'List[' + item0 + ']');
+                    break;
+                case '1':
+                    item1 = item1 + 1;
+                    newNode.querySelector('div').querySelector('select').id =
+                        effectId.replace('List[0]', 'List[' + item1 + ']');
+                    newNode.querySelector('div').querySelector('select').name =
+                        effectName.replace('List[0]', 'List[' + item1 + ']');
+                    break;
+                case '2':
+                    item2 = item2 + 1;
+                    newNode.querySelector('div').querySelector('select').id =
+                        effectId.replace('List[0]', 'List[' + item2 + ']');
+                    newNode.querySelector('div').querySelector('select').name =
+                        effectName.replace('List[0]', 'List[' + item2 + ']');
+                    break;
+            }
+            e.parentNode.before(newNode);
+        }
+    </script>
 </th:block>
 
 <!-- Content -->
@@ -28,6 +65,7 @@
         <div class="row m-1" th:id="mainClass+${item.index}"
             th:each="characterSkillsDto , item : *{characterSkillsDto}">
             <input type="hidden" th:value="${name}" th:field="*{characterSkillsDto[__${item.index}__].characterName}">
+            <input type="hidden" th:field="*{characterSkillsDto[__${item.index}__].effect}" value=" ">
             <div class="d-flex">
                 <div class="col">
                     <div class="form-floating">
@@ -50,19 +88,43 @@
             <div>
                 <div class="col">
                     <div class="form-floating">
-                        <input class="form-control" onchange="select(this)"
-                            th:field="*{characterSkillsDto[__${item.index}__].explain}">
+                        <textarea class="form-control" onchange="select(this)"
+                            th:field="*{characterSkillsDto[__${item.index}__].explain}"></textarea>
                         <label class="text-light" th:for="characterSkillsDto[__${item.index}__].explain">스킬 설명</label>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="col">
+                <div class="col" th:id="${item.index}"
+                    th:each="skillEffectDto , effectItem : *{characterSkillsDto[__${item.index}__].skillEffectDtoList}">
                     <div class="form-floating">
-                        <input class="form-control" onchange="select(this)"
-                            th:field="*{characterSkillsDto[__${item.index}__].effect}">
-                        <label class="text-light" th:for="characterSkillsDto[__${item.index}__].effect">부가 효과</label>
+                        <select class="form-control"
+                            th:field="*{characterSkillsDto[__${item.index}__].skillEffectDtoList[__${effectItem.index}__].effectIndex}">
+                            <option th:value="0">없음</option>
+                            <option th:each="skillEffects , index : ${skillEffects}"
+                                th:text="${skillEffects.effectsName}" th:value="${skillEffects.effectIndex}"></option>
+                        </select>
+                        <label class="text-light"
+                            th:for="characterSkillsDto[__${item.index}__].skillEffectDtoList[__${effectItem.index}__].effectsName">부가
+                            효과</label>
                     </div>
+                </div>
+                <div class="col" th:id="${item.index}"
+                    th:if="*{#lists.isEmpty(characterSkillsDto[__${item.index}__].skillEffectDtoList)}">
+                    <div class="form-floating">
+                        <select class="form-select"
+                            th:field="*{characterSkillsDto[__${item.index}__].skillEffectDtoList[0].effectIndex}">
+                            <option th:value="0">없음</option>
+                            <option th:each="skillEffects , index : ${skillEffects}"
+                                th:text="${skillEffects.effectsName}" th:value="${skillEffects.effectIndex}"></option>
+                        </select>
+                        <label class="text-light"
+                            th:for="characterSkillsDto[__${item.index}__].skillEffectDtoList[0].effectsName">부가
+                            효과</label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="addNode(this)">효과 추가</button>
                 </div>
             </div>
             <div class="row"><br></div>

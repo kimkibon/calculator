@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
@@ -16,15 +16,14 @@
 <div layout:fragment="content">
     <div class="d-inline-flex flex-wrap justify-content-between row-cols-auto">
         <div class="col card border" th:each="characterList : ${characterList}"
-             th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
-             style="max-width:93px;">
+            th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
+            style="max-width:93px;">
             <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="card-img img-fluid"
-                 onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
             <div class="card-img-overlay p-1">
                 <img th:src="'/image/basic/profile/'+${characterList.roleType}+'.png'"
-                     class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0"
-                     style="max-width:25px;"
-                     th:classappend="${
+                    class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
+                    th:classappend="${
                         (characterList.roleType == '수위' ? 'bg-primary' : '') +
                         (characterList.roleType == '치료사' ? 'bg-success' : '') +
                         (characterList.roleType == '사수' ? 'bg-info' : '')+

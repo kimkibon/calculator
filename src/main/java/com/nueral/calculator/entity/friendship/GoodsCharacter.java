@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity.friendship;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.friendship.id.GoodsCharacterId;
 import lombok.Builder;
@@ -25,22 +25,16 @@ public class GoodsCharacter extends DefaultEntity {
     private Characters characters;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
     @JoinColumn(name = "GOODS_NAME", nullable = false , referencedColumnName ="GOODS_NAME")
     @ToString.Exclude
     private AllGoods allGoods;
-    private boolean goodsLike;
-
-    public void setCharacters(Characters characters) {
-        this.characters = characters;
-    }
 
     @Builder
-    public GoodsCharacter(Characters characters, AllGoods allGoods , boolean goodsLike){
+    public GoodsCharacter(Characters characters, AllGoods allGoods){
         this.characters = characters;
         this.allGoods = allGoods;
-        this.goodsLike = goodsLike;
     }
 
 

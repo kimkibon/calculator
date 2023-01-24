@@ -26,14 +26,15 @@
     </div>
     <div class="row"><br></div>
     <div class="row m-1" th:id="mainClass+${item.index}"
-         th:each="goodsStatusCharacterDto , item : *{goodsStatusCharacterDto}">
+      th:each="goodsStatusCharacterDto , item : *{goodsStatusCharacterDto}">
       <input type="hidden" th:value="${name}" th:field="*{goodsStatusCharacterDto[__${item.index}__].characterName}">
       <div>
-      <div class="col">
+        <div class="col">
           <div class="form-floating">
             <select class="form-control" onchange="select(this)"
-                   th:field="*{goodsStatusCharacterDto[__${item.index}__].statusName}">
-              <option th:each="list : ${statusList}" th:value="${list.statusName}" th:text="${list.statusName}"></option>
+              th:field="*{goodsStatusCharacterDto[__${item.index}__].statusName}">
+              <option th:each="list : ${statusList}" th:value="${list.statusName}" th:text="${list.statusName}">
+              </option>
             </select>
             <label class="text-light" th:for="goodsStatusCharacterDto[__${item.index}__].statusName">호감도 스탯</label>
           </div>
@@ -46,7 +47,7 @@
         </div>
       </div>
       <div class="row"><br></div>
-      </div>
+    </div>
     <div class="row m-1">
       <div class="d-flex justify-content-end">
         <button class="btn btn-primary" type="submit">입력</button>

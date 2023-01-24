@@ -19,20 +19,9 @@ public class ApiCharacterController {
     @Autowired
     private CharacterService characterService;
 
-    @GetMapping(value = "characterList")
+    @GetMapping(value = "/characterName")
     @ResponseBody
-    public List<AllCharactersDto> findCharacterList(){
-        return characterService.findAllCharacterInfo();
+    public List<String> findCharacterList(){
+        return characterService.findAllCharacterName();
     }
-
-    @GetMapping(value = "character")
-    @ResponseBody
-    public String findCharacter(Model model , String name){
-        CharacterInfoDto characterInfoDto =
-                characterService.findCharacterInfo(name);
-        model.addAttribute("character" , characterInfoDto);
-
-        return "/information/character";
-    }
-
 }

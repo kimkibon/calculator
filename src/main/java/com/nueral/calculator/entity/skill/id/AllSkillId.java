@@ -1,7 +1,10 @@
 package com.nueral.calculator.entity.skill.id;
 
+import com.nueral.calculator.types.SkillType;
 import lombok.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 @NoArgsConstructor
@@ -11,5 +14,6 @@ import java.io.Serializable;
 @Setter
 public class AllSkillId implements Serializable {
     private String characters;
-    private String skillName;
+    @Enumerated(EnumType.STRING)
+    private SkillType skillType;
 }

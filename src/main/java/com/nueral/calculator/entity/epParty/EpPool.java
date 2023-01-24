@@ -13,8 +13,12 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
+@SequenceGenerator(name = "EP_IDX_GENERATOR" , sequenceName = "EP_SEQ", allocationSize = 1) // 시퀀스 생성
 public class EpPool extends DefaultEntity {
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "EP_IDX_GENERATOR")
     private int epIndex;
     private int startDate;
     private int endDate;
@@ -22,7 +26,6 @@ public class EpPool extends DefaultEntity {
     private String sndStage;
     private String thdStage;
     private String bossName;
-
     @OneToMany(mappedBy = "epPool" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<EpParty> epParty;
@@ -38,5 +41,9 @@ public class EpPool extends DefaultEntity {
         this.sndStage = sndStage;
         this.thdStage = thdStage;
         this.bossName = bossName;
+    }
+
+    public EpPool(int epIndex) {
+        this.epIndex = epIndex;
     }
 }

@@ -1,6 +1,6 @@
 package com.nueral.calculator.service.skin;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.repository.CharacterRepository;
 import com.nueral.calculator.repository.skin.SkinRepository;
 import com.nueral.calculator.dto.character.SkinSaveDto;
@@ -38,6 +38,17 @@ public class SkinService {
             skinRepository.save(skins);
             return "home";
         } catch (Exception e){
+            return "saveError";
+        }
+    }
+
+    public String deleteSkins(String name , String type){
+        try{
+            SkinsId skinsId = new SkinsId(name , type);
+            skinRepository.deleteById(skinsId);
+            return "home";
+        }catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
             return "saveError";
         }
     }

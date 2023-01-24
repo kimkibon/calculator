@@ -1,6 +1,6 @@
 package com.nueral.calculator.entity.images;
 
-import com.nueral.calculator.entity.Characters;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.images.id.SkinsId;
 import com.nueral.calculator.entity.DefaultEntity;
 import lombok.Builder;

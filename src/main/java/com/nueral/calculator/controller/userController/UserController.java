@@ -1,4 +1,4 @@
-package com.nueral.calculator.controller;
+package com.nueral.calculator.controller.userController;
 
 import com.nueral.calculator.dto.UserSaveDto;
 import com.nueral.calculator.service.UserService;

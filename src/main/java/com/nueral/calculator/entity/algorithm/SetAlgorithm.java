@@ -35,4 +35,5 @@ public class SetAlgorithm extends DefaultEntity {
         this.setAlgorithmName = setAlgorithmName;
         this.pickUpDay = puckUpDay;
     }
+
 }

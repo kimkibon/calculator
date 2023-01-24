@@ -1,6 +1,7 @@
-package com.nueral.calculator.entity;
+package com.nueral.calculator.entity.character;
 
 import com.nueral.calculator.dto.character.CharacterSaveDto;
+import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.algorithm.Algorithm;
 import com.nueral.calculator.entity.friendship.GoodsCharacter;
 import com.nueral.calculator.entity.friendship.GoodsStatusCharacter;
@@ -26,7 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-public class Characters extends DefaultEntity{
+public class Characters extends DefaultEntity {
 
     //캐릭터 이름
     @Id
@@ -68,6 +69,10 @@ public class Characters extends DefaultEntity{
     @OneToMany(mappedBy = "characters" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Skins> skinsList;
+
+    @OneToMany(mappedBy = "characters" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<RecommendParty> recommendParty;
 
     @Builder
     public Characters(

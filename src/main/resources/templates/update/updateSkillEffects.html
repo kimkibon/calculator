@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    const skillEffects = /*[[${skillEffects}]]*/;
+    let idNum = skillEffects[skillEffects.length - 1].effectIndex+1;
+
+    function deleteItemInput(e) {
+      if (confirm('정말 삭제하시겠습니까?') == true) {
+        if (idNum < 1) {
+          alert('아이템이 너무 적습니다.')
+        } else {
+
+          const request = new XMLHttpRequest();
+
+          request.onreadystatechange = function (e) {
+            if (request.readyState == 4 && request.status == 200) {
+
+            }
+          }
+
+          // POST 설정
+          request.open('POST', '/update/deleteSkillEffect', true);
+
+          // !!! POST 전송시, 데이터 전달을 위한 설정
+          request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          request.send("index=" + e.parentNode.childNodes[3].value);
+
+          request.onload = function () {
+            if (request.status == 200) {
+              const lastNode = e.parentNode.parentNode;
+              lastNode.remove()
+              idNum = idNum - 1;
+              alert('삭제가 완료되었습니다');
+            } else {
+              alert('오류 발생')
+            }
+          }
+        }
+      }
+    }
+
+
+    function modal(event) {
+      const exampleModal = document.getElementById('exampleModal');
+      console.log(event.parentNode.childNodes[3].value)
+
+      const name = exampleModal.querySelector('.modal-body .mb-3 #effectsName');
+      const index = exampleModal.querySelector('.modal-body .mb-3 #effectIndex');
+      const explain = exampleModal.querySelector('.modal-body .mb-3 #effects');
+      if (event.parentNode.childNodes[3].value == -1) {
+        index.value = null;
+        name.value = null;
+        index.value = -1;
+
+      } else {
+
+        index.value = event.parentNode.childNodes[3].value;
+        name.value = event.parentNode.childNodes[1].value;
+        explain.value = event.parentNode.parentNode.childNodes[3].childNodes[1].value;
+      }
+      // Extract info from data-bs-* attributes
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+      //
+      // Update the modal's content.
+
+    };
+
+  </script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">스킬 이펙트</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/update/updateSkillEffects}" th:object="${SkillEffectDto}" method="post">
+          <div class="modal-body">
+            <div class="mb-3">
+              <input type="hidden" th:field="*{effectIndex}">
+              <label th:for="*{effectsName}" class="col-form-label">effect:</label>
+              <input type="text" class="form-control" th:field="*{effectsName}">
+              <br>
+              <label th:for="*{effects}" class="col-form-label">effect explain:</label>
+              <textarea class="form-control" th:field="*{effects}"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            <button type="submit" class="btn btn-primary">입력</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <h1>스킬 이펙트 추가</h1>
+  <div class="row m-1">
+    <div class="row">
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-warning" onclick="location.href='/home'">메인 화면</button>
+      <input type="hidden" value="-1">
+      <button type="button" class="btn btn-primary" onclick="modal(this)" data-bs-toggle="modal"
+              data-bs-target="#exampleModal" data-bs-whatever="@fat">아이템 추가</button>
+    </div>
+    </div>
+  </div>
+  <div class="row m-1" th:each="skillEffects , index : ${skillEffects}" th:id="mainClass__${index.index}__">
+    <div class="row">
+      <div class="input-group">
+        <input class="form-control" th:id="effectsName" th:value="${skillEffects.effectsName}" readonly>
+        <input type="hidden" th:id="effectIndex" th:value="${skillEffects.effectIndex}" readonly>
+        <button type="button" class="btn input-group-bth btn-primary" onclick="modal(this)" data-bs-toggle="modal"
+          data-bs-target="#exampleModal" data-bs-whatever="@fat">수정</button>
+        <button class="btn btn-danger" type="button" onclick="deleteItemInput(this)">삭제</button>
+      </div>
+      <div class="input-group">
+        <textarea class="form-control" th:id="effects" th:value="${skillEffects.effects}"
+          th:text="${skillEffects.effects}" readonly></textarea>
+      </div>
+      <div><br /></div>
+    </div>
+  </div>
+</div>
+
+</html>

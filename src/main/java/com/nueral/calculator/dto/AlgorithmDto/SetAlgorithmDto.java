@@ -13,11 +13,13 @@ public class SetAlgorithmDto {
     private String twoSetOpt;
     private String threeSetOpt;
     private String type;
+    private String pickUpDay;
 
     public SetAlgorithmDto(SetAlgorithm setAlgorithm){
         this.setAlgorithmName = setAlgorithm.getSetAlgorithmName();
         this.twoSetOpt = setAlgorithm.getTwoSetOpt();
         this.threeSetOpt = setAlgorithm.getThreeSetOpt();
         this.type = setAlgorithm.getAlgorithmType().getType();
+        this.pickUpDay = setAlgorithm.getPickUpDay();
     }
 }

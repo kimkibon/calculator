@@ -97,32 +97,16 @@
     <div class="d-flex justify-content-around">
       <div class="col">
         <div class="form-floating">
-          <select class="form-select" id="minStarLevel" onChange="changeStarLevel()">
-            <option value="1">★</option>
-            <option value="2">★☆</option>
-            <option value="3">★★</option>
-            <option value="4">★★☆</option>
-            <option value="5">★★★</option>
-            <option value="6">★★★☆</option>
-            <option value="7">★★★★</option>
-            <option value="8">★★★★☆</option>
-            <option value="9">★★★★★</option>
+          <select class="form-select text-light" id="minStarLevel" onChange="changeStarLevel()">
+            <option th:each="star : ${starExpList}" th:value="${star.starLevel}" th:text="${star.showLevel}"></option>
           </select>
           <label for="minStarLevel">현재 등급</label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <select class="form-select" id="maxStarLevel" onChange="changeStarLevel()">
-            <option value="1">★</option>
-            <option value="2">★☆</option>
-            <option value="3">★★</option>
-            <option value="4">★★☆</option>
-            <option value="5">★★★</option>
-            <option value="6">★★★☆</option>
-            <option value="7">★★★★</option>
-            <option value="8">★★★★☆</option>
-            <option value="9" selected="selected">★★★★★</option>
+          <select class="form-select text-light" id="maxStarLevel" onChange="changeStarLevel()">
+            <option th:each="star : ${starExpList}" th:value="${star.starLevel}" th:text="${star.showLevel}"></option>
           </select>
           <label for="maxStarLevel">목표 등급</label>
         </div>
@@ -133,20 +117,20 @@
     <div class="d-flex justify-content-around">
       <div class="col">
         <div class="form-floating">
-          <input class="form-control" type="text" id="buyPiece" oninput="changeStarLevel()" />
+          <input class="form-control text-light" type="text" id="buyPiece" oninput="changeStarLevel()" />
           <label for="buyPiece">구매 조각</label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <input class="form-control" type="text" id="hasPiece" oninput="changeStarLevel()" />
+          <input class="form-control text-light" type="text" id="hasPiece" oninput="changeStarLevel()" />
           <label for="hasPiece">보유 조각</label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <span class="form-control" id="needPiece" readonly>0</span>
-          <label for="needPiece">필요 파편</label>
+          <span class="form-control text-light" id="needPiece" readonly>0</span>
+          <label class="text-danger" for="needPiece">필요 파편</label>
         </div>
       </div>
     </div>
@@ -155,25 +139,25 @@
     <div class="d-flex justify-content-start">
       <div class="col">
         <div class="form-floating">
-          <span class="form-control" id="resultStarExp">0</span>
-          <label for="resultStarExp">조각</label>
+          <span class="form-control text-light" id="resultStarExp">0</span>
+          <label for="resultStarExp" class="text-primary">조각</label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <span class="form-control" id="minDate">0</span>
+          <span class="form-control text-light" id="minDate">0</span>
           <label for="minDate">최소</label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <span class="form-control" id="aveDate">0</span>
+          <span class="form-control text-light" id="aveDate">0</span>
           <label for="aveDate">평균</label>
         </div>
       </div>
       <div class="col">
         <div class="form-floating">
-          <span class="form-control" id="maxDate">0</span>
+          <span class="form-control text-light" id="maxDate">0</span>
           <label for="maxDate">최대</label>
         </div>
       </div>
