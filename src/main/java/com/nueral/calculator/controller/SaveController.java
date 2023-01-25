@@ -9,6 +9,7 @@ import com.nueral.calculator.dto.AlgorithmDto.AlgorithmSaveDtoList;
 import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.dto.character.SkinSaveDto;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
+import com.nueral.calculator.service.epService.EpService;
 import com.nueral.calculator.service.friendship.GoodsService;
 import com.nueral.calculator.service.skill.SkillSaveService;
 import com.nueral.calculator.service.skin.SkinService;
@@ -36,7 +37,8 @@ public class SaveController {
     private GoodsService goodsService;
     @Autowired
     private SkillSaveService skillSaveService;
-
+    @Autowired
+    private EpService epService;
     @PostMapping(value = "/saveCharacter")
     public String saveCharacterByDto(@ModelAttribute CharacterSaveDto characterSaveDto, @RequestParam("file") MultipartFile file) throws Exception {
         return characterService.saveByDto(characterSaveDto , file);
@@ -154,5 +156,11 @@ public class SaveController {
     public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList){
 
         return characterService.saveRecommendParty(recommendPartyDtoList);
+    }
+
+    @GetMapping(value = "/saveEpPool")
+    public String saveEpPool(@RequestParam("index")int index, Model model){
+        model.addAttribute(epService.saveEpPoolPro(index));
+        return "insert/saveEpPool";
     }
 }

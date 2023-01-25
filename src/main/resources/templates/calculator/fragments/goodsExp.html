@@ -12,40 +12,7 @@
 
 <!-- Content -->
 <th:block th:fragment="goodsExp">
-  <script th:inline="javascript">
-    const goodsExp =
-      /*[[${goodsExpList}]]*/
 
-      document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("maxGoodsLevel").value = goodsExp.length;
-        document.getElementById("minGoodsLevel").value = 1;
-        changeGoodsLevel();
-      });
-
-    function changeGoodsLevel() {
-      const minGoodsLevel = document.getElementById("minGoodsLevel").value;
-      const maxGoodsLevel = document.getElementById("maxGoodsLevel").value;
-
-      const goodsExpList = goodsExp.slice(minGoodsLevel, maxGoodsLevel);
-
-      const resultGoodsExp = goodsExpList.reduce(function add(
-        sum,
-        currValue
-      ) {
-        return parseInt(sum) + parseInt(currValue.exp);
-      },
-        0);
-
-      document.getElementById("resultGoodsExp").innerText =
-        resultGoodsExp + "";
-      document.getElementById("resultBlueGoods").innerText =
-        Math.ceil(resultGoodsExp / 20) + "개";
-      document.getElementById("resultPurpleGoods").innerText =
-        Math.ceil(resultGoodsExp / 50) + "개";
-      document.getElementById("resultYellowGoods").innerText =
-        Math.ceil(resultGoodsExp / 125) + "개";
-    }
-  </script>
 
   <div class="row">
     <div class="row">

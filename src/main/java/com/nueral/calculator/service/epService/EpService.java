@@ -7,6 +7,8 @@ import com.nueral.calculator.repository.epParty.EpPoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class EpService {
     @Autowired
@@ -16,7 +18,7 @@ public class EpService {
 
     public EpPoolSaveDto saveEpPoolPro(int epIndex){
         return new EpPoolSaveDto(epPoolRepository.findById(epIndex)
-                .orElse(EpPool.builder().epIndex(epIndex).build()));
+                .orElse(EpPool.builder().epIndex(epIndex).epParty(new ArrayList<>()).build()));
     }
 
     public int EpPoolCount(){

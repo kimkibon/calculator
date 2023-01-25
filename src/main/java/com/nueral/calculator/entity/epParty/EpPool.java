@@ -31,7 +31,7 @@ public class EpPool extends DefaultEntity {
     private List<EpParty> epParty;
 
     @Builder EpPool(
-            int epIndex , int startDate , int endDate ,
+            int epIndex , int startDate , int endDate , List<EpParty> epParty,
             String fstStage , String sndStage , String thdStage, String bossName
     ){
         this.epIndex = epIndex;
@@ -41,9 +41,6 @@ public class EpPool extends DefaultEntity {
         this.sndStage = sndStage;
         this.thdStage = thdStage;
         this.bossName = bossName;
-    }
-
-    public EpPool(int epIndex) {
-        this.epIndex = epIndex;
+        this.epParty = epParty;
     }
 }

@@ -14,6 +14,10 @@
 
 <!-- Content -->
 <div layout:fragment="content">
+    <form method="get" th:action="@{/insert/saveEpPool}">
+        <input type="hidden" name="index" value="0">
+        <button type="submit" class="btn btn-primary">추가</button>
+    </form>
     <div class="d-inline-flex flex-wrap justify-content-between row-cols-auto">
         <div class="col card border" th:each="characterList : ${characterList}"
             th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"

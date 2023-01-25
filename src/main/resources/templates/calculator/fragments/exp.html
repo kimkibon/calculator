@@ -12,60 +12,7 @@
 </th:block>
 <!-- Content -->
 <th:block th:fragment="exp">
-  <script th:inline="javascript">
-    const exp = /*[[${expList}]]*/
-      document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById('maxCharacterLevel').value = exp.length;
-        document.getElementById('minCharacterLevel').value = 1;
-        changeCharacterLevel()
-      });
 
-    function changeCharacterLevel() {
-
-      document.getElementById('minCharacterLevel').value = document.getElementById('minCharacterLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-      document.getElementById('maxCharacterLevel').value = document.getElementById('maxCharacterLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-      const minLevel = document.getElementById('minCharacterLevel').value;
-      const maxLevel = document.getElementById('maxCharacterLevel').value;
-
-      if (minLevel > exp.length) {
-        document.getElementById('minCharacterLevel').value = exp.length;
-      }
-      if (maxLevel > exp.length) {
-        document.getElementById('maxCharacterLevel').value = exp.length;
-      }
-
-      const expList = exp.slice(minLevel, maxLevel);
-
-      const resultExp = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.exp);
-      }, 0);
-      const resultGray = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.gray);
-      }, 0);
-      const resultGreen = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.green);
-      }, 0);
-      const resultBlue = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.blue);
-      }, 0);
-      const resultPurple = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.purple);
-      }, 0);
-      const resultOrange = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.orange);
-      }, 0);
-      const resultRainbow = expList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.rainbow);
-      }, 0);
-      document.getElementById('resultExp').innerText = resultExp + "";
-      document.getElementById('resultGray').innerText = resultGray + "";
-      document.getElementById('resultGreen').innerText = resultGreen + "";
-      document.getElementById('resultBlue').innerText = resultBlue + "";
-      document.getElementById('resultPurple').innerText = resultPurple + "";
-      document.getElementById('resultOrange').innerText = resultOrange + "";
-      document.getElementById('resultRainbow').innerText = resultRainbow + "";
-    }
-  </script>
   <div class="row">
     <div class="row">
       <h2 class="col col-md-auto m-2">캐릭터 경험치 계산기</h2>

@@ -71,7 +71,7 @@
     <form method="post" th:object="${recommendParty}" th:action="@{/insert/saveRecommendParty}">
         <div class="row" th:id="${'main'+item.index}" th:each="party , item : *{recommendPartyDtoList}">
             <div class="d-flex justify-content-end" sec:authorize="hasAuthority('ADMIN')">
-            <button class="btn btn-primary" type="button">파티 추가</button>
+                <button class="btn btn-primary" type="button">파티 추가</button>
                 <button class="btn btn-danger" type="button">마지막 파티 삭제</button>
             </div>
             <input type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].partyIndex}">
