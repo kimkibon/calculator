@@ -61,9 +61,9 @@ public class CharacterService {
             Characters characters = new Characters(characterSaveDto);
         try {
             characterRepository.save(characters);
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
     public RecommendPartyDtoList saveRecommendPartyPro(String name){
@@ -103,10 +103,10 @@ public class CharacterService {
 
                 }
             }
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 

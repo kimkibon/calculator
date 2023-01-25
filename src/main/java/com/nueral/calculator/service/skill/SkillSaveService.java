@@ -72,10 +72,10 @@ public class SkillSaveService {
     public String deleteSkillEffect(int index){
         try {
             skillEffectsRepository.deleteByEffectIndex(index);
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 
@@ -108,10 +108,10 @@ public class SkillSaveService {
                     .effectIndex(skillEffectDto.getEffectIndex())
                     .build();
             skillEffectsRepository.save(skillEffects);
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 
@@ -138,10 +138,10 @@ public class SkillSaveService {
                             skillEffectsMapRepository.save(skillEffectsMap);
                         }
                 }
-            } return "home";
+            } return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 

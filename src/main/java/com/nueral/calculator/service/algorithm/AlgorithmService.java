@@ -107,10 +107,10 @@ public class AlgorithmService {
                     .subAlgorithm2(subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm2()))
                     .build();
             algorithmRepository.save(algorithm);
-        } return "home";
+        } return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 
@@ -144,10 +144,10 @@ public class AlgorithmService {
                         .threeSetOpt(dto.getThreeSetOpt())
                         .build();
                 setAlgorithmRepository.save(setAlgorithm);
-            } return "home";
+            } return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다. : " + e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 

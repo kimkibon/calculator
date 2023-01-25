@@ -64,10 +64,10 @@ public class GoodsService {
                 goodsCharacterList.add(goodsCharacterRepository.save(goodsCharacter));
             }
             goodsCharacterRepository.saveAll(goodsCharacterList);
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 
@@ -97,10 +97,10 @@ public class GoodsService {
                         .statusLevel(dto.getStatusLevel())
                         .build();
                 goodsStatusCharacterRepository.save(goodsStatusCharacter);
-            } return "home";
+            } return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 

@@ -26,10 +26,10 @@ public class NeedStarExpService {
             starExpRepository.deleteAll();
             starExpRepository.flush();
             starExpRepository.saveAll(starExpListDto.getNeedStarExpList().stream().map(NeedStarExp::new).collect(Collectors.toList()));
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
             System.out.println("에러가 발생 했습니다. "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 }
