@@ -15,6 +15,7 @@ public class EpController {
 
     @GetMapping(value = "/ExceptionProtocol")
     public String AllEp(Model model){
+        model.addAttribute("EpPoolList" , epService.EpPoolDtoList());
         return "information/ExceptionProtocol";
     }
 

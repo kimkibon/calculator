@@ -159,7 +159,7 @@ public class SaveController {
     }
 
     @GetMapping(value = "/saveEpPool")
-    public String saveEpPool(@RequestParam("index")int index, Model model){
+    public String saveEpPool(@RequestParam("epIndex")int index, Model model){
         model.addAttribute(epService.saveEpPoolPro(index));
         return "insert/saveEpPool";
     }

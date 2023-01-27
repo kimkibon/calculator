@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +33,7 @@ public class EpParty extends DefaultEntity {
             strategy = GenerationType.SEQUENCE,
             generator = "EPPARTY_IDX_GENERATOR"
     ) // 위에서 정의한 SEQ 를 사용하겠다.
+    @Column(name = "EP_PARTY_INDEX")
     private int epPartyIndex;
     private int reinforcements;
     @ManyToOne(fetch = FetchType.LAZY,
@@ -39,6 +41,10 @@ public class EpParty extends DefaultEntity {
     @JoinColumn(name = "CHARACTER_NAME", nullable = false , referencedColumnName ="CHARACTER_NAME")
     @ToString.Exclude
     private Characters characters;
+
+    @OneToMany(mappedBy = "epParty" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<EpRecommend> epRecommendList;
 
     @Builder
     public EpParty(EpPool epPool, int epPartyIndex , int reinforcements , Characters characters){
