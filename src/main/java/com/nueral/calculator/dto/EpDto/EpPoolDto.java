@@ -3,6 +3,7 @@ package com.nueral.calculator.dto.EpDto;
 import com.nueral.calculator.entity.epParty.EpPool;
 import lombok.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
@@ -11,22 +12,23 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @ToString
 public class EpPoolDto {
-    private int epIndex;
+    private int epPoolIndex;
     private int startDate;
     private int endDate;
     private String fstStage;
     private String sndStage;
     private String thdStage;
     private String bossName;
+    private List<EpPartyDto> epPartyDtoList;
 
     public EpPoolDto(EpPool epPool){
-        this.epIndex = epPool.getEpIndex();
+        this.epPoolIndex = epPool.getEpIndex();
         this.startDate = epPool.getStartDate();
         this.endDate = epPool.getEndDate();
         this.fstStage = epPool.getFstStage();
         this.sndStage = epPool.getSndStage();
         this.thdStage = epPool.getThdStage();
         this.bossName = epPool.getBossName();
-
+        this.epPartyDtoList = epPool.getEpPartyList().stream().map(EpPartyDto::new).collect(Collectors.toList());
     }
 }

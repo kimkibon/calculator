@@ -119,7 +119,7 @@
                      onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                 <div class="card-img-overlay p-1">
                   <img th:src="'/image/basic/profile/'+${member.roleType}+'.png'"
-                       class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
+                       class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
                        th:classappend="${
                         (member.roleType == '수위' ? 'bg-primary' : '') +
                         (member.roleType == '치료사' ? 'bg-success' : '') +

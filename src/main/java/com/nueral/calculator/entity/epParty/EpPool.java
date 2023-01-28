@@ -28,10 +28,10 @@ public class EpPool extends DefaultEntity {
     private String bossName;
     @OneToMany(mappedBy = "epPool" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<EpParty> epParty;
+    private List<EpParty> epPartyList;
 
     @Builder EpPool(
-            int epIndex , int startDate , int endDate , List<EpParty> epParty,
+            int epIndex , int startDate , int endDate ,
             String fstStage , String sndStage , String thdStage, String bossName
     ){
         this.epIndex = epIndex;
@@ -41,6 +41,5 @@ public class EpPool extends DefaultEntity {
         this.sndStage = sndStage;
         this.thdStage = thdStage;
         this.bossName = bossName;
-        this.epParty = epParty;
     }
 }

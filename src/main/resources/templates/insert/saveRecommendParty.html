@@ -34,34 +34,45 @@
 
         function selectCharacter(e){
         const roleClass = 'img-fluid rounded bg-opacity-75 position-absolute top-0 start-0'
-            if(e.value == 'null'){
-                e.parentNode.querySelector('.text-light').value = 'null';
-                e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/upload.png';
+            if(e.value == ''){
+                e.parentNode.querySelector('.text-light').value = '';
+                e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/upload.png';
                 e.parentNode.parentNode.querySelector('img').src = '/image/basic/upload.png';
-                e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className = roleClass;
+                e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className = roleClass;
             } else {
             e.parentNode.parentNode.querySelector('img').src = allCharacters[e.value].profile;
-            e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/profile/'+allCharacters[e.value].roleType+'.png';
+            e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/profile/'+allCharacters[e.value].roleType+'.png';
             e.parentNode.querySelector('.text-light').value = allCharacters[e.value].characterName;
-
             switch(allCharacters[e.value].roleType){
-                case '수위': e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                case '수위': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                             roleClass + ' bg-primary'
                     break;
-                case '치료사': e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                case '치료사': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                               roleClass + ' bg-success'
                     break;
-                case '해결사': e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                case '해결사': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                             roleClass + ' bg-danger'
                     break;
-                case '전사': e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                case '전사': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                             roleClass + ' bg-warning'
                     break;
-                case '사수': e.parentNode.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                case '사수': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                             roleClass + ' bg-info'
                     break;
                 }
             }
+        }
+        let nodeNum = 0;
+        function addNode(e){
+           const oldNode = document.getElementById('main'+nodeNum);
+           const newNode = oldNode.cloneNode(true);
+           nodeNum += 1;
+           newNode.id = 'main'+nodeNum;
+           newNode.querySelector('.d-flex .name');
+
+
+
+           console.log(newNode);
         }
     </script>
 </th:block>
@@ -69,16 +80,15 @@
 <!-- Content -->
 <div layout:fragment="content">
     <form method="post" th:object="${recommendParty}" th:action="@{/insert/saveRecommendParty}">
+        <div class="d-flex justify-content-end" sec:authorize="hasAuthority('ADMIN')">
+            <button class="btn btn-primary" onclick="addNode(this)" type="button">파티 추가</button>
+            <button class="btn btn-danger" type="button">마지막 파티 삭제</button>
+        </div>
         <div class="row" th:id="${'main'+item.index}" th:each="party , item : *{recommendPartyDtoList}">
-            <div class="d-flex justify-content-end" sec:authorize="hasAuthority('ADMIN')">
-                <button class="btn btn-primary" type="button">파티 추가</button>
-                <button class="btn btn-danger" type="button">마지막 파티 삭제</button>
-            </div>
-            <input type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].partyIndex}">
-            <input type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].characterName}">
-            <div class="d-flex flex-wrap justify-content-center">
-                <div class="card col-3" th:each="index : ${#numbers.sequence(0,3)}">
-                    <div>
+            <div class="d-flex flex-wrap row-cols-4">
+                <input class="index" type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].partyIndex}">
+                <input class="name" type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].characterName}">
+                <div class="card" th:each="index : ${#numbers.sequence(0,3)}">
                         <img class="card-img img-fluid"
                              th:if="*{#lists.size(recommendPartyDtoList[__${item.index}__].memberDtoList) > __${index}__}"
                              th:src="*{recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].profile}">
@@ -88,7 +98,7 @@
                         <div class="card-img-overlay p-1">
                             <img th:src="'/image/basic/profile/'+*{recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].roleType}+'.png'"
                                  th:if="*{#lists.size(recommendPartyDtoList[__${item.index}__].memberDtoList) > __${index}__}"
-                                 class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
+                                 class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
                                  th:classappend="*{
                             (recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].roleType == '수위' ? 'bg-primary' : '') +
                             (recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].roleType == '치료사' ? 'bg-success' : '') +
@@ -108,7 +118,7 @@
                             </select>
                             <label th:for="${'showCharacter'+index}">이름</label>
                         </div>
-                    </div>
+
                 </div>
                 <div class="col-12">
                     <div class="form-floating">

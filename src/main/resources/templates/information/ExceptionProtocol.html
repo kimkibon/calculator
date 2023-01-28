@@ -17,9 +17,9 @@
     <div class="row"><span>고장협의 리스트</span></div>
 
         <div class="d-flex flex-wrap" th:each="EpPool : ${EpPoolList}">
-            <input type="hidden" id="epIndex" th:value="${EpPool.epIndex}">
+            <input type="hidden" id="epIndex" name="epIndex" th:value="${EpPool.epPoolIndex}">
             <div class="col-2 form-floating">
-                <div class="form-control text-light" id="index" th:text="${EpPool.epIndex}+'회'"></div>
+                <div class="form-control text-light" id="index" th:text="${EpPool.epPoolIndex}+'회'"></div>
                 <label for="index">회차</label>
             </div>
             <div class="col-10 form-floating">
@@ -43,36 +43,48 @@
                 <button class="btn btn-input btn-primary" type="submit">상세 정보</button>
                 <label for="boss">보스</label>
             </div>
+            <div class="col-12">
+                <br>
+            </div>
+            <div class="d-flex flex-wrap" th:each="EpParty : ${EpPool.epPartyDtoList}"
+                 th:classappend="${(EpParty.epPartyIndex == 0 ? 'col-lg-12 row-cols-auto' : 'col-lg-6 row-cols-8')}">
+                <div class="col-12  border rounded">
+                    <span class="m-1" th:if="${EpParty.epPartyIndex == 0}" th:text="${'캐릭터 풀'}"></span>
+                    <span class="m-1" th:unless="${EpParty.epPartyIndex == 0}" th:text="${'추천파티 '+EpParty.epPartyIndex+'번'}"></span>
+                </div>
+                <div class="col card border" th:each="EpMember : ${EpParty.epMemberDtoList}"
+                     th:onclick="|location.href='@{/information/character(name=${EpMember.characterName})}'|"
+                     th:classappend="${
+                     (EpMember.support == 1 ? 'border-primary' : '') +
+                     (EpMember.reinforce == 1 ? 'border-danger' : '')}"
+                     style="max-width:20%;"
+                     >
+                    <img th:id="${EpMember.characterName}" th:src="@{${EpMember.profile}}" class="card-img img-fluid"
+                         onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                    <div class="card-img-overlay p-1">
+                        <img th:src="'/image/basic/profile/'+${EpMember.roleType}+'.png'"
+                             class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
+                             th:classappend="${
+                        (EpMember.roleType == '수위' ? 'bg-primary' : '') +
+                        (EpMember.roleType == '치료사' ? 'bg-success' : '') +
+                        (EpMember.roleType == '사수' ? 'bg-info' : '')+
+                        (EpMember.roleType == '전사' ? 'bg-warning' : '')+
+                        (EpMember.roleType == '해결사' ? 'bg-danger' : '')}">
+                    </div>
+                    <div th:text="${EpMember.characterName}" class="badge text-nowrap text-center" th:classappend="${
+                        (EpMember.defaultStar == 1 ? ' text-primary' : '') +
+                        (EpMember.defaultStar == 3 ? ' text-danger' : '') +
+                        (EpMember.defaultStar == 5 ? ' text-warning' : '')}">
+                        이름
+                    </div>
+                </div>
+                <div class="col-12"><br></div>
+            </div>
         </div>
     <form method="get" th:action="@{/insert/saveEpPool}">
-        <input type="hidden" name="index" value="0">
+        <input type="hidden" name="epIndex" value="0">
         <button type="submit" class="btn btn-primary">추가</button>
     </form>
-    <div class="d-inline-flex flex-wrap justify-content-between row-cols-auto">
-        <div class="col card border" th:each="characterList : ${characterList}"
-            th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
-            style="max-width:93px;">
-            <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="card-img img-fluid"
-                onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
-            <div class="card-img-overlay p-1">
-                <img th:src="'/image/basic/profile/'+${characterList.roleType}+'.png'"
-                    class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
-                    th:classappend="${
-                        (characterList.roleType == '수위' ? 'bg-primary' : '') +
-                        (characterList.roleType == '치료사' ? 'bg-success' : '') +
-                        (characterList.roleType == '사수' ? 'bg-info' : '')+
-                        (characterList.roleType == '전사' ? 'bg-warning' : '')+
-                        (characterList.roleType == '해결사' ? 'bg-danger' : '')}">
-            </div>
-            <div th:text="${characterList.characterName}" class="badge text-nowrap text-center" th:classappend="${
-                        (characterList.defaultStar == 1 ? ' text-primary' : '') +
-                        (characterList.defaultStar == 3 ? ' text-danger' : '') +
-                        (characterList.defaultStar == 5 ? ' text-warning' : '')}">
-                이름
-            </div>
-        </div>
-        <br>
-    </div>
 </div>
 
 </html>
