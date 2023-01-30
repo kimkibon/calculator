@@ -68,8 +68,11 @@
            const newNode = oldNode.cloneNode(true);
            nodeNum += 1;
            newNode.id = 'main'+nodeNum;
-           newNode.querySelector('.d-flex .name');
-
+           newNode.querySelector('.d-flex .name').name = 'recommendPartyDtoList['+nodeNum+'].characterName';
+           newNode.querySelector('.d-flex .name').id = 'recommendPartyDtoList'+nodeNum+'.characterName';
+           newNode.querySelector('.d-flex .index').name = 'recommendPartyDtoList['+nodeNum+'].partyIndex';
+           newNode.querySelector('.d-flex .index').id = 'recommendPartyDtoList'+nodeNum+'.partyIndex';
+           newNode.querySelector('.d-flex')
 
 
            console.log(newNode);

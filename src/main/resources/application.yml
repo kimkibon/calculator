@@ -30,7 +30,7 @@ spring:
       maxFileSize: 50MB
       maxRequestSize: 50MB
 
-  #datasource oracle cloud DB 설정
+  #datasource DB 설정
   datasource:
     driverClassName: org.mariadb.jdbc.Driver
     username: ENC(kxm1s0RVZoRIjClPefABqQ==)
