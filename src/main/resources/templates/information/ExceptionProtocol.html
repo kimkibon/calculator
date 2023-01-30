@@ -15,16 +15,19 @@
 <!-- Content -->
 <div layout:fragment="content">
     <div class="row"><span>고장협의 리스트</span></div>
-
+    <form method="get" sec:authorize="isAuthenticated()" th:action="@{/insert/saveEpPool}">
+        <input type="hidden" name="epIndex" value="0">
+        <button type="submit" class="btn btn-primary">추가</button>
+    </form>
+    <br/>
         <div class="d-flex flex-wrap" th:each="EpPool : ${EpPoolList}">
-            <input type="hidden" id="epIndex" name="epIndex" th:value="${EpPool.epPoolIndex}">
-            <div class="col-2 form-floating">
-                <div class="form-control text-light" id="index" th:text="${EpPool.epPoolIndex}+'회'"></div>
-                <label for="index">회차</label>
-            </div>
-            <div class="col-10 form-floating">
-                <div class="form-control text-light" id="date" th:text="${EpPool.startDate+' 일 ~ '+EpPool.endDate+' 일'}"></div>
-                <label for="date">기간</label>
+            <div class="col-12 border rounded">
+                <form class="d-flex justify-content-between" method="get" th:action="@{/insert/saveEpPool}">
+                    <span class="m-1 text-light" th:text="${EpPool.epPoolIndex}+'회차'"></span>
+                    <span class="m-1 text-light" th:text="${EpPool.startDate+' 일 ~ '+EpPool.endDate+' 일'}"></span>
+                    <input type="hidden" id="epIndex" name="epIndex" th:value="${EpPool.epPoolIndex}">
+                    <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-danger">수정</button>
+                </form>
             </div>
             <div class="col-4 form-floating">
                 <div class="form-control text-light" id="fst" th:text="${EpPool.fstStage}"></div>
@@ -40,7 +43,7 @@
             </div>
             <div class="col-12 form-floating input-group">
                 <div class="form-control text-light" id="boss" th:text="${EpPool.bossName}"></div>
-                <button class="btn btn-input btn-primary" type="submit">상세 정보</button>
+                <button class="btn btn-input btn-primary" type="button">상세 정보</button>
                 <label for="boss">보스</label>
             </div>
             <div class="col-12">
@@ -81,10 +84,7 @@
                 <div class="col-12"><br></div>
             </div>
         </div>
-    <form method="get" th:action="@{/insert/saveEpPool}">
-        <input type="hidden" name="epIndex" value="0">
-        <button type="submit" class="btn btn-primary">추가</button>
-    </form>
+
 </div>
 
 </html>

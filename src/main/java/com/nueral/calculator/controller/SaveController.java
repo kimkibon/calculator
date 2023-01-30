@@ -153,9 +153,9 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveRecommendParty")
-    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList){
+    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList , @RequestParam("name") String name){
 
-        return characterService.saveRecommendParty(recommendPartyDtoList);
+        return characterService.saveRecommendParty(name , recommendPartyDtoList);
     }
 
     @GetMapping(value = "/saveEpPool")

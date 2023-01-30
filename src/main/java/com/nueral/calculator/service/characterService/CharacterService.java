@@ -12,6 +12,7 @@ import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -81,9 +82,10 @@ public class CharacterService {
         }
         return recommendPartyDtoList;
     }
-
-    public String saveRecommendParty(RecommendPartyDtoList recommendPartyDtoList){
-        try{
+    @Transactional
+    public String saveRecommendParty(String name , RecommendPartyDtoList recommendPartyDtoList){
+        try{recommendPartyRepository.deleteByCharacters(characterRepository.findByName(name).get());
+            recommendPartyRepository.flush();
             for(RecommendPartyDto partyDto : recommendPartyDtoList.getRecommendPartyDtoList()){
                 RecommendParty recommendParty = RecommendParty.builder()
                         .characters(characterRepository.findByName(partyDto.getCharacterName()).get())

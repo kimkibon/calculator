@@ -62,7 +62,7 @@
                 }
             }
         }
-        let nodeNum = 0;
+        let nodeNum = recommendParty.recommendPartyDtoList[recommendParty.recommendPartyDtoList.length-1].partyIndex;
         function addNode(e){
            const oldNode = document.getElementById('main'+nodeNum);
            const newNode = oldNode.cloneNode(true);
@@ -71,11 +71,37 @@
            newNode.querySelector('.d-flex .name').name = 'recommendPartyDtoList['+nodeNum+'].characterName';
            newNode.querySelector('.d-flex .name').id = 'recommendPartyDtoList'+nodeNum+'.characterName';
            newNode.querySelector('.d-flex .index').name = 'recommendPartyDtoList['+nodeNum+'].partyIndex';
+           newNode.querySelector('.d-flex .index').value = nodeNum;
            newNode.querySelector('.d-flex .index').id = 'recommendPartyDtoList'+nodeNum+'.partyIndex';
-           newNode.querySelector('.d-flex')
-
+           newNode.querySelector('.d-flex .col-12 .form-floating .form-control').id = 'recommendPartyDtoList'+nodeNum+'.partyExplain';
+           newNode.querySelector('.d-flex .col-12 .form-floating .form-control').name = 'recommendPartyDtoList['+nodeNum+'].partyExplain';
+           newNode.querySelector('.d-flex .col-12 .form-floating .form-control').value = null;
+           for(let i = 0; i < 4; i++){
+            newNode.querySelectorAll('.d-flex .card .form-floating .text-light')[i].id =
+                'recommendPartyDtoList'+nodeNum+'.memberDtoList'+i+'.characterName';
+            newNode.querySelectorAll('.d-flex .card .form-floating .text-light')[i].name =
+                'recommendPartyDtoList['+nodeNum+'].memberDtoList['+i+'].characterName';
+            newNode.querySelectorAll('.d-flex .card .form-floating .index')[i].id =
+                'recommendPartyDtoList'+nodeNum+'.memberDtoList'+i+'.memberIndex';
+            newNode.querySelectorAll('.d-flex .card .form-floating .index')[i].name =
+                'recommendPartyDtoList['+nodeNum+'].memberDtoList['+i+'].memberIndex';
+            newNode.querySelectorAll('.d-flex .card .form-floating .form-control')[i].value = '';
+            newNode.querySelectorAll('.d-flex .card .card-img')[i].src = '/image/basic/upload.png';
+            newNode.querySelectorAll('.d-flex .card .card-img-overlay')[i].querySelector('img').src = '/image/basic/upload.png';
+            newNode.querySelectorAll('.d-flex .card .card-img-overlay')[i].querySelector('img').className = 'img-fluid rounded bg-opacity-75 position-absolute top-0 start-0';
+           }
+           oldNode.after(newNode);
 
            console.log(newNode);
+        }
+
+        function deleteNode(e){
+            if(nodeNum <= 0){
+                alert('파티를 뺄 수 없습니다.');
+            } else{
+                document.getElementById('main'+nodeNum).remove();
+                nodeNum = nodeNum -1;
+            }
         }
     </script>
 </th:block>
@@ -84,8 +110,9 @@
 <div layout:fragment="content">
     <form method="post" th:object="${recommendParty}" th:action="@{/insert/saveRecommendParty}">
         <div class="d-flex justify-content-end" sec:authorize="hasAuthority('ADMIN')">
+            <input type="hidden" id="name" name="name" th:value="${recommendParty.recommendPartyDtoList[0].characterName}">
             <button class="btn btn-primary" onclick="addNode(this)" type="button">파티 추가</button>
-            <button class="btn btn-danger" type="button">마지막 파티 삭제</button>
+            <button class="btn btn-danger" onclick="deleteNode(this)" type="button">마지막 파티 삭제</button>
         </div>
         <div class="row" th:id="${'main'+item.index}" th:each="party , item : *{recommendPartyDtoList}">
             <div class="d-flex flex-wrap row-cols-4">
@@ -114,7 +141,7 @@
                         </div>
                         <div class="form-floating">
                             <input class="text-light" type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].characterName}">
-                            <input type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].memberIndex}">
+                            <input class="index" type="hidden" th:field="*{recommendPartyDtoList[__${item.index}__].memberDtoList[__${index}__].memberIndex}">
                             <select class="form-control badge" th:id="${'showCharacter'+item.index+index}" onchange="selectCharacter(this)">
                                 <option value="">선택</option>
                                 <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}"></option>
@@ -131,9 +158,9 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">입력</button>
-            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">입력</button>
         </div>
     </form>
 </div>
