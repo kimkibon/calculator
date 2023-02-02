@@ -40,8 +40,9 @@ public class EpParty extends DefaultEntity {
     private List<EpMember> epMemberList;
 
     @Builder
-    public EpParty(EpPool epPool, int epPartyIndex ){
+    public EpParty(EpPool epPool, int epPartyIndex, List<EpMember> epMemberList){
         this.epPool = epPool;
         this.epPartyIndex = epPartyIndex;
+        this.epMemberList = epMemberList;
     }
 }

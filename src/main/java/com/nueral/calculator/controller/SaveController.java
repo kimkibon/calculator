@@ -160,7 +160,8 @@ public class SaveController {
 
     @GetMapping(value = "/saveEpPool")
     public String saveEpPool(@RequestParam("epIndex")int index, Model model){
-        model.addAttribute(epService.saveEpPoolPro(index));
+        model.addAttribute("epPool",epService.saveEpPoolPro(index));
+        model.addAttribute("allCharacters", characterService.findAllCharacterInfo());
         return "insert/saveEpPool";
     }
 }
