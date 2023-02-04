@@ -10,7 +10,7 @@
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <script th:inline="javascript">
-    const epPool = /*[[${epPool}]]*/
+    const epPoolDto = /*[[${epPoolDto}]]*/
     const allCharacters = /*[[${allCharacters}]]*/
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -18,12 +18,11 @@
       });
 
     function onLoad(){
-            const partyInt = epPool.epPartyDtoList.length;
+            const partyInt = epPoolDto.epPartyDtoList.length;
             for(let i = 0; i < partyInt; i++){
-                const memberInt = epPool.epPartyDtoList[i].epMemberDtoList.length;
+                const memberInt = epPoolDto.epPartyDtoList[i].epMemberDtoList.length;
                 for(let j = 0; j < memberInt; j++){
                 if(!document.getElementById('showCharacter'+i+''+j).parentNode.querySelector('.text-light').value){
-                    console.log('if');
                     document.getElementById('showCharacter'+i+''+j).parentNode.querySelector('.text-light').value = 'null'
                 }
                     document.getElementById('showCharacter'+i+''+j).value =
@@ -68,20 +67,19 @@
 <!-- Content -->
 <div layout:fragment="content">
   <h1>고장협의 수정</h1>
-  <form th:object="${epPool}">
-    <input type="hidden" th:field="*{epPoolIndex}">
+  <form th:object="${epPoolDto}" method="post" th:action="@{/insert/saveEpPool}">
     <div class="d-flex flex-wrap">
       <div class="col-2 form-floating">
-        <input class="form-control text-light" th:field="*{epPoolIndex}">
+        <input class="form-control text-light" th:field="*{epPoolIndex}" readonly>
         <label>회차</label>
       </div>
       <div class="col-5 form-floating">
-        <input class="form-control text-light" th:field="*{startDate}">
-        <label>시작</label>
+        <input type="date" class="form-control text-light" th:field="*{startDate}">
+        <label>시작일</label>
       </div>
       <div class="col-5 form-floating">
-        <input class="form-control text-light" th:field="*{endDate}">
-        <label>끝</label>
+        <input type="date" class="form-control text-light" th:field="*{endDate}">
+        <label>마감일</label>
       </div>
       <div class="col-4 form-floating">
         <input class="form-control text-light" th:field="*{fstStage}">
@@ -103,39 +101,59 @@
         <br>
       </div>
     </div>
-    <div class="d-flex flex-wrap" th:each="epPartyDtoList , item : ${epPool.epPartyDtoList}">
-      <th:block th:if="${item.index}" th:each="index : ${#numbers.sequence(0,14)}">
-        <div class="card" style="max-width:20%;">
-          <img class="card-img img-fluid"
-               th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) > __${index}__}"
-               th:src="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].profile}">
-          <img class="card-img img-fluid"
-               th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) <= __${index}__}"
-               src="/image/basic/upload.png">
-          <div class="card-img-overlay p-1">
-            <img th:src="'/image/basic/profile/'+*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType}+'.png'"
-                 th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) > __${index}__}"
-                 class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
-                 th:classappend="*{
-                                  (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '수위' ? 'bg-primary' : '') +
-                                  (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '치료사' ? 'bg-success' : '') +
-                                  (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '사수' ? 'bg-info' : '')+
-                                  (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '전사' ? 'bg-warning' : '')+
-                                  (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '해결사' ? 'bg-danger' : '')}">
-            <img src="/image/basic/upload.png"
-                 th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) <= __${index}__}"
-                 class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;">
-          </div>
-          <div class="form-floating">
-            <input class="text-light" type="hidden" th:field="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].characterName}">
-            <input class="index" type="hidden" th:field="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].epMemberIndex}">
-            <select class="form-control badge" th:id="${'showCharacter'+item.index+index}" onchange="selectCharacter(this)">
-              <option value="">선택</option>
-              <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}"></option>
-            </select>
+    <div class="d-flex flex-wrap" th:each="epPartyDtoList , item : *{epPartyDtoList}">
+      <th:block th:if="${item.index == 0}">
+        <div class="col-12">
+          <div class="border rounded">
+            <span class="m-1">고장협의 캐릭터 풀</span>
           </div>
         </div>
+        <th:block th:each="index : ${#numbers.sequence(0,19)}">
+          <div class="card col-md" style="min-width:10%; max-width:25%;">
+            <img class="card-img img-fluid"
+                 th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) > __${index}__}"
+                 th:src="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].profile}">
+            <img class="card-img img-fluid"
+                 th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) <= __${index}__}"
+                 src="/image/basic/upload.png">
+            <div class="card-img-overlay p-1">
+              <img th:src="'/image/basic/profile/'+*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType}+'.png'"
+                   th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) > __${index}__}"
+                   class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
+                   th:classappend="*{
+                                    (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '수위' ? 'bg-primary' : '') +
+                                    (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '치료사' ? 'bg-success' : '') +
+                                    (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '사수' ? 'bg-info' : '')+
+                                    (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '전사' ? 'bg-warning' : '')+
+                                    (epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType == '해결사' ? 'bg-danger' : '')}">
+              <img src="/image/basic/upload.png"
+                   th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) <= __${index}__}"
+                   class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;">
+            </div>
+            <div class="input-group">
+              <input class="text-light" type="hidden" th:field="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].characterName}">
+              <select class="form-control text-light" th:id="${'showCharacter'+item.index+index}" onchange="selectCharacter(this)">
+                <option value="">캐릭터</option>
+                <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}"></option>
+              </select>
+              <input class="index" type="hidden" th:value="${index}" th:name="epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].epMemberIndex">
+            </div>
+            <div class="input-group">
+              <select class="form-select" th:field="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].reinforce}">
+                <option value="0">일반</option>
+                <option value="1">교체</option>
+              </select>
+            </div>
+          </div>
+          <input type="hidden" th:field="*{epMemberDtoList[__${index}__].support}">
+        </th:block>
+        <div class="col-12">
+          <br>
+        </div>
       </th:block>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary" type="submit">입력</button>
     </div>
   </form>
 </div>

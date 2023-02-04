@@ -1,5 +1,7 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.dto.EpDto.EpPartyDto;
+import com.nueral.calculator.dto.EpDto.EpPoolDto;
 import com.nueral.calculator.dto.character.RecommendPartyDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterSaveDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsStatusCharacterSaveDtoList;
@@ -159,9 +161,26 @@ public class SaveController {
     }
 
     @GetMapping(value = "/saveEpPool")
-    public String saveEpPool(@RequestParam("epIndex")int index, Model model){
-        model.addAttribute("epPool",epService.saveEpPoolPro(index));
+    public String saveEpPoolPro(@RequestParam("epIndex")int index, Model model){
+        model.addAttribute("epPoolDto",epService.saveEpPoolPro(index));
         model.addAttribute("allCharacters", characterService.findAllCharacterInfo());
         return "insert/saveEpPool";
+    }
+
+    @PostMapping(value = "/saveEpPool")
+    public String saveEpPool(@ModelAttribute EpPoolDto epPoolDto){
+        return epService.saveEpPool(epPoolDto);
+    }
+
+    @GetMapping(value = "/saveEpParty")
+    public String saveEpPartyPro(@RequestParam("epPoolIndex")int poolIndex , @RequestParam("epPartyIndex")int partyIndex , Model model){
+        model.addAttribute("epPoolIndex" , poolIndex);
+        model.addAttribute("epPartyDto" , epService.saveEpPartyPro(poolIndex , partyIndex));
+        model.addAttribute("allCharacters", epService.epPoolCharacter(poolIndex));
+        return "insert/saveEpParty";
+    }
+    @PostMapping(value = "/saveEpParty")
+    public String saveEpParty(@ModelAttribute EpPartyDto epPartyDto){
+        return epService.saveEpParty(epPartyDto);
     }
 }

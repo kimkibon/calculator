@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EpPartyRepository extends JpaRepository<EpParty, EpPartyId> {
-    List<EpParty> findAllByEpPool(int epPool);
+    long countByEpPool_EpIndex(int epIndex);
 }

@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @ToString
 public class EpPoolDto {
     private int epPoolIndex;
-    private int startDate;
-    private int endDate;
+    private String startDate;
+    private String endDate;
     private String fstStage;
     private String sndStage;
     private String thdStage;
@@ -23,8 +23,8 @@ public class EpPoolDto {
 
     public EpPoolDto(EpPool epPool){
         this.epPoolIndex = epPool.getEpIndex();
-        this.startDate = epPool.getStartDate();
-        this.endDate = epPool.getEndDate();
+        this.startDate = epPool.getStartDate().toString();
+        this.endDate = epPool.getEndDate().toString();
         this.fstStage = epPool.getFstStage();
         this.sndStage = epPool.getSndStage();
         this.thdStage = epPool.getThdStage();

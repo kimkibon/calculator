@@ -2,6 +2,7 @@ package com.nueral.calculator.entity.epParty;
 
 import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.character.Characters;
+import com.nueral.calculator.entity.epParty.id.EpMemberId;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +14,12 @@ import javax.persistence.*;
 @Getter
 @ToString
 @NoArgsConstructor
-@SequenceGenerator(name = "EP_MEMBER_IDX_GENERATOR" , sequenceName = "EP_MEMBER_SEQ", allocationSize = 1) // 시퀀스 생성
+@IdClass(EpMemberId.class)
 public class EpMember extends DefaultEntity {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "EP_MEMBER_IDX_GENERATOR")
     private int epMemberIndex;
 
+    @Id
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.PERSIST)
     @JoinColumns({

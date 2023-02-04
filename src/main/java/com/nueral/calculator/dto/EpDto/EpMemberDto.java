@@ -26,4 +26,5 @@ public class EpMemberDto {
         this.epMemberIndex = epMember.getEpMemberIndex();
         this.roleType = epMember.getCharacters().getRoleType().getType();
     }
+
 }
