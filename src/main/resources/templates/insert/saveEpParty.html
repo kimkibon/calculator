@@ -29,8 +29,10 @@
                 }
         }
     function selectCharacter(e){
+
         const roleClass = 'img-fluid rounded bg-opacity-75 position-absolute top-0 start-0'
             if(e.value == ''){
+                e.parentNode.querySelector('.reinforce').value = 0;
                 e.parentNode.querySelector('.text-light').value = '';
                 e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/upload.png';
                 e.parentNode.parentNode.querySelector('img').src = '/image/basic/upload.png';
@@ -39,6 +41,7 @@
             e.parentNode.parentNode.querySelector('img').src = allCharacters[e.value].profile;
             e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/profile/'+allCharacters[e.value].roleType+'.png';
             e.parentNode.querySelector('.text-light').value = allCharacters[e.value].characterName;
+            e.parentNode.querySelector('.reinforce').value = allCharacters[e.value].reinforce;
             switch(allCharacters[e.value].roleType){
                 case '수위': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                             roleClass + ' bg-primary'
@@ -96,6 +99,7 @@
             <option value="">캐릭터</option>
             <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}"></option>
           </select>
+          <input class="reinforce" type="hidden" th:field="*{epMemberDtoList[__${index}__].reinforce}">
         </div>
         <div class="input-group">
           <select class="form-select" th:field="*{epMemberDtoList[__${index}__].support}">
@@ -104,7 +108,6 @@
           </select>
         </div>
       </div>
-      <input type="hidden" th:field="*{epMemberDtoList[__${index}__].reinforce}">
     </th:block>
     </div>
     <div class="d-flex justify-content-end">

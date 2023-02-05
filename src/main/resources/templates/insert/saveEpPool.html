@@ -112,10 +112,12 @@
           <div class="card col-md" style="min-width:10%; max-width:25%;">
             <img class="card-img img-fluid"
                  th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) > __${index}__}"
-                 th:src="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].profile}">
+                 th:src="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].profile}"
+                 style="max-width:100px;">
             <img class="card-img img-fluid"
                  th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) <= __${index}__}"
-                 src="/image/basic/upload.png">
+                 src="/image/basic/upload.png"
+                 style="max-width:100px;">
             <div class="card-img-overlay p-1">
               <img th:src="'/image/basic/profile/'+*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].roleType}+'.png'"
                    th:if="*{#lists.size(epPartyDtoList[__${item.index}__].epMemberDtoList) > __${index}__}"
@@ -145,7 +147,7 @@
               </select>
             </div>
           </div>
-          <input type="hidden" th:field="*{epMemberDtoList[__${index}__].support}">
+          <input type="hidden" th:field="*{epPartyDtoList[__${item.index}__].epMemberDtoList[__${index}__].support}">
         </th:block>
         <div class="col-12">
           <br>

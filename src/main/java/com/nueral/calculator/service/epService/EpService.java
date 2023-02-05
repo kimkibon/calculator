@@ -3,6 +3,7 @@ package com.nueral.calculator.service.epService;
 import com.nueral.calculator.dto.EpDto.EpMemberDto;
 import com.nueral.calculator.dto.EpDto.EpPartyDto;
 import com.nueral.calculator.dto.EpDto.EpPoolDto;
+import com.nueral.calculator.dto.EpDto.EpPoolMemberDto;
 import com.nueral.calculator.dto.character.AllCharactersDto;
 import com.nueral.calculator.entity.epParty.EpMember;
 import com.nueral.calculator.entity.epParty.EpParty;
@@ -17,10 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -144,11 +142,11 @@ public class EpService {
         }
     }
 
-    public List<AllCharactersDto> epPoolCharacter(int poolIndex){
-        List<AllCharactersDto> AllCharactersDto;
+    public List<Object> epPoolCharacter(int poolIndex){
+        List<Object> AllCharactersDto;
         EpPartyId epPartyId = new EpPartyId(poolIndex , 0);
         if(epPartyRepository.findById(epPartyId).isPresent()) {
-            AllCharactersDto = epPartyRepository.findById(epPartyId).get().getEpMemberList().stream().map(member -> new AllCharactersDto(member.getCharacters())).collect(Collectors.toList());
+            AllCharactersDto = epPartyRepository.findById(epPartyId).get().getEpMemberList().stream().map(EpPoolMemberDto::new).collect(Collectors.toList());
         } else {
             AllCharactersDto = characterRepository.findAll().stream().map(AllCharactersDto::new).collect(Collectors.toList());
         }

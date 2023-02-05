@@ -21,6 +21,6 @@ public class EpPartyDto {
     public EpPartyDto(EpParty epParty){
         this.epPoolIndex = epParty.getEpPool().getEpIndex();
         this.epPartyIndex = epParty.getEpPartyIndex();
-        this.epMemberDtoList = epParty.getEpMemberList().stream().sorted(Comparator.comparingInt(EpMember::getSupport).thenComparingInt(EpMember::getReinforce)).map(EpMemberDto::new).collect(Collectors.toList());
+        this.epMemberDtoList = epParty.getEpMemberList().stream().sorted(Comparator.comparingInt(EpMember::getReinforce).thenComparingInt(EpMember::getSupport)).map(EpMemberDto::new).collect(Collectors.toList());
     }
 }

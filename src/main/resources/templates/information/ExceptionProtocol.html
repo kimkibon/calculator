@@ -64,14 +64,14 @@
                 </div>
                 <div th:classappend="${(EpParty.epPartyIndex == 0 ? 'collapse multi-collapse'+item.index : '')}">
                     <div class="d-flex flex-wrap" th:classappend="${(EpParty.epPartyIndex == 0 ? 'col-lg-12 row-cols-auto ' : 'col-lg-6 row-cols-5 ')}">
-                        <div class="col card border" th:each="EpMember : ${EpParty.epMemberDtoList}"
+                        <div class="col col-md-1 card border" th:each="EpMember : ${EpParty.epMemberDtoList}"
                              th:onclick="|location.href='@{/information/character(name=${EpMember.characterName})}'|"
                              th:classappend="${
                              (EpMember.support == 1 ? 'border-primary ' : '') +
                              (EpMember.reinforce == 1 ? 'border-danger ' : '')}"
                              style="max-width:20%;"
                              >
-                            <img th:id="${EpMember.characterName}" th:src="@{${EpMember.profile}}" class="card-img img-fluid"
+                            <img th:id="${EpMember.characterName}" th:src="@{${EpMember.profile}}" class="card-img img-fluid" style="max-width:100px;"
                                  onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                             <div class="card-img-overlay p-1">
                                 <img th:src="'/image/basic/profile/'+${EpMember.roleType}+'.png'"
