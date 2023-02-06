@@ -52,7 +52,7 @@ public class CharacterService {
         Characters characters = characterRepository.findByName(name).orElse(new Characters());
         return new CharacterSaveDto(characters);
     }
-
+    @Transactional
     public String saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
         System.out.println(!file.isEmpty());
         if(!file.isEmpty()) {

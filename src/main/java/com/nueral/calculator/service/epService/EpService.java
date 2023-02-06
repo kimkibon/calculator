@@ -5,6 +5,7 @@ import com.nueral.calculator.dto.EpDto.EpPartyDto;
 import com.nueral.calculator.dto.EpDto.EpPoolDto;
 import com.nueral.calculator.dto.EpDto.EpPoolMemberDto;
 import com.nueral.calculator.dto.character.AllCharactersDto;
+import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.epParty.EpMember;
 import com.nueral.calculator.entity.epParty.EpParty;
 import com.nueral.calculator.entity.epParty.EpPool;
@@ -15,6 +16,7 @@ import com.nueral.calculator.repository.epParty.EpPartyRepository;
 import com.nueral.calculator.repository.epParty.EpPoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -63,7 +65,7 @@ public class EpService {
         }
         return epPoolDto;
     }
-
+    @Transactional
     public String saveEpPool(EpPoolDto epPoolDto){
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -115,7 +117,7 @@ public class EpService {
         }
         return new EpPartyDto(epParty);
     }
-
+    @Transactional
     public String saveEpParty(EpPartyDto epPartyDto){
         try {
             EpParty epParty = EpParty.builder()
@@ -146,9 +148,9 @@ public class EpService {
         List<Object> AllCharactersDto;
         EpPartyId epPartyId = new EpPartyId(poolIndex , 0);
         if(epPartyRepository.findById(epPartyId).isPresent()) {
-            AllCharactersDto = epPartyRepository.findById(epPartyId).get().getEpMemberList().stream().map(EpPoolMemberDto::new).collect(Collectors.toList());
+            AllCharactersDto = epPartyRepository.findById(epPartyId).get().getEpMemberList().stream().sorted(Comparator.comparingInt(EpMember::getReinforce).thenComparingInt(EpMember::getSupport)).map(EpPoolMemberDto::new).collect(Collectors.toList());
         } else {
-            AllCharactersDto = characterRepository.findAll().stream().map(AllCharactersDto::new).collect(Collectors.toList());
+            AllCharactersDto = characterRepository.findAll().stream().sorted(Comparator.comparing(Characters::getRoleType)).map(AllCharactersDto::new).collect(Collectors.toList());
         }
         return AllCharactersDto;
     }
@@ -157,7 +159,7 @@ public class EpService {
         return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
-    public List<EpPoolDto> EpPoolDtoList() {
-        return epPoolRepository.findAll().stream().sorted(Comparator.comparingInt(EpPool::getEpIndex).reversed()).map(EpPoolDto::new).collect(Collectors.toList());
+    public EpPoolDto EpPoolDtoList() {
+        return new EpPoolDto(epPoolRepository.findFirstByOrderByEpIndexDesc());
     }
 }

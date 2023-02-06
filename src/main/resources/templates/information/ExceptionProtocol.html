@@ -14,14 +14,18 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-    <div class="row"><span>고장협의 리스트</span></div>
-        <form method="get" sec:authorize="isAuthenticated()" th:action="@{/insert/saveEpPool}">
+    <div class="d-flex justify-content-between"><span class="text-light m-1">고장협의</span>
+        <form class="d-flex justify-content-end" method="get" sec:authorize="isAuthenticated()" th:action="@{/insert/saveEpPool}">
             <input type="hidden" name="epIndex" value="0">
-            <button type="submit" class="btn btn-primary">추가</button>
+            <button type="submit" class="btn btn-primary btn-sm m-1">추가</button>
+            <br/>
         </form>
-        <br/>
-        <th:block th:each="EpPool , item : ${EpPoolList}">
+    </div>
+        <th:block>
           <div class="d-flex flex-wrap">
+              <div class="col-12">
+                  <br>
+              </div>
             <div class="col-12 border rounded">
                 <form class="d-flex justify-content-between" method="get" th:action="@{/insert/saveEpPool}">
                     <span class="m-1 text-light" th:text="${EpPool.epPoolIndex}+'회차'"></span>
@@ -59,11 +63,11 @@
                             <button class="btn btn-sm btn-danger" th:unless="${EpParty.epPartyIndex == 0}" sec:authorize="isAuthenticated()" type="submit">파티 수정</button>
 
                         </form>
-                        <button class="btn btn-sm btn-primary" th:if="${EpParty.epPartyIndex == 0}" type="button" data-bs-toggle="collapse" th:data-bs-target="${'.multi-collapse'+item.index}" aria-expanded="false">상세 정보</button>
+                        <button class="btn btn-sm btn-primary" th:if="${EpParty.epPartyIndex == 0}" type="button" data-bs-toggle="collapse" th:data-bs-target="${'.multi-collapse'}" aria-expanded="false">상세 정보</button>
                     </div>
                 </div>
-                <div th:classappend="${(EpParty.epPartyIndex == 0 ? 'collapse multi-collapse'+item.index : '')}">
-                    <div class="d-flex flex-wrap" th:classappend="${(EpParty.epPartyIndex == 0 ? 'col-lg-12 row-cols-auto ' : 'col-lg-6 row-cols-5 ')}">
+                <div th:classappend="${(EpParty.epPartyIndex == 0 ? 'collapse multi-collapse' : '')}">
+                    <div class="d-flex flex-wrap" th:classappend="${(EpParty.epPartyIndex == 0 ? 'col-lg-12 row-cols-auto ' : 'col-lg-12 row-cols-auto ')}">
                         <div class="col col-md-1 card border" th:each="EpMember : ${EpParty.epMemberDtoList}"
                              th:onclick="|location.href='@{/information/character(name=${EpMember.characterName})}'|"
                              th:classappend="${

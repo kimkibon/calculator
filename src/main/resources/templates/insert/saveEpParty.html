@@ -20,12 +20,16 @@
     function onLoad(){
                 const memberInt = epPartyDto.epMemberDtoList.length;
                 for(let j = 0; j < memberInt; j++){
-                if(!document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value){
-                    console.log('if');
-                    document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value = 'null'
-                }
-                    document.getElementById('showCharacter'+j).value =
-                    allCharacters.findIndex(name => name.characterName == document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value);
+                  if(!document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value){
+                      document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value = 'null'
+                  }
+                  document.getElementById('showCharacter'+j).value =
+                  allCharacters.findIndex(name => name.characterName == document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value);
+                  if(epPartyDto.epMemberDtoList[j].reinforce == 1){
+                    document.getElementById('showCharacter'+j).className = 'form-control text-danger';
+                  } else {
+                    document.getElementById('showCharacter'+j).className = 'form-control text-light';
+                  }
                 }
         }
     function selectCharacter(e){
@@ -42,6 +46,11 @@
             e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/profile/'+allCharacters[e.value].roleType+'.png';
             e.parentNode.querySelector('.text-light').value = allCharacters[e.value].characterName;
             e.parentNode.querySelector('.reinforce').value = allCharacters[e.value].reinforce;
+            if(allCharacters[e.value].reinforce == 1){
+              e.className = 'form-control text-danger';
+            } else {
+              e.className = 'form-control text-light';
+            }
             switch(allCharacters[e.value].roleType){
                 case '수위': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
                             roleClass + ' bg-primary'
@@ -95,9 +104,9 @@
         <div class="input-group">
           <input class="text-light" type="hidden" th:field="*{epMemberDtoList[__${index}__].characterName}">
           <input class="index" type="hidden" th:value="${index}" th:name="epMemberDtoList[__${index}__].epMemberIndex">
-          <select class="form-control text-light" th:id="${'showCharacter'+index}" onchange="selectCharacter(this)">
-            <option value="">캐릭터</option>
-            <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}"></option>
+          <select class="form-control text-light" th:id="${'showCharacter'+index}" onchange="selectCharacter(this)" th:classappend="*{(epMemberDtoList[__${index}__].reinforce == 1 ? 'text-danger' : 'text-light')}">
+            <option class="text-light" value="">캐릭터</option>
+            <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}" th:classappend="${(allCharacters.reinforce == 1 ? 'text-danger' : 'text-light')}"></option>
           </select>
           <input class="reinforce" type="hidden" th:field="*{epMemberDtoList[__${index}__].reinforce}">
         </div>

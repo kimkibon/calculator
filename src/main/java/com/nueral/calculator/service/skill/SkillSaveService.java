@@ -99,7 +99,7 @@ public class SkillSaveService {
     public List<SkillEffectDto> skillEffects(){
         return skillEffectsRepository.findAll().stream().map(SkillEffectDto::new).collect(Collectors.toList());
     }
-
+    @Transactional
     public String updateSkillEffects(SkillEffectDto skillEffectDto){
         try {
             SkillEffects skillEffects = SkillEffects.builder()
