@@ -1,5 +1,6 @@
 package com.nueral.calculator.entity.epParty;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nueral.calculator.entity.DefaultEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,18 +22,20 @@ public class EpPool extends DefaultEntity {
             strategy = GenerationType.SEQUENCE,
             generator = "EP_IDX_GENERATOR")
     private int epIndex;
-    private int startDate;
-    private int endDate;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+    private LocalDate startDate;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+    private LocalDate endDate;
     private String fstStage;
     private String sndStage;
     private String thdStage;
     private String bossName;
     @OneToMany(mappedBy = "epPool" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<EpParty> epParty;
+    private List<EpParty> epPartyList;
 
     @Builder EpPool(
-            int epIndex , int startDate , int endDate ,
+            int epIndex , LocalDate startDate , LocalDate endDate , List<EpParty> epPartyList,
             String fstStage , String sndStage , String thdStage, String bossName
     ){
         this.epIndex = epIndex;
@@ -41,9 +45,6 @@ public class EpPool extends DefaultEntity {
         this.sndStage = sndStage;
         this.thdStage = thdStage;
         this.bossName = bossName;
-    }
-
-    public EpPool(int epIndex) {
-        this.epIndex = epIndex;
+        this.epPartyList = epPartyList;
     }
 }

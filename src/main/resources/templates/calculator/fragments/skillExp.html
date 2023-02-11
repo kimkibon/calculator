@@ -12,34 +12,7 @@
 
 <!-- Content -->
 <th:block th:fragment="skillExp">
-  <script th:inline="javascript">
-    const skillExp =
-      /*[[${skillExpList}]]*/
 
-      document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("maxSkillLevel").value = skillExp.length;
-        document.getElementById("minSkillLevel").value = 1;
-        changeSkillLevel();
-      });
-
-    function changeSkillLevel() {
-
-      const minSkillLevel = document.getElementById("minSkillLevel").value;
-      const maxSkillLevel = document.getElementById("maxSkillLevel").value;
-
-      const skillExpList = skillExp.slice(minSkillLevel, maxSkillLevel);
-
-      const resultExp = skillExpList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.exp);
-      }, 0);
-      const resultCore = skillExpList.reduce(function add(sum, currValue) {
-        return parseInt(sum) + parseInt(currValue.core);
-      }, 0);
-
-      document.getElementById("resultSkillExp").innerText = resultExp + "";
-      document.getElementById("resultSkillCore").innerText = resultCore + "";
-    }
-  </script>
   <div class="row">
     <div class="row">
       <h2 class="col col-md-auto m-2">스킬 경험치 계산기</h2>

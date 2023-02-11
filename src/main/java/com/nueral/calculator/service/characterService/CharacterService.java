@@ -12,6 +12,7 @@ import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class CharacterService {
         Characters characters = characterRepository.findByName(name).orElse(new Characters());
         return new CharacterSaveDto(characters);
     }
-
+    @Transactional
     public String saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
         System.out.println(!file.isEmpty());
         if(!file.isEmpty()) {
@@ -61,9 +62,9 @@ public class CharacterService {
             Characters characters = new Characters(characterSaveDto);
         try {
             characterRepository.save(characters);
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
     public RecommendPartyDtoList saveRecommendPartyPro(String name){
@@ -81,9 +82,10 @@ public class CharacterService {
         }
         return recommendPartyDtoList;
     }
-
-    public String saveRecommendParty(RecommendPartyDtoList recommendPartyDtoList){
-        try{
+    @Transactional
+    public String saveRecommendParty(String name , RecommendPartyDtoList recommendPartyDtoList){
+        try{recommendPartyRepository.deleteByCharacters(characterRepository.findByName(name).get());
+            recommendPartyRepository.flush();
             for(RecommendPartyDto partyDto : recommendPartyDtoList.getRecommendPartyDtoList()){
                 RecommendParty recommendParty = RecommendParty.builder()
                         .characters(characterRepository.findByName(partyDto.getCharacterName()).get())
@@ -103,10 +105,10 @@ public class CharacterService {
 
                 }
             }
-            return "home";
+            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "saveError";
+            return "redirect:/saveError";
         }
     }
 

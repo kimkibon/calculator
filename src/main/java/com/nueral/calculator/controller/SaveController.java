@@ -1,5 +1,7 @@
 package com.nueral.calculator.controller;
 
+import com.nueral.calculator.dto.EpDto.EpPartyDto;
+import com.nueral.calculator.dto.EpDto.EpPoolDto;
 import com.nueral.calculator.dto.character.RecommendPartyDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsCharacterSaveDtoList;
 import com.nueral.calculator.dto.goodsDto.GoodsStatusCharacterSaveDtoList;
@@ -9,6 +11,7 @@ import com.nueral.calculator.dto.AlgorithmDto.AlgorithmSaveDtoList;
 import com.nueral.calculator.dto.character.CharacterSaveDto;
 import com.nueral.calculator.dto.character.SkinSaveDto;
 import com.nueral.calculator.service.algorithm.AlgorithmService;
+import com.nueral.calculator.service.epService.EpService;
 import com.nueral.calculator.service.friendship.GoodsService;
 import com.nueral.calculator.service.skill.SkillSaveService;
 import com.nueral.calculator.service.skin.SkinService;
@@ -36,7 +39,8 @@ public class SaveController {
     private GoodsService goodsService;
     @Autowired
     private SkillSaveService skillSaveService;
-
+    @Autowired
+    private EpService epService;
     @PostMapping(value = "/saveCharacter")
     public String saveCharacterByDto(@ModelAttribute CharacterSaveDto characterSaveDto, @RequestParam("file") MultipartFile file) throws Exception {
         return characterService.saveByDto(characterSaveDto , file);
@@ -151,8 +155,32 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveRecommendParty")
-    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList){
+    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList , @RequestParam("name") String name){
 
-        return characterService.saveRecommendParty(recommendPartyDtoList);
+        return characterService.saveRecommendParty(name , recommendPartyDtoList);
+    }
+
+    @GetMapping(value = "/saveEpPool")
+    public String saveEpPoolPro(@RequestParam("epIndex")int index, Model model){
+        model.addAttribute("epPoolDto",epService.saveEpPoolPro(index));
+        model.addAttribute("allCharacters", characterService.findAllCharacterInfo());
+        return "insert/saveEpPool";
+    }
+
+    @PostMapping(value = "/saveEpPool")
+    public String saveEpPool(@ModelAttribute EpPoolDto epPoolDto){
+        return epService.saveEpPool(epPoolDto);
+    }
+
+    @GetMapping(value = "/saveEpParty")
+    public String saveEpPartyPro(@RequestParam("epPoolIndex")int poolIndex , @RequestParam("epPartyIndex")int partyIndex , Model model){
+        model.addAttribute("epPoolIndex" , poolIndex);
+        model.addAttribute("epPartyDto" , epService.saveEpPartyPro(poolIndex , partyIndex));
+        model.addAttribute("allCharacters", epService.epPoolCharacter(poolIndex));
+        return "insert/saveEpParty";
+    }
+    @PostMapping(value = "/saveEpParty")
+    public String saveEpParty(@ModelAttribute EpPartyDto epPartyDto){
+        return epService.saveEpParty(epPartyDto);
     }
 }

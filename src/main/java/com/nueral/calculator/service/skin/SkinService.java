@@ -9,6 +9,7 @@ import com.nueral.calculator.entity.images.id.SkinsId;
 import com.nueral.calculator.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class SkinService {
     private FileUtil fileUtil;
     @Autowired
     private CharacterRepository characterRepository;
-
+    @Transactional
     public String saveSkins(SkinSaveDto skinSaveDto) {
         try{
             Characters characters = characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow();
@@ -52,7 +53,7 @@ public class SkinService {
             return "saveError";
         }
     }
-
+    @Transactional
     public SkinSaveDto findByCharacterAndType(String name , String type){
         SkinSaveDto skinSaveDto;
         if(type.isEmpty()){

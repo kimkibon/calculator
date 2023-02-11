@@ -1,6 +1,5 @@
 package com.nueral.calculator.entity.epParty;
 
-import com.nueral.calculator.entity.character.Characters;
 import com.nueral.calculator.entity.DefaultEntity;
 import com.nueral.calculator.entity.epParty.id.EpPartyId;
 import lombok.Builder;
@@ -11,6 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +19,6 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 @IdClass(EpPartyId.class)
-@SequenceGenerator(name = "EPPARTY_IDX_GENERATOR" , sequenceName = "EPPARTY_SEQ", allocationSize = 1) // 시퀀스 생성
 public class EpParty extends DefaultEntity {
     @Id
     @ManyToOne(fetch = FetchType.LAZY,
@@ -28,26 +27,16 @@ public class EpParty extends DefaultEntity {
     @ToString.Exclude
     private EpPool epPool;
     @Id //PRIMARY_KEY
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "EPPARTY_IDX_GENERATOR"
-    ) // 위에서 정의한 SEQ 를 사용하겠다.
+    @Column(name = "EP_PARTY_INDEX")
     private int epPartyIndex;
-    private int recommended;
-    private int support;
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CHARACTER_NAME", nullable = false , referencedColumnName ="CHARACTER_NAME")
+    @OneToMany(mappedBy = "epParty" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
-    private Characters characters;
+    private List<EpMember> epMemberList;
 
     @Builder
-    public EpParty(EpPool epPool, int epPartyIndex ,
-                   int recommended , int support , Characters characters){
+    public EpParty(EpPool epPool, int epPartyIndex, List<EpMember> epMemberList){
         this.epPool = epPool;
         this.epPartyIndex = epPartyIndex;
-        this.recommended = recommended;
-        this.support = support;
-        this.characters = characters;
+        this.epMemberList = epMemberList;
     }
 }

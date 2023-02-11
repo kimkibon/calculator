@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    const epPartyDto = /*[[${epPartyDto}]]*/
+    const allCharacters = /*[[${allCharacters}]]*/
+
+    document.addEventListener("DOMContentLoaded", function () {
+        onLoad()
+      });
+
+    function onLoad(){
+                const memberInt = epPartyDto.epMemberDtoList.length;
+                for(let j = 0; j < memberInt; j++){
+                  if(!document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value){
+                      document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value = 'null'
+                  }
+                  document.getElementById('showCharacter'+j).value =
+                  allCharacters.findIndex(name => name.characterName == document.getElementById('showCharacter'+j).parentNode.querySelector('.text-light').value);
+                  if(epPartyDto.epMemberDtoList[j].reinforce == 1){
+                    document.getElementById('showCharacter'+j).className = 'form-control text-danger';
+                  } else {
+                    document.getElementById('showCharacter'+j).className = 'form-control text-light';
+                  }
+                }
+        }
+    function selectCharacter(e){
+
+        const roleClass = 'img-fluid rounded bg-opacity-75 position-absolute top-0 start-0'
+            if(e.value == ''){
+                e.parentNode.querySelector('.reinforce').value = 0;
+                e.parentNode.querySelector('.text-light').value = '';
+                e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/upload.png';
+                e.parentNode.parentNode.querySelector('img').src = '/image/basic/upload.png';
+                e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className = roleClass;
+            } else {
+            e.parentNode.parentNode.querySelector('img').src = allCharacters[e.value].profile;
+            e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').src = '/image/basic/profile/'+allCharacters[e.value].roleType+'.png';
+            e.parentNode.querySelector('.text-light').value = allCharacters[e.value].characterName;
+            e.parentNode.querySelector('.reinforce').value = allCharacters[e.value].reinforce;
+            if(allCharacters[e.value].reinforce == 1){
+              e.className = 'form-control text-danger';
+            } else {
+              e.className = 'form-control text-light';
+            }
+            switch(allCharacters[e.value].roleType){
+                case '수위': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                            roleClass + ' bg-primary'
+                    break;
+                case '치료사': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                              roleClass + ' bg-success'
+                    break;
+                case '해결사': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                            roleClass + ' bg-danger'
+                    break;
+                case '전사': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                            roleClass + ' bg-warning'
+                    break;
+                case '사수': e.parentNode.parentNode.querySelector('.card-img-overlay').querySelector('img').className =
+                            roleClass + ' bg-info'
+                    break;
+                }
+            }
+        }
+  </script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <form th:object="${epPartyDto}" method="post" th:action="@{/insert/saveEpParty}">
+    <input type="hidden" th:field="*{epPartyIndex}">
+    <input type="hidden" th:field="*{epPoolIndex}">
+    <div class="d-flex flex-wrap">
+    <th:block th:each="index : ${#numbers.sequence(0,9)}">
+      <div class="card col-md" style="min-width:10%; max-width:25%;">
+        <img class="card-img img-fluid"
+             th:if="*{#lists.size(epMemberDtoList) > __${index}__}"
+             th:src="*{epMemberDtoList[__${index}__].profile}">
+        <img class="card-img img-fluid"
+             th:if="*{#lists.size(epMemberDtoList) <= __${index}__}"
+             src="/image/basic/upload.png">
+        <div class="card-img-overlay p-1">
+          <img th:src="'/image/basic/profile/'+*{epMemberDtoList[__${index}__].roleType}+'.png'"
+               th:if="*{#lists.size(epMemberDtoList) > __${index}__}"
+               class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
+               th:classappend="*{
+                                      (epMemberDtoList[__${index}__].roleType == '수위' ? 'bg-primary' : '') +
+                                      (epMemberDtoList[__${index}__].roleType == '치료사' ? 'bg-success' : '') +
+                                      (epMemberDtoList[__${index}__].roleType == '사수' ? 'bg-info' : '')+
+                                      (epMemberDtoList[__${index}__].roleType == '전사' ? 'bg-warning' : '')+
+                                      (epMemberDtoList[__${index}__].roleType == '해결사' ? 'bg-danger' : '')}">
+          <img src="/image/basic/upload.png"
+               th:if="*{#lists.size(epMemberDtoList) <= __${index}__}"
+               class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;">
+        </div>
+        <div class="input-group">
+          <input class="text-light" type="hidden" th:field="*{epMemberDtoList[__${index}__].characterName}">
+          <input class="index" type="hidden" th:value="${index}" th:name="epMemberDtoList[__${index}__].epMemberIndex">
+          <select class="form-control text-light" th:id="${'showCharacter'+index}" onchange="selectCharacter(this)" th:classappend="*{(epMemberDtoList[__${index}__].reinforce == 1 ? 'text-danger' : 'text-light')}">
+            <option class="text-light" value="">캐릭터</option>
+            <option th:each="allCharacters , i : ${allCharacters}" th:value="${i.index}" th:text="${allCharacters.characterName}" th:classappend="${(allCharacters.reinforce == 1 ? 'text-danger' : 'text-light')}"></option>
+          </select>
+          <input class="reinforce" type="hidden" th:field="*{epMemberDtoList[__${index}__].reinforce}">
+        </div>
+        <div class="input-group">
+          <select class="form-select" th:field="*{epMemberDtoList[__${index}__].support}">
+            <option value="0">메인</option>
+            <option value="1">지원</option>
+          </select>
+        </div>
+      </div>
+    </th:block>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">입력</button>
+    </div>
+  </form>
+</div>
+
+</html>

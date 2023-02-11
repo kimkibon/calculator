@@ -9,7 +9,187 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    <script th:inline="javascript">
+const exp = /*[[${expList}]]*/;
+const goodsExp = /*[[${goodsExpList}]]*/;
+const skillExp = /*[[${skillExpList}]]*/;
+const starExp = /*[[${starExpList}]]*/;
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById('maxCharacterLevel').value = exp.length;
+  document.getElementById('minCharacterLevel').value = 1;
+  changeCharacterLevel();
+  document.getElementById("maxGoodsLevel").value = goodsExp.length;
+  document.getElementById("minGoodsLevel").value = 1;
+  changeGoodsLevel();
+  document.getElementById("maxSkillLevel").value = skillExp.length;
+  document.getElementById("minSkillLevel").value = 1;
+  changeSkillLevel();
+  document.getElementById("maxStarLevel").value = starExp.length;
+  document.getElementById("minStarLevel").value = 1;
+  changeStarLevel();
+});
+
+function changeStarLevel() {
+  const minStarLevel = document.getElementById("minStarLevel").value;
+  const maxStarLevel = document.getElementById("maxStarLevel").value;
+  document.getElementById("buyPiece").value = document
+    .getElementById("buyPiece")
+    .value.replace(/[^0-9.]/g, "")
+    .replace(/(\..*)\./g, "$1");
+  document.getElementById("hasPiece").value = document
+    .getElementById("hasPiece")
+    .value.replace(/[^0-9.]/g, "")
+    .replace(/(\..*)\./g, "$1");
+
+  let buyPiece = 0;
+  let hasPiece = 0;
+
+  if (
+    document.getElementById("buyPiece").value == "" ||
+    document.getElementById("buyPiece").value == undefined
+  ) {
+    buyPiece = 0;
+  } else {
+    buyPiece = parseInt(document.getElementById("buyPiece").value);
+  }
+  if (
+    document.getElementById("hasPiece").value == "" ||
+    document.getElementById("hasPiece").value == undefined
+  ) {
+    hasPiece = 0;
+  } else {
+    hasPiece = parseInt(document.getElementById("hasPiece").value);
+  }
+
+  const skillExpList = starExp.slice(minStarLevel, maxStarLevel);
+
+  const resultExp = skillExpList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.exp);
+  }, 0);
+
+  if (buyPiece + hasPiece > parseInt(resultExp)) {
+    document.getElementById("buyPiece").value = resultExp - hasPiece;
+    buyPiece = resultExp - hasPiece;
+  }
+
+  let sumExp = resultExp - buyPiece - hasPiece;
+
+  document.getElementById("resultStarExp").innerText = sumExp + "";
+
+  document.getElementById("minDate").innerText =
+    Math.ceil(sumExp / 12) + "일";
+  document.getElementById("aveDate").innerText =
+    Math.ceil(sumExp / 7) + "일";
+  document.getElementById("maxDate").innerText =
+    Math.ceil(sumExp / 6) + "일";
+
+  let needPiece = 0;
+
+  for (i = buyPiece; i < sumExp + buyPiece; i++) {
+    if (i <= 25) {
+      needPiece += 5;
+    } else if (i > 25 && i <= 50) {
+      needPiece += 10;
+    } else if (i > 50 && i <= 75) {
+      needPiece += 15;
+    } else if (i > 75 && i <= 100) {
+      needPiece += 20;
+    } else if (i > 100) {
+      needPiece += 25;
+    }
+  }
+  document.getElementById("needPiece").innerText = needPiece;
+}
+
+function changeSkillLevel() {
+
+  const minSkillLevel = document.getElementById("minSkillLevel").value;
+  const maxSkillLevel = document.getElementById("maxSkillLevel").value;
+
+  const skillExpList = skillExp.slice(minSkillLevel, maxSkillLevel);
+
+  const resultExp = skillExpList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.exp);
+  }, 0);
+  const resultCore = skillExpList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.core);
+  }, 0);
+
+  document.getElementById("resultSkillExp").innerText = resultExp + "";
+  document.getElementById("resultSkillCore").innerText = resultCore + "";
+}
+
+function changeGoodsLevel() {
+  const minGoodsLevel = document.getElementById("minGoodsLevel").value;
+  const maxGoodsLevel = document.getElementById("maxGoodsLevel").value;
+
+  const goodsExpList = goodsExp.slice(minGoodsLevel, maxGoodsLevel);
+
+  const resultGoodsExp = goodsExpList.reduce(function add(
+    sum,
+    currValue
+  ) {
+    return parseInt(sum) + parseInt(currValue.exp);
+  },
+    0);
+
+  document.getElementById("resultGoodsExp").innerText =
+    resultGoodsExp + "";
+  document.getElementById("resultBlueGoods").innerText =
+    Math.ceil(resultGoodsExp / 20) + "개";
+  document.getElementById("resultPurpleGoods").innerText =
+    Math.ceil(resultGoodsExp / 50) + "개";
+  document.getElementById("resultYellowGoods").innerText =
+    Math.ceil(resultGoodsExp / 125) + "개";
+}
+
+function changeCharacterLevel() {
+
+  document.getElementById('minCharacterLevel').value = document.getElementById('minCharacterLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  document.getElementById('maxCharacterLevel').value = document.getElementById('maxCharacterLevel').value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  const minLevel = document.getElementById('minCharacterLevel').value;
+  const maxLevel = document.getElementById('maxCharacterLevel').value;
+
+  if (minLevel > exp.length) {
+    document.getElementById('minCharacterLevel').value = exp.length;
+  }
+  if (maxLevel > exp.length) {
+    document.getElementById('maxCharacterLevel').value = exp.length;
+  }
+
+  const expList = exp.slice(minLevel, maxLevel);
+
+  const resultExp = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.exp);
+  }, 0);
+  const resultGray = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.gray);
+  }, 0);
+  const resultGreen = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.green);
+  }, 0);
+  const resultBlue = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.blue);
+  }, 0);
+  const resultPurple = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.purple);
+  }, 0);
+  const resultOrange = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.orange);
+  }, 0);
+  const resultRainbow = expList.reduce(function add(sum, currValue) {
+    return parseInt(sum) + parseInt(currValue.rainbow);
+  }, 0);
+  document.getElementById('resultExp').innerText = resultExp + "";
+  document.getElementById('resultGray').innerText = resultGray + "";
+  document.getElementById('resultGreen').innerText = resultGreen + "";
+  document.getElementById('resultBlue').innerText = resultBlue + "";
+  document.getElementById('resultPurple').innerText = resultPurple + "";
+  document.getElementById('resultOrange').innerText = resultOrange + "";
+  document.getElementById('resultRainbow').innerText = resultRainbow + "";
+}
+    </script>
 </th:block>
 <!-- Content -->
 <div layout:fragment="content">

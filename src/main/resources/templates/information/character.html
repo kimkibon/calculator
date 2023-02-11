@@ -101,9 +101,8 @@
           <button class="btn btn-sm btn-outline-danger m-1" type="submit">스킨 추가</button>
         </form>
       </div>
-      <div class="row">
-        <div class="col">
-          <div class="text-light border rounded">
+        <div class="col-lg">
+          <div class="text-light border rounded m-1">
             <div class="d-flex justify-content-between">
             <span class="m-1">추천 파티</span>
               <form sec:authorize="isAuthenticated()" method="get" th:action="@{/insert/saveRecommendParty}">
@@ -112,14 +111,14 @@
               </form>
             </div>
           </div>
-          <div class="col">
+          <div class="col m-1">
             <div class="d-flex flex-wrap row-cols-4" th:each="party : ${character.partyDtoList}">
               <div class="card" th:each="member : ${party.memberDtoList}" th:onclick="|location.href='@{/information/character(name=${member.characterName})}'|">
                 <img class="card-img" th:src="${member.profile}"
                      onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                 <div class="card-img-overlay p-1">
                   <img th:src="'/image/basic/profile/'+${member.roleType}+'.png'"
-                       class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25px;"
+                       class="img-fluid rounded bg-opacity-75 position-absolute top-0 start-0" style="max-width:25%;"
                        th:classappend="${
                         (member.roleType == '수위' ? 'bg-primary' : '') +
                         (member.roleType == '치료사' ? 'bg-success' : '') +
@@ -143,7 +142,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
     <div class="col-lg">
       <br />

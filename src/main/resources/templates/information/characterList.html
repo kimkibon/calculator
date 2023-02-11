@@ -18,7 +18,7 @@
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="max-width:93px;">
                 <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}"
-                    class="card-img img-fluid" onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                    class="card-img img-fluid" onerror="this.onerror=null; this.src='/image/character/upload.png';">
                 <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
@@ -35,7 +35,7 @@
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="min-width:93px; max-width:93px;">
                 <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
-                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                    onerror="this.onerror=null; this.src='/image/character/upload.png';">
                 <div th:text="${characterList.characterName}" class="text text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
@@ -52,7 +52,7 @@
                 th:onclick="|location.href='@{/information/character(name=${characterList.characterName})}'|"
                 style="min-width:93px; max-width:93px;">
                 <img th:id="${characterList.characterName}" th:src="@{${characterList.profile}}" class="img-fluid"
-                    onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
+                    onerror="this.onerror=null; this.src='/image/character/upload.png';">
                 <div th:text="${characterList.characterName}" class="text text-nowrap text-center" th:classappend="${
                         (characterList.defaultStar == 1 ? ' text-primary' : '') +
                         (characterList.defaultStar == 3 ? ' text-danger' : '') +
