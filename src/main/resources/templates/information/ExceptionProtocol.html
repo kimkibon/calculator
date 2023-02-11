@@ -75,7 +75,7 @@
                              (EpMember.reinforce == 1 ? 'border-danger ' : '')}"
                              style="max-width:20%;"
                              >
-                            <img th:id="${EpMember.characterName}" th:src="@{${EpMember.profile}}" class="card-img img-fluid" style="max-width:100px;"
+                            <img th:id="${EpMember.characterName}" th:src="@{${EpMember.profile}}" class="card-img img-fluid"
                                  onerror="this.onerror=null; this.src='/image/character/케릭터.png';">
                             <div class="card-img-overlay p-1">
                                 <img th:src="'/image/basic/profile/'+${EpMember.roleType}+'.png'"
