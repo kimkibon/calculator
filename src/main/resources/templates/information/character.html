@@ -263,15 +263,16 @@
                         (algorithm.algorithmType == '특이성' ? 'text-warning' : '')}"
               th:text="${algorithm.algorithmType}"></span>
           </div>
-          <div class="row">
+          <div class="row text-center">
             <span class="text-nowrap text-light">[[${algorithm?.setAlgorithmDto.setAlgorithmName}]]</span>
           </div>
-          <div class="row"><span class="text-nowrap" th:text="${algorithm?.mainOpt}"></span></div>
+          <div class="row"><span class="text-wrap" th:text="${algorithm?.mainOpt}"></span></div>
           <br>
-          <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt1}"></span></div>
-          <div class="row"><span class="text-nowrap" th:text="${algorithm?.subOpt2}"></span></div>
+          <div class="row"><span class="text-wrap" th:text="${algorithm?.subOpt1}"></span></div>
+          <div class="row"><span class="text-wrap" th:text="${algorithm?.subOpt2}"></span></div>
         </div>
       </div>
+
       <br />
       <div class="text-light border rounded m-1">
         <div class="d-flex justify-content-between">
@@ -287,7 +288,7 @@
           <div class="col m-1" th:each="goods , i : ${character.goodsCharacterDtoList}">
             <img class="img img-fluid" th:src="${'/image/basic/goods/'+goods.goodsName+'.png'}"
               style="min-height:100px;max-height:100px; object-fit:cover;">
-            <div class="row"><span th:text="${goods.goodsName}" th:classappend="${
+            <div class="row text-center"><span th:text="${goods.goodsName}" th:classappend="${
                         (goods.goodsLevel == 1 ? 'text-primary' : '') +
                         (goods.goodsLevel == 2 ? 'text-danger' : '') +
                         (goods.goodsLevel == 3 ? 'text-warning' : '')}"></span></div>
@@ -316,14 +317,14 @@
         <div class="d-flex">
           <div class="col text-center border rounded m-1" th:each="algorithm : ${character.characterAlgorithmDtoList}">
             <div class="row">
-              <div class="col">메인 옵션</div>
+              <div class="col"><img class="img img-fluid" th:src="${'/image/basic/algorithm/main/'+algorithm.mainOpt+'.png'}"></div>
             </div>
             <div class="row">
-              <div class="col"><img class="img ima-fluid" th:src="${'/image/basic/algorithm/'+algorithm.setAlgorithmDto.setAlgorithmName+'.png'}"></div>
+              <div class="col"><img class="img img-fluid" th:src="${'/image/basic/algorithm/set/'+algorithm.setAlgorithmDto.setAlgorithmName+'.png'}"></div>
             </div>
-            <div class="row">
-              <div class="col">서브옵션1</div>
-              <div class="col">서브옵션2</div>
+            <div class="d-flex justify-content-center">
+              <img class="img img-fluid" th:src="${'/image/basic/algorithm/sub/'+algorithm.subOpt1+'.png'}">
+              <img class="img img-fluid" th:src="${'/image/basic/algorithm/sub/'+algorithm.subOpt2+'.png'}">
             </div>
           </div>
         </div>
