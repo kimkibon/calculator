@@ -49,7 +49,7 @@ spring:
 logging:
   level:
     root: info
-    org.hibernate.SQL: debug
+    org.hibernate.SQL: info
     org.hibernate.type: info
 #암호화
 jasypt:
