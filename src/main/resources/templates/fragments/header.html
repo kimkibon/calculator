@@ -34,8 +34,11 @@
             기초데이터 업데이트
           </a>
         </li>
-        <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/users/join">회원추가</a>
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
+          <a class="nav-link active" aria-current="page" href="/users/join">회원가입</a>
+        </li>
+        <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/users/allUsers">회원수정</a>
         </li>
         <li class="nav-item">
           <form class="col-md-12" role="search" id="searchForm" action="/information/character" method="GET">

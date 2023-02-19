@@ -1,16 +1,15 @@
 package com.nueral.calculator.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserSaveDto {
     private String username;
     private String password;
     private String role;
+    private Long id;
 }

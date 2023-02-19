@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @Autowired
     CharacterService characterService;
-    @GetMapping(value = "/characer")
+    @GetMapping(value = "/character")
     public String deleteCharacter(@RequestAttribute String name){
         characterService.deleteCharacter(name);
         return "/home";

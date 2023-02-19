@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -25,5 +27,19 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
+    }
+    public List<User> userInfo(){
+        return userRepository.findAll();
+    }
+
+    public String updateUser(UserSaveDto userSaveDto){
+        User saveUser = User.builder()
+                .username(userSaveDto.getUsername())
+                .password(userSaveDto.getPassword())
+                .role(Role.valueOf(userSaveDto.getRole()))
+                .id(userSaveDto.getId())
+                .build();
+        userRepository.save(saveUser);
+        return "redirect:/home";
     }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+    const user = /*[[${user}]]*/
+    function update(e){
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function (e) {
+            if (request.readyState == 4 && request.status == 200) {
+
+            }
+          }
+          var reqJson = new Object();
+          reqJson.username = e.parentNode.querySelector('#username').value;
+          reqJson.id = e.parentNode.querySelector('#id').value;
+          reqJson.role = e.parentNode.querySelector('#role').value;
+          reqJson.password = e.parentNode.querySelector('#password').value;
+          console.log(reqJson);
+          // POST 설정
+          request.open('POST', '/users/updateUser', true);
+          request.responseType = "json";
+	    /* 요청 Header에 컨텐츠 타입은 Json으로 사전 정의 */
+	    request.setRequestHeader('Content-Type', 'application/json');
+	    /* 정의된 서버에 Json 형식의 요청 Data를 포함하여 요청을 전송 */
+	    request.send(JSON.stringify(reqJson));
+	    request.onload = function () {
+	     if (request.status == 200) {
+	        alert('수정이 완료되었습니다.');
+	        history.go(0)
+	    } else {
+              alert('오류 발생')
+        }
+        }
+    }
+
+  </script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row" th:each="user : ${user}">
+            <div class="input-group">
+                <input type="hidden" id="password" th:value="${user.password}" readonly>
+                <input class="form-control" id="id" th:value="${user.id}" readonly>
+                <input class="form-control" id="username" th:value="${user.username}" readonly>
+                <select class="form-control" id="role">
+                    <option th:text="'게스트'" th:value="GUEST" th:selected="${user.role}=='GUEST'"></option>
+                    <option th:text="'매니저'" th:value="USER" th:selected="${user.role}=='USER'"></option>
+                    <option th:text="'관리자'" th:value="ADMIN" th:selected="${user.role=='ADMIN'}"></option>
+                </select>
+                <button class="btn btn-primary" type="button" onclick="update(this)">수정</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
