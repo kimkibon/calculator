@@ -38,6 +38,7 @@ wallet
 
 ### image ###
 *.png
+*.webp
 ### VS Code ###
 .vscode/
 
