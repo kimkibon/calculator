@@ -10,12 +10,12 @@ import java.util.Objects;
 import java.util.UUID;
 @Component
 public class FileUtil {
-    public String saveProfile(String name, String type, MultipartFile multipartFile) throws Exception{
+    public String saveProfile(String name, String type, MultipartFile multipartFile ,String kind) throws Exception{
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 
-        String imgPath = System.getProperty("user.dir")+"/webapp/static/image/character/"+type+"/"+formatter.format(date);
-        String folderPath = System.getProperty("user.dir")+"/webapp/static/image/character/"+type;
+        String imgPath = System.getProperty("user.dir")+"/webapp/static/image/"+kind+"/"+type+"/"+formatter.format(date);
+        String folderPath = System.getProperty("user.dir")+"/webapp/static/image/"+kind+"/"+type;
         File Folder2 = new File(imgPath);
         File Folder1 = new File(folderPath);
 
@@ -35,7 +35,7 @@ public class FileUtil {
                 e.getStackTrace();
             }
         }
-        String initPath = "/image/character/"+type+"/"+formatter.format(date)+"/";
+        String initPath = "/image/"+kind+"/"+type+"/"+formatter.format(date)+"/";
         String extension = Objects.requireNonNull(multipartFile.getOriginalFilename()).substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 
         UUID uuid =UUID.randomUUID();

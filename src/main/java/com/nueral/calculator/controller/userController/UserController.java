@@ -20,16 +20,18 @@ public class UserController {
 
     @PostMapping(value = "join")
     public String join(@ModelAttribute UserSaveDto userSaveDto , HttpServletRequest request ){
-        if (request.getHeader("REFERER") != null) {
-            userService.savaUser(userSaveDto);
-        }
-        return "home";
+            try{
+                userService.savaUser(userSaveDto);
+                return "redirect:home";
+            } catch (Exception e){
+                return "redirect:home";
+            }
     }
 
     @GetMapping(value = "join")
     public String joinPro(HttpServletRequest request , Principal principal){
         if (request.getHeader("REFERER") == null){
-            return "home";
+            return "redirect:home";
         } else {
             if(principal != null) {
                 return "redirect:home";

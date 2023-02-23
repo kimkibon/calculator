@@ -56,7 +56,7 @@ public class CharacterService {
     public String saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
         System.out.println(!file.isEmpty());
         if(!file.isEmpty()) {
-            String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(), "profile", file);
+            String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(), "profile", file , "character");
             characterSaveDto.setProfile(insertFile);
         }
             Characters characters = new Characters(characterSaveDto);
@@ -116,23 +116,4 @@ public class CharacterService {
         characterRepository.deleteById(name);
     }
 
-/**
-    public Characters save(
-            String name, DealType dealType , RoleType roleType,
-            AreaType areaType ,CompanyType companyType , int defaultStar){
-
-        Characters characters = Characters.builder()
-                .name(name)
-                .dealType(dealType)
-                .roleType(roleType)
-                .companyType(companyType)
-                .areaType(areaType)
-                .defaultStar(defaultStar)
-                .profile("/image/character/profile/"+name+".png")
-                .build();
-
-        characterRepository.saveAndFlush(characters);
-        return characters;
-    }
-*/
 }

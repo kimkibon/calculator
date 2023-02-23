@@ -27,7 +27,7 @@ public class SkinService {
         try{
             Characters characters = characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow();
             if (!skinSaveDto.getFile().isEmpty()) {
-                String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName(), skinSaveDto.getType(), skinSaveDto.getFile());
+                String insertFile = fileUtil.saveProfile(skinSaveDto.getCharacterName(), skinSaveDto.getType(), skinSaveDto.getFile() , "character");
                 skinSaveDto.setStdName(insertFile);
             }
             Skins skins = Skins.builder()

@@ -10,26 +10,33 @@
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        mainImages()
+      });
+      function mainImages(){
+        
+      }
+    </script>
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
-    <div class="row">
-        <img class="img-fluid" src="/image/frontPage/main.png" style="max-width:100%;">
+    <div class="row" id="main">
+        <img class="img-fluid" src="/image/frontPage/main.webp" style="max-width:100%;">
     </div>
     <div class="row">
         <br>
         <div class="col-sm">
             <div class="row row-cols-2">
                 <div class="col-sm">
-                    <a class="nav-link" href="/calculator/allExp">
-                        <img src="/image/frontPage/calculator.png" style="max-width:100%;">
+                    <a href="/calculator/allExp" id="calculator">
+                        <img src="/image/frontPage/calculator.webp" style="max-width:100%;">
                     </a>
                 </div>
                 <div class="col-sm">
-                    <a href="/information/characterList" class="nav-link">
-                        <img src="/image/frontPage/character.png" style="max-width:100%;">
+                    <a href="/information/characterList" id="characters">
+                        <img src="/image/frontPage/character.webp" style="max-width:100%;">
                     </a>
                 </div>
             </div>
@@ -37,13 +44,13 @@
         <div class="col-sm">
             <div class="row row-cols-2">
                 <div class="col col-sm">
-                    <a href="/information/ExceptionProtocol">
-                         <img src="/image/frontPage/EP.png" style="max-width:100%;">
+                    <a href="/information/ExceptionProtocol" id="Ep">
+                         <img src="/image/frontPage/Ep.webp" style="max-width:100%;">
                     </a>
                 </div>
                 <div class="col-sm">
-                    <a href="/#">
-                        <img src="/image/frontPage/tierList.png" style="max-width:100%;">
+                    <a href="/#" id="tier">
+                        <img src="/image/frontPage/tierList.webp" style="max-width:100%;">
                     </a>
                 </div>
             </div>
