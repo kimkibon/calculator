@@ -33,69 +33,8 @@ public class AlgorithmService {
     @Autowired
     private FindTypes findTypes;
 
-
-/**
-    public void saveAlgorithm(
-            String charactersName, AlgorithmType,
-            String setAlgorithmName , String mainOpt,
-            String subOpt , String subOpt2){
-
-        SetAlgorithm setAlgorithm = setAlgorithmRepository.getReferenceById(setAlgorithmName);
-        MainAlgorithm mainAlgorithm = mainAlgorithmRepository.getReferenceById(mainOpt);
-        SubAlgorithm subAlgorithm = subAlgorithmRepository.getReferenceById(subOpt);
-        SubAlgorithm subAlgorithm2 = subAlgorithmRepository.getReferenceById(subOpt2);
-        Characters characters = characterRepository.getReferenceById(charactersName);
-
-        Algorithm algorithm = Algorithm.builder()
-                .algorithmType(algorithmType)
-                .setAlgorithm(setAlgorithm)
-                .subAlgorithm(subAlgorithm)
-                .characters(characters)
-                .mainAlgorithm(mainAlgorithm)
-                .subAlgorithm2(subAlgorithm2)
-                .build();
-
-        algorithmRepository.save(algorithm);
-
-    }
-
-    public void saveMainAlgorithm(AlgorithmType algorithmType , String mainOpt){
-        MainAlgorithm mainAlgorithm = MainAlgorithm.builder()
-                .algorithmType(algorithmType)
-                .mainOpt(mainOpt)
-                .build();
-
-        mainAlgorithmRepository.save(mainAlgorithm);
-
-    }
-
-    public void saveSubAlgorithm(AlgorithmType algorithmType , String subOpt){
-
-        SubAlgorithm subAlgorithm = SubAlgorithm.builder()
-                .algorithmType(algorithmType)
-                .subOpt(subOpt)
-                .build();
-
-        subAlgorithmRepository.save(subAlgorithm);
-    }
-
-    public void saveSetAlgorithm(String setAlgorithmName,
-                                 AlgorithmType , String twoSetOpt,
-                                 String threeSetOpt){
-
-        SetAlgorithm setAlgorithm = SetAlgorithm.builder()
-                .algorithmType(algorithmType)
-                .setAlgorithmName(setAlgorithmName)
-                .threeSetOpt(threeSetOpt)
-                .twoSetOpt(twoSetOpt)
-                .build();
-
-        setAlgorithmRepository.save(setAlgorithm);
-
-    }
-*/
-
-    public String saveAlgorithmByDto(AlgorithmSaveDtoList algorithmSaveDtoList){
+    @Transactional
+    public void saveAlgorithmByDto(AlgorithmSaveDtoList algorithmSaveDtoList){
         try{
         for(AlgorithmSaveDto dto :algorithmSaveDtoList.getAlgorithmSaveDto()) {
             Algorithm algorithm = Algorithm.builder()
@@ -107,10 +46,9 @@ public class AlgorithmService {
                     .subAlgorithm2(subAlgorithmRepository.getReferenceById(dto.getSubAlgorithm2()))
                     .build();
             algorithmRepository.save(algorithm);
-        } return "redirect:/home";
+        }
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "redirect:/saveError";
         }
     }
 

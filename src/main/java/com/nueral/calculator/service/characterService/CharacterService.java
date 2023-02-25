@@ -53,7 +53,7 @@ public class CharacterService {
         return new CharacterSaveDto(characters);
     }
     @Transactional
-    public String saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
+    public void saveByDto(CharacterSaveDto characterSaveDto , MultipartFile file) throws Exception {
         System.out.println(!file.isEmpty());
         if(!file.isEmpty()) {
             String insertFile = fileUtil.saveProfile(characterSaveDto.getCharacterName(), "profile", file , "character");
@@ -62,9 +62,8 @@ public class CharacterService {
             Characters characters = new Characters(characterSaveDto);
         try {
             characterRepository.save(characters);
-            return "redirect:/home";
         } catch (Exception e){
-            return "redirect:/saveError";
+            System.out.println("에러가 발생 했습니다. : "+e.getMessage());
         }
     }
     public RecommendPartyDtoList saveRecommendPartyPro(String name){
@@ -83,7 +82,7 @@ public class CharacterService {
         return recommendPartyDtoList;
     }
     @Transactional
-    public String saveRecommendParty(String name , RecommendPartyDtoList recommendPartyDtoList){
+    public void saveRecommendParty(String name , RecommendPartyDtoList recommendPartyDtoList){
         try{recommendPartyRepository.deleteByCharacters(characterRepository.findByName(name).get());
             recommendPartyRepository.flush();
             for(RecommendPartyDto partyDto : recommendPartyDtoList.getRecommendPartyDtoList()){
@@ -105,10 +104,8 @@ public class CharacterService {
 
                 }
             }
-            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "redirect:/saveError";
         }
     }
 

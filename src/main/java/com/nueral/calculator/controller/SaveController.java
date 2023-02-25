@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,8 +43,14 @@ public class SaveController {
     @Autowired
     private EpService epService;
     @PostMapping(value = "/saveCharacter")
-    public String saveCharacterByDto(@ModelAttribute CharacterSaveDto characterSaveDto, @RequestParam("file") MultipartFile file) throws Exception {
-        return characterService.saveByDto(characterSaveDto , file);
+    public String saveCharacterByDto(@ModelAttribute CharacterSaveDto characterSaveDto, @RequestParam("file") MultipartFile file , RedirectAttributes re) {
+        try {
+            characterService.saveByDto(characterSaveDto , file);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name",characterSaveDto.getCharacterName());
+        return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveCharacter")
@@ -61,8 +68,14 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveSkins")
-    public String saveSkins(@ModelAttribute SkinSaveDto skinSaveDto) {
-        return skinService.saveSkins(skinSaveDto);
+    public String saveSkins(@ModelAttribute SkinSaveDto skinSaveDto , RedirectAttributes re) {
+        try {
+            skinService.saveSkins(skinSaveDto);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name",skinSaveDto.getCharacterName());
+         return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveSkins")
@@ -77,16 +90,28 @@ public class SaveController {
     }
 
     @PostMapping(value = "/deleteSkins")
-    public String deleteSkins(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, HttpServletRequest request){
+    public String deleteSkins(@RequestParam("name") @NonNull String name, @RequestParam("type")String type, HttpServletRequest request , RedirectAttributes re){
         if (request.getHeader("REFERER") == null) {
             return "home";
         }
-        return skinService.deleteSkins(name , type);
+        try {
+            skinService.deleteSkins(name , type);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name" , name);
+        return "redirect:/information/character";
     }
 
     @PostMapping(value = "/saveAlgorithm")
-    public String saveAlgorithm(@ModelAttribute AlgorithmSaveDtoList algorithmSaveDtoList){
-        return algorithmService.saveAlgorithmByDto(algorithmSaveDtoList);
+    public String saveAlgorithm(@ModelAttribute AlgorithmSaveDtoList algorithmSaveDtoList , RedirectAttributes re){
+        try {
+            algorithmService.saveAlgorithmByDto(algorithmSaveDtoList);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name",algorithmSaveDtoList.getAlgorithmSaveDto().get(0).getCharacterName());
+        return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveAlgorithm")
@@ -104,8 +129,14 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveGoodsCharacter")
-    public String saveGoodsCharacter(@ModelAttribute GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , @RequestParam("name") String name){
-        return goodsService.saveGoodsCharacter(goodsCharacterSaveDtoList , name);
+    public String saveGoodsCharacter(@ModelAttribute GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , @RequestParam("name") String name , RedirectAttributes re){
+        try {
+            goodsService.saveGoodsCharacter(goodsCharacterSaveDtoList , name);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name",name);
+        return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveGoodsCharacter")
@@ -121,8 +152,14 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveSkills")
-    public String saveSkills(@ModelAttribute CharacterSkillsDtoList characterSkillsDtoList){
-        return skillSaveService.saveSkillsByDto(characterSkillsDtoList);
+    public String saveSkills(@ModelAttribute CharacterSkillsDtoList characterSkillsDtoList , RedirectAttributes re){
+        try {
+            skillSaveService.saveSkillsByDto(characterSkillsDtoList);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name",characterSkillsDtoList.getCharacterSkillsDto().get(0).getCharacterName());
+        return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveSkills")
@@ -134,8 +171,15 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveGoodsStatusCharacter")
-    public String saveGoodsStatusCharacter(@ModelAttribute GoodsStatusCharacterSaveDtoList goodsStatusCharacterSaveDtoList){
-        return goodsService.saveGoodsStatusCharacter(goodsStatusCharacterSaveDtoList);
+    public String saveGoodsStatusCharacter(@ModelAttribute GoodsStatusCharacterSaveDtoList goodsStatusCharacterSaveDtoList , RedirectAttributes re){
+        try {
+            goodsService.saveGoodsStatusCharacter(goodsStatusCharacterSaveDtoList);
+            re.addAttribute("name",goodsStatusCharacterSaveDtoList.getGoodsStatusCharacterDto().get(0).getCharacterName());
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+            return "home";
+        }
+        return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveGoodsStatusCharacter")
@@ -155,9 +199,14 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveRecommendParty")
-    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList , @RequestParam("name") String name){
-
-        return characterService.saveRecommendParty(name , recommendPartyDtoList);
+    public String saveRecommendParty(@ModelAttribute RecommendPartyDtoList recommendPartyDtoList , @RequestParam("name") String name, RedirectAttributes re){
+        try {
+            characterService.saveRecommendParty(name , recommendPartyDtoList);
+        } catch (Exception e){
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
+        }
+        re.addAttribute("name",name);
+        return "redirect:/information/character";
     }
 
     @GetMapping(value = "/saveEpPool")
@@ -168,7 +217,7 @@ public class SaveController {
     }
 
     @PostMapping(value = "/saveEpPool")
-    public String saveEpPool(@ModelAttribute EpPoolDto epPoolDto){
+    public String saveEpPool(@ModelAttribute EpPoolDto epPoolDto , RedirectAttributes re){
         return epService.saveEpPool(epPoolDto);
     }
 

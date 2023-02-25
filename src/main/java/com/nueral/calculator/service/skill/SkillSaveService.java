@@ -34,40 +34,6 @@ public class SkillSaveService {
     @Autowired
     private SkillEffectsMapRepository skillEffectsMapRepository;
 
-    /**
-    public void saveAllSkills(
-            String characterName, SkillType ,
-            String skillName , String explain , String effect
-    ){
-        Characters characters = characterRepository.findByName(characterName).orElseThrow();
-
-        AllSkills allSkills = AllSkills.builder()
-                .skillType(skillType)
-                .characters(characters)
-                .effect(effect)
-                .explain(explain)
-                .skillName(skillName)
-                .build();
-
-        allSkillsRepository.save(allSkills);
-
-    }
-
-    public void saveAllSkillsByDto(AllSkillsSaveDto allSkillsSaveDto){
-        Characters characters = characterRepository.findByName(allSkillsSaveDto.getCharacterName()).orElseThrow();
-
-        AllSkills allSkills = AllSkills.builder()
-                .characters(characters)
-                .skillType(SkillType.valueOf(allSkillsSaveDto.getSkillName()))
-                .skillName(allSkillsSaveDto.getSkillName())
-                .explain(allSkillsSaveDto.getExplain())
-                .explain(allSkillsSaveDto.getEffect())
-                .build();
-
-        allSkillsRepository.save(allSkills);
-    }
-*/
-
     @Transactional
     public String deleteSkillEffect(int index){
         try {
@@ -116,7 +82,7 @@ public class SkillSaveService {
     }
 
     @Transactional
-    public String saveSkillsByDto(CharacterSkillsDtoList characterSkillsDtoList){
+    public void saveSkillsByDto(CharacterSkillsDtoList characterSkillsDtoList){
         try{
             for(CharacterSkillsDto dto : characterSkillsDtoList.getCharacterSkillsDto()){
                 AllSkills allSkills = AllSkills.builder()
@@ -138,10 +104,9 @@ public class SkillSaveService {
                             skillEffectsMapRepository.save(skillEffectsMap);
                         }
                 }
-            } return "redirect:/home";
+            }
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "redirect:/saveError";
         }
     }
 

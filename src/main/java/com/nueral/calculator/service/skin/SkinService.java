@@ -23,7 +23,7 @@ public class SkinService {
     @Autowired
     private CharacterRepository characterRepository;
     @Transactional
-    public String saveSkins(SkinSaveDto skinSaveDto) {
+    public void saveSkins(SkinSaveDto skinSaveDto) {
         try{
             Characters characters = characterRepository.findByName(skinSaveDto.getCharacterName()).orElseThrow();
             if (!skinSaveDto.getFile().isEmpty()) {
@@ -37,21 +37,14 @@ public class SkinService {
                     .releaseDate(skinSaveDto.getReleaseDate())
                     .build();
             skinRepository.save(skins);
-            return "home";
         } catch (Exception e){
-            return "saveError";
+            System.out.println("에러가 발생했습니다. : "+e.getMessage());
         }
     }
 
-    public String deleteSkins(String name , String type){
-        try{
+    public void deleteSkins(String name , String type){
             SkinsId skinsId = new SkinsId(name , type);
             skinRepository.deleteById(skinsId);
-            return "home";
-        }catch (Exception e){
-            System.out.println("에러가 발생했습니다. : "+e.getMessage());
-            return "saveError";
-        }
     }
     @Transactional
     public SkinSaveDto findByCharacterAndType(String name , String type){

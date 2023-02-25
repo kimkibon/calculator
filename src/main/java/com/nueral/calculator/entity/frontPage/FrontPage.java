@@ -22,5 +22,5 @@ public class FrontPage extends DefaultEntity {
     private String calculator;
     private String tier;
     private String ep;
-    private String character;
+    private String characterList;
 }

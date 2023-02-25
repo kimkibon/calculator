@@ -51,7 +51,7 @@ public class GoodsService {
         return goodsCharacterSaveDtoList;
     }
     @Transactional
-    public String saveGoodsCharacter(GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , String name){
+    public void saveGoodsCharacter(GoodsCharacterSaveDtoList goodsCharacterSaveDtoList , String name){
         try{
             goodsCharacterRepository.deleteByCharacterName(name);
             goodsCharacterRepository.flush();
@@ -64,10 +64,8 @@ public class GoodsService {
                 goodsCharacterList.add(goodsCharacterRepository.save(goodsCharacter));
             }
             goodsCharacterRepository.saveAll(goodsCharacterList);
-            return "redirect:/home";
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "redirect:/saveError";
         }
     }
 
@@ -88,7 +86,7 @@ public class GoodsService {
         return goodsStatusCharacterDtoList;
     }
 
-    public String saveGoodsStatusCharacter(GoodsStatusCharacterSaveDtoList goodsStatusCharacterSaveDtoList){
+    public void saveGoodsStatusCharacter(GoodsStatusCharacterSaveDtoList goodsStatusCharacterSaveDtoList){
         try{
             for(GoodsStatusCharacterSaveDto dto : goodsStatusCharacterSaveDtoList.getGoodsStatusCharacterDto()){
                 GoodsStatusCharacter goodsStatusCharacter = GoodsStatusCharacter.builder()
@@ -97,10 +95,9 @@ public class GoodsService {
                         .statusLevel(dto.getStatusLevel())
                         .build();
                 goodsStatusCharacterRepository.save(goodsStatusCharacter);
-            } return "redirect:/home";
+            }
         } catch (Exception e){
             System.out.println("오류가 발생했습니다 : "+e.getMessage());
-            return "redirect:/saveError";
         }
     }
 
@@ -117,52 +114,4 @@ public class GoodsService {
                 .map(AllGoodsStatusDto::new).collect(Collectors.toList());
     }
 
-
-    /**
-     *  public void saveAllGoods(String name , int goodsLevel , int likeExp , int hateExp , int normalExp){
-     AllGoods allGoods = AllGoods.builder()
-     .name(name)
-     .goodsLevel(goodsLevel)
-     .likeExp(likeExp)
-     .hateExp(hateExp)
-     .normalExp(normalExp)
-     .build();
-     allGoodsRepository.save(allGoods);
-
-     }
-
-
-     public void saveGoodsStatus(String name , String status){
-     GoodsStatus goodsStatus = GoodsStatus.builder()
-     .name(name)
-     .status(status)
-     .build();
-     goodsStatusRepository.save(goodsStatus);
-
-     }
-
-     public void saveGoodsCharacter(String characterName, String GoodsName, int goodsLike){
-     Characters characters = characterRepository.getReferenceById(characterName);
-     AllGoods allGoods = allGoodsRepository.getReferenceById(GoodsName);
-     boolean like;
-     like = goodsLike == 1;
-     GoodsCharacter goodsCharacter = GoodsCharacter.builder()
-     .goodsLike(like)
-     .allGoods(allGoods)
-     .characters(characters)
-     .build();
-     goodsCharacterRepository.save(goodsCharacter);
-     }
-
-     public void GoodsStatusCharacter(String characterName, String goodsStatusName , int statusLevel){
-     Characters characters = characterRepository.getReferenceById(characterName);
-     GoodsStatus goodsStatus = goodsStatusRepository.getReferenceById(goodsStatusName);
-     GoodsStatusCharacter goodsStatusCharacter = GoodsStatusCharacter.builder()
-     .characters(characters)
-     .goodsStatus(goodsStatus)
-     .statusLevel(statusLevel)
-     .build();
-     goodsStatusCharacterRepository.save(goodsStatusCharacter);
-     }
-     */
 }
